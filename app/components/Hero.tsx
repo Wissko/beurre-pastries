@@ -8,7 +8,7 @@ export default function Hero() {
     <section
       className="relative w-full flex flex-col items-center justify-center overflow-hidden"
       id="hero"
-      style={{ background: 'var(--color-bg)', minHeight: '100svh' }}
+      style={{ background: '#1a1410', minHeight: '100svh' }}
     >
       {/* ── Desktop: full-bleed background image (fixed parallax) ── */}
       <div className="hidden lg:block hero-bg-fixed">
@@ -21,11 +21,11 @@ export default function Hero() {
           className="object-cover object-center"
           sizes="100vw"
         />
-        {/* Elegant overlay — light at top, slight dark at bottom */}
+        {/* Dark overlay for text contrast */}
         <div
           className="absolute inset-0"
           style={{
-            background: 'linear-gradient(to bottom, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 40%, rgba(0,0,0,0.32) 100%)',
+            background: 'linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.5) 100%)',
           }}
         />
       </div>
