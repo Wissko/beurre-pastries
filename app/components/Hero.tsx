@@ -72,7 +72,7 @@ export default function Hero() {
         }}
       >
         <Image
-          src="/images/hero.jpg"
+          src="/images/beurre.jpg"
           alt="Beurre Pastries Brisbane — French artisan pastry"
           fill
           priority

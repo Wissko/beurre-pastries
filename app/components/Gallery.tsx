@@ -5,7 +5,6 @@ import Image from 'next/image'
 import { motion, useInView } from 'framer-motion'
 
 const galleryImages = [
-  { src: '/images/hero.jpg', caption: 'Beurre' },
   { src: '/images/beurre.jpg', caption: 'Our Space' },
   { src: '/images/cafecroissant.jpg', caption: 'Morning Ritual' },
   { src: '/images/fraise.jpg', caption: 'Strawberry Season' },
