@@ -45,7 +45,7 @@ export default function Signature() {
             lineHeight: 1.1,
             fontWeight: 300,
             letterSpacing: '0.06em',
-            mixBlendMode: 'overlay',
+            textShadow: '0 2px 30px rgba(0,0,0,0.5)',
             opacity: 0.95,
           }}
         >

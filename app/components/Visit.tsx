@@ -58,7 +58,7 @@ export default function Visit() {
             className="font-cormorant italic"
             style={{ fontSize: 'clamp(27px, 4vw, 45px)', color: 'var(--color-dark)', fontWeight: 300, letterSpacing: '0.08em' }}
           >
-            Come Find Us
+            Venez nous voir
           </h2>
           <p
             className="font-jost mt-5 max-w-xs mx-auto leading-relaxed"

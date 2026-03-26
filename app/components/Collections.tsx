@@ -86,7 +86,7 @@ function ProductCard({ product, index }: { product: typeof products[0]; index: n
       </div>
 
       {/* Text — always visible on mobile, hidden on desktop (shown in overlay) */}
-      <div className="lg:block">
+      <div className="lg:hidden">
         <h3
           className="font-cormorant italic mb-2 lg:group-hover:text-[var(--color-accent)] transition-colors duration-300"
           style={{

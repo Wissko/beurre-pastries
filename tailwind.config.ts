@@ -12,7 +12,7 @@ const config: Config = {
         'bg': '#faf8f4',
         'surface': '#f2ede4',
         'dark': '#1a1410',
-        'gold': '#b8975a',
+        'gold': '#c8a96e',
         'blush': '#e8d5c4',
         'accent': '#8b6f47',
         'text-main': '#2d2318',
