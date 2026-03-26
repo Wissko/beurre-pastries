@@ -6,8 +6,10 @@ import { useInView } from 'framer-motion'
 import { useRef } from 'react'
 
 export default function About() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-80px' })
+  const mobileRef = useRef(null)
+  const desktopRef = useRef(null)
+  const isInViewMobile = useInView(mobileRef, { once: true, margin: '-80px' })
+  const isInViewDesktop = useInView(desktopRef, { once: true, margin: '-80px' })
 
   return (
     <section id="about" className="section-padding relative" style={{ background: 'var(--color-surface)' }}>
@@ -17,9 +19,9 @@ export default function About() {
       {/* ── Mobile layout ── */}
       <div className="lg:hidden max-w-2xl mx-auto">
         <motion.div
-          ref={ref}
+          ref={mobileRef}
           initial={{ opacity: 0, y: 24 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          animate={isInViewMobile ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.9, ease: 'easeOut' }}
         >
           <p
@@ -58,7 +60,7 @@ export default function About() {
         <motion.div
           className="flex flex-col gap-4"
           initial={{ opacity: 0, y: 24 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          animate={isInViewMobile ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 1, delay: 0.2, ease: 'easeOut' }}
         >
           <div style={{ aspectRatio: '3/4', position: 'relative' }}>
@@ -88,7 +90,7 @@ export default function About() {
         <motion.div
           className="flex-1"
           initial={{ opacity: 0, x: -40 }}
-          animate={isInView ? { opacity: 1, x: 0 } : {}}
+          animate={isInViewDesktop ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 1.1, ease: 'easeOut' }}
           style={{ position: 'relative', height: '80vh', flexBasis: '50%' }}
         >
@@ -118,11 +120,11 @@ export default function About() {
 
         {/* Text — right column, vertically centered */}
         <motion.div
-          ref={ref}
+          ref={desktopRef}
           className="flex-1 flex flex-col justify-center"
           style={{ flexBasis: '50%', maxWidth: '480px' }}
           initial={{ opacity: 0, x: 40 }}
-          animate={isInView ? { opacity: 1, x: 0 } : {}}
+          animate={isInViewDesktop ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 1, delay: 0.2, ease: 'easeOut' }}
         >
           <div className="section-title-decorated">

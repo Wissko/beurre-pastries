@@ -27,8 +27,10 @@ const workshops = [
 ]
 
 export default function Workshops() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-80px' })
+  const mobileRef = useRef(null)
+  const desktopRef = useRef(null)
+  const isInViewMobile = useInView(mobileRef, { once: true, margin: '-80px' })
+  const isInViewDesktop = useInView(desktopRef, { once: true, margin: '-80px' })
 
   return (
     <section
@@ -42,11 +44,11 @@ export default function Workshops() {
       {/* ── Mobile layout ── */}
       <div className="lg:hidden max-w-2xl mx-auto">
         <motion.div
-          ref={ref}
+          ref={mobileRef}
           className="relative img-hover mb-12"
           style={{ aspectRatio: '4/5' }}
           initial={{ opacity: 0, y: 24 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          animate={isInViewMobile ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.9, ease: 'easeOut' }}
         >
           <Image
@@ -60,7 +62,7 @@ export default function Workshops() {
 
         <motion.div
           initial={{ opacity: 0, y: 24 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          animate={isInViewMobile ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
         >
           <p className="font-jost uppercase mb-6" style={{ fontSize: '10px', letterSpacing: '0.32em', color: 'var(--color-muted)', fontWeight: 300 }}>
@@ -74,7 +76,7 @@ export default function Workshops() {
             Step into our kitchen and discover the joy of making pastry from scratch. Our
             intimate workshops are designed for all skill levels.
           </p>
-          <WorkshopList isInView={isInView} />
+          <WorkshopList isInView={isInViewMobile} />
           <WorkshopCTA />
         </motion.div>
       </div>
@@ -86,11 +88,11 @@ export default function Workshops() {
       >
         {/* Text — 60% */}
         <motion.div
-          ref={ref}
+          ref={desktopRef}
           className="flex-1"
           style={{ flexBasis: '60%' }}
           initial={{ opacity: 0, x: -30 }}
-          animate={isInView ? { opacity: 1, x: 0 } : {}}
+          animate={isInViewDesktop ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.9, ease: 'easeOut' }}
         >
           <div className="section-title-decorated" style={{ alignItems: 'flex-start' }}>
@@ -112,7 +114,7 @@ export default function Workshops() {
             Step into our kitchen and discover the joy of making pastry from scratch. Our
             intimate workshops are designed for all skill levels.
           </p>
-          <WorkshopList isInView={isInView} desktop />
+          <WorkshopList isInView={isInViewDesktop} desktop />
           <WorkshopCTA />
         </motion.div>
 
@@ -121,7 +123,7 @@ export default function Workshops() {
           className="workshops-sticky-img"
           style={{ flexBasis: '40%', aspectRatio: '4/5', position: 'relative' }}
           initial={{ opacity: 0, x: 30 }}
-          animate={isInView ? { opacity: 1, x: 0 } : {}}
+          animate={isInViewDesktop ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 1, delay: 0.2, ease: 'easeOut' }}
         >
           <Image
