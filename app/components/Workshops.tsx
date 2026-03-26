@@ -4,7 +4,6 @@ import Image from 'next/image'
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 
-const wipeEase = [0.76, 0, 0.24, 1] as const
 const textEase = [0.22, 1, 0.36, 1] as const
 
 // Particules — section sombre
@@ -79,7 +78,7 @@ export default function Workshops() {
 
       {/* ── Mobile layout ── */}
       <div className="lg:hidden motion-safe-fallback" style={{ maxWidth: '100%' }}>
-        {/* Image — wipe + noir et blanc doux */}
+        {/* Image — zoom-in subtil + fondu */}
         <div
           ref={mobileImgRef}
           className="relative mobile-full-bleed"
@@ -87,9 +86,12 @@ export default function Workshops() {
         >
           <motion.div
             style={{ position: 'absolute', inset: 0 }}
-            initial={{ clipPath: 'inset(0 100% 0 0)' }}
-            animate={mobileImgInView ? { clipPath: 'inset(0 0% 0 0)' } : {}}
-            transition={{ duration: 1.4, delay: 0, ease: wipeEase }}
+            initial={{ opacity: 0, scale: 1.08 }}
+            animate={mobileImgInView ? { opacity: 1, scale: 1.0 } : {}}
+            transition={{
+              opacity: { duration: 1.8, ease: 'easeOut' },
+              scale: { duration: 2.0, ease: 'easeOut' },
+            }}
           >
             <Image
               src="/images/poudre.jpg"
@@ -211,7 +213,7 @@ export default function Workshops() {
           <WorkshopCTA />
         </div>
 
-        {/* Image — 40%, sticky, noir et blanc doux */}
+        {/* Image — 40%, sticky, zoom-in subtil + fondu */}
         <div
           ref={desktopImgRef}
           className="workshops-sticky-img"
@@ -219,9 +221,12 @@ export default function Workshops() {
         >
           <motion.div
             style={{ position: 'absolute', inset: 0 }}
-            initial={{ clipPath: 'inset(0 100% 0 0)' }}
-            animate={desktopImgInView ? { clipPath: 'inset(0 0% 0 0)' } : {}}
-            transition={{ duration: 1.4, delay: 0, ease: wipeEase }}
+            initial={{ opacity: 0, scale: 1.08 }}
+            animate={desktopImgInView ? { opacity: 1, scale: 1.0 } : {}}
+            transition={{
+              opacity: { duration: 1.8, ease: 'easeOut' },
+              scale: { duration: 2.0, ease: 'easeOut' },
+            }}
           >
             <Image
               src="/images/poudre.jpg"

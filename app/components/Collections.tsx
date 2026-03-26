@@ -4,8 +4,8 @@ import Image from 'next/image'
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 
-const wipeEase = [0.76, 0, 0.24, 1] as const
 const textEase = [0.22, 1, 0.36, 1] as const
+const cardEase = [0.22, 1, 0.36, 1] as const
 
 const products = [
   {
@@ -61,6 +61,7 @@ function ProductCard({ product, index }: { product: typeof products[0]; index: n
   const imgRef = useRef(null)
   const isInView = useInView(ref, { once: true, amount: 0, margin: "0px 0px -5% 0px" })
   const imgInView = useInView(imgRef, { once: true, amount: 0, margin: "0px 0px -5% 0px" })
+  const staggerDelay = index * 0.2
 
   // nudge uniquement sur desktop (lg:), pas sur mobile
   const nudgeClass = index % 2 === 1 ? 'lg:mt-10' : ''
@@ -74,7 +75,7 @@ function ProductCard({ product, index }: { product: typeof products[0]; index: n
       className={`group motion-safe-fallback ${nudgeClass}`}
       style={{ cursor: 'default' }}
     >
-      {/* Image — wipe reveal gauche→droite */}
+      {/* Image — fade + légère montée, stagger par index */}
       <div
         ref={imgRef}
         className="relative overflow-hidden mb-5"
@@ -82,9 +83,9 @@ function ProductCard({ product, index }: { product: typeof products[0]; index: n
       >
         <motion.div
           style={{ position: 'absolute', inset: 0 }}
-          initial={{ clipPath: 'inset(0 100% 0 0)' }}
-          animate={imgInView ? { clipPath: 'inset(0 0% 0 0)' } : {}}
-          transition={{ duration: 1.4, delay: 0, ease: wipeEase }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={imgInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 1.2, delay: staggerDelay, ease: cardEase }}
         >
           <Image
             src={product.image}

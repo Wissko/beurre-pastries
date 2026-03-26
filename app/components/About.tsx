@@ -4,7 +4,6 @@ import Image from 'next/image'
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 
-const wipeEase = [0.76, 0, 0.24, 1] as const
 const textEase = [0.22, 1, 0.36, 1] as const
 
 // Particules organiques
@@ -43,7 +42,7 @@ export default function About() {
 
       {/* ── Mobile layout ── */}
       <div className="lg:hidden" style={{ maxWidth: '100%' }}>
-        {/* Image — wipe reveal horizontal */}
+        {/* Image — fondu doux depuis la brume */}
         <div
           ref={mobileImgRef}
           className="mobile-full-bleed"
@@ -51,9 +50,13 @@ export default function About() {
         >
           <motion.div
             style={{ position: 'absolute', inset: 0 }}
-            initial={{ clipPath: 'inset(0 100% 0 0)' }}
-            animate={mobileImgInView ? { clipPath: 'inset(0 0% 0 0)' } : {}}
-            transition={{ duration: 1.4, delay: 0, ease: wipeEase }}
+            initial={{ opacity: 0, scale: 1.04, filter: 'blur(4px)' }}
+            animate={mobileImgInView ? { opacity: 1, scale: 1.0, filter: 'blur(0px)' } : {}}
+            transition={{
+              opacity: { duration: 1.6, ease: 'easeOut' },
+              scale: { duration: 1.8, ease: 'easeOut' },
+              filter: { duration: 1.4, ease: 'easeOut' },
+            }}
           >
             <Image
               src="/images/art.jpg"
@@ -143,9 +146,13 @@ export default function About() {
         <div className="mobile-full-bleed" style={{ position: 'relative', aspectRatio: '3/2', marginTop: '32px', overflow: 'hidden' }}>
           <motion.div
             style={{ position: 'absolute', inset: 0 }}
-            initial={{ clipPath: 'inset(0 100% 0 0)' }}
-            animate={mobileTextInView ? { clipPath: 'inset(0 0% 0 0)' } : {}}
-            transition={{ duration: 1.4, delay: 0.4, ease: wipeEase }}
+            initial={{ opacity: 0, scale: 1.04, filter: 'blur(4px)' }}
+            animate={mobileTextInView ? { opacity: 1, scale: 1.0, filter: 'blur(0px)' } : {}}
+            transition={{
+              opacity: { duration: 1.6, delay: 0.4, ease: 'easeOut' },
+              scale: { duration: 1.8, delay: 0.4, ease: 'easeOut' },
+              filter: { duration: 1.4, delay: 0.4, ease: 'easeOut' },
+            }}
           >
             <Image src="/images/beurre.jpg" alt="Beurre Pastries — Park Road Milton" fill className="object-cover" sizes="100vw" />
           </motion.div>
@@ -154,13 +161,17 @@ export default function About() {
 
       {/* ── Desktop layout ── */}
       <div className="hidden lg:flex w-full" style={{ maxWidth: '1400px', margin: '0 auto', gap: '6rem', alignItems: 'stretch' }}>
-        {/* Image — left 60%, wipe reveal */}
+        {/* Image — left 60%, fondu doux depuis la brume */}
         <div className="flex-1" style={{ position: 'relative', height: '80vh', flexBasis: '55%', overflow: 'hidden' }}>
           <motion.div
             style={{ position: 'absolute', inset: 0 }}
-            initial={{ clipPath: 'inset(0 100% 0 0)' }}
-            animate={desktopImgInView ? { clipPath: 'inset(0 0% 0 0)' } : {}}
-            transition={{ duration: 1.4, delay: 0, ease: wipeEase }}
+            initial={{ opacity: 0, scale: 1.04, filter: 'blur(4px)' }}
+            animate={desktopImgInView ? { opacity: 1, scale: 1.0, filter: 'blur(0px)' } : {}}
+            transition={{
+              opacity: { duration: 1.6, ease: 'easeOut' },
+              scale: { duration: 1.8, ease: 'easeOut' },
+              filter: { duration: 1.4, ease: 'easeOut' },
+            }}
             ref={desktopImgRef}
           >
             <Image src="/images/art.jpg" alt="Pastry craft — Beurre Pastries Brisbane" fill className="object-cover" sizes="55vw" />
@@ -169,9 +180,13 @@ export default function About() {
           <div style={{ position: 'absolute', bottom: '-60px', right: '-40px', width: '240px', height: '320px', overflow: 'hidden', boxShadow: '0 20px 60px rgba(26,18,8,0.10)' }}>
             <motion.div
               style={{ position: 'absolute', inset: 0 }}
-              initial={{ clipPath: 'inset(0 100% 0 0)' }}
-              animate={desktopImgInView ? { clipPath: 'inset(0 0% 0 0)' } : {}}
-              transition={{ duration: 1.4, delay: 0.5, ease: wipeEase }}
+              initial={{ opacity: 0, scale: 1.04, filter: 'blur(4px)' }}
+              animate={desktopImgInView ? { opacity: 1, scale: 1.0, filter: 'blur(0px)' } : {}}
+              transition={{
+                opacity: { duration: 1.6, delay: 0.5, ease: 'easeOut' },
+                scale: { duration: 1.8, delay: 0.5, ease: 'easeOut' },
+                filter: { duration: 1.4, delay: 0.5, ease: 'easeOut' },
+              }}
             >
               <Image src="/images/beurre.jpg" alt="Beurre counter" fill className="object-cover" sizes="240px" />
             </motion.div>
