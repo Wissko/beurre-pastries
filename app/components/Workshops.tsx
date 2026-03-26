@@ -88,7 +88,7 @@ export default function Workshops() {
             transition={{ duration: 1.4, delay: 0, ease: wipeEase }}
           >
             <Image
-              src="/images/craft.jpg"
+              src="/images/poudre.jpg"
               alt="Pastry workshop at Beurre Brisbane"
               fill
               className="object-cover"
@@ -220,7 +220,7 @@ export default function Workshops() {
             transition={{ duration: 1.4, delay: 0, ease: wipeEase }}
           >
             <Image
-              src="/images/craft.jpg"
+              src="/images/poudre.jpg"
               alt="Will Leung teaching a pastry workshop at Beurre Brisbane"
               fill
               className="object-cover"
