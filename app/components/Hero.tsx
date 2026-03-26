@@ -126,7 +126,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
           className="font-jost uppercase mb-10"
-          style={{ fontSize: '10px', letterSpacing: '0.35em', color: 'rgba(255,255,255,0.75)', fontWeight: 300 }}
+          style={{ fontSize: '10px', letterSpacing: '0.35em', color: 'rgba(255,255,255,0.75)', fontWeight: 300, textShadow: '0 1px 8px rgba(0,0,0,0.5)' }}
         >
           Est. Brisbane, Australia
         </motion.p>
@@ -138,10 +138,10 @@ export default function Hero() {
           className="font-cormorant italic leading-none mb-8 text-center"
           style={{
             fontSize: 'clamp(8rem, 15vw, 18rem)',
-            color: '#f5f0e8',
+            color: '#ffffff',
             letterSpacing: '0.15em',
             fontWeight: 300,
-            textShadow: '0 2px 40px rgba(0,0,0,0.2)',
+            textShadow: '0 4px 40px rgba(0,0,0,0.6), 0 2px 8px rgba(0,0,0,0.4)',
           }}
         >
           Beurre
@@ -154,9 +154,10 @@ export default function Hero() {
           className="font-cormorant italic mb-16"
           style={{
             fontSize: 'clamp(16px, 1.4vw, 22px)',
-            color: 'rgba(255,255,255,0.8)',
+            color: 'rgba(255,255,255,0.9)',
             letterSpacing: '0.12em',
             fontWeight: 300,
+            textShadow: '0 2px 12px rgba(0,0,0,0.5)',
           }}
         >
           French Pastry · Brisbane

@@ -52,6 +52,7 @@ export default function Nav() {
             fontWeight: 300,
             letterSpacing: '0.08em',
             color: isLight ? '#ffffff' : 'var(--color-dark)',
+            textShadow: isLight ? '0 1px 8px rgba(0,0,0,0.5)' : 'none',
           }}
         >
           Beurre
@@ -68,7 +69,8 @@ export default function Nav() {
                   fontSize: '10px',
                   letterSpacing: '0.18em',
                   fontWeight: 300,
-                  color: isLight ? 'rgba(255,255,255,0.8)' : 'var(--color-muted)',
+                  color: isLight ? 'rgba(255,255,255,0.9)' : 'var(--color-muted)',
+                  textShadow: isLight ? '0 1px 8px rgba(0,0,0,0.5)' : 'none',
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.color = isLight ? '#ffffff' : 'var(--color-dark)'
