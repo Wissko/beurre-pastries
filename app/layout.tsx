@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Cormorant_Garamond, Jost } from 'next/font/google'
 import './globals.css'
+import SmoothScrollInit from './components/SmoothScrollInit'
 
 const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
@@ -37,7 +38,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${cormorant.variable} ${jost.variable}`}>
-      <body>{children}</body>
+      <body>
+        <SmoothScrollInit />
+        {children}
+      </body>
     </html>
   )
 }

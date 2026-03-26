@@ -52,25 +52,28 @@ const products = [
   },
 ]
 
+/**
+ * ProductCard — chaque produit est un mini-chapitre.
+ * Image wipe reveal + texte séquencé. Révélation au scroll, un par un.
+ */
 function ProductCard({ product, index }: { product: typeof products[0]; index: number }) {
   const ref = useRef(null)
   const imgRef = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-60px' })
   const imgInView = useInView(imgRef, { once: true, margin: '-60px' })
 
-  // Asymmetric offset — every other card nudged up
   const nudge = index % 2 === 1 ? '2.5rem' : '0'
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 16 }}
+      initial={{ opacity: 0, y: 24 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 1.4, delay: 0.6 + index * 0.07, ease: textEase }}
+      transition={{ duration: 1.4, delay: 0.3, ease: textEase }}
       className="group"
       style={{ marginTop: nudge, cursor: 'default' }}
     >
-      {/* Image — horizontal wipe */}
+      {/* Image — wipe reveal gauche→droite */}
       <div
         ref={imgRef}
         className="relative overflow-hidden mb-5"
@@ -80,13 +83,13 @@ function ProductCard({ product, index }: { product: typeof products[0]; index: n
           style={{ position: 'absolute', inset: 0 }}
           initial={{ clipPath: 'inset(0 100% 0 0)' }}
           animate={imgInView ? { clipPath: 'inset(0 0% 0 0)' } : {}}
-          transition={{ duration: 1.2, delay: 0.2 + index * 0.04, ease: wipeEase }}
+          transition={{ duration: 1.4, delay: 0, ease: wipeEase }}
         >
           <Image
             src={product.image}
             alt={product.name}
             fill
-            className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+            className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />
         </motion.div>
@@ -101,9 +104,12 @@ function ProductCard({ product, index }: { product: typeof products[0]; index: n
         </div>
       </div>
 
-      {/* Name */}
-      <h3
+      {/* Nom — +300ms après image */}
+      <motion.h3
         className="font-cormorant italic"
+        initial={{ opacity: 0, y: 12 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 1.0, delay: 0.3, ease: textEase }}
         style={{
           fontSize: 'clamp(20px, 3vw, 26px)',
           color: 'var(--color-dark)',
@@ -113,15 +119,18 @@ function ProductCard({ product, index }: { product: typeof products[0]; index: n
         }}
       >
         {product.name}
-      </h3>
+      </motion.h3>
 
-      {/* Description — always visible on mobile */}
-      <p
+      {/* Description — toujours visible mobile, +300ms */}
+      <motion.p
         className="font-jost lg:hidden leading-relaxed"
+        initial={{ opacity: 0 }}
+        animate={isInView ? { opacity: 1 } : {}}
+        transition={{ duration: 1.2, delay: 0.5, ease: textEase }}
         style={{ fontSize: '13px', color: 'var(--color-muted)', fontWeight: 300 }}
       >
         {product.description}
-      </p>
+      </motion.p>
     </motion.div>
   )
 }
@@ -134,31 +143,41 @@ export default function Collections() {
     <section
       id="collections"
       className="section-padding relative"
-      style={{ background: 'var(--color-warm)' }}
+      style={{ background: '#ede8e0' }}
     >
       <span className="section-number hidden lg:block" style={{ top: '4rem', left: '6rem' }}>02</span>
 
       <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-        {/* Header */}
-        <motion.div
-          ref={headRef}
-          initial={{ opacity: 0, y: 16 }}
-          animate={headInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 1.4, delay: 0.6, ease: textEase }}
-          className="section-title-decorated text-center"
-          style={{ marginBottom: '80px' }}
-        >
-          {/* Chapter overline */}
-          <span className="chapter-overline" style={{ marginBottom: '16px' }}>Chapter 02 · The Craft</span>
+        {/* Header séquencé */}
+        <div ref={headRef} className="text-center" style={{ marginBottom: '80px' }}>
+          {/* Chapter overline — 0ms */}
+          <motion.span
+            className="chapter-overline"
+            initial={{ opacity: 0 }}
+            animate={headInView ? { opacity: 0.85 } : {}}
+            transition={{ duration: 1.0, delay: 0, ease: textEase }}
+            style={{ marginBottom: '16px' }}
+          >
+            Chapter 02 · The Craft
+          </motion.span>
 
-          <p
+          {/* Label — +300ms */}
+          <motion.p
             className="font-jost uppercase mb-5"
+            initial={{ opacity: 0, y: 16 }}
+            animate={headInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 1.0, delay: 0.3, ease: textEase }}
             style={{ fontSize: '9px', letterSpacing: '0.35em', color: 'var(--color-muted)', fontWeight: 300 }}
           >
             Specialties
-          </p>
-          <h2
+          </motion.p>
+
+          {/* Titre — +300ms */}
+          <motion.h2
             className="font-cormorant italic leading-tight"
+            initial={{ opacity: 0, y: 16 }}
+            animate={headInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 1.2, delay: 0.3, ease: textEase }}
             style={{
               fontSize: 'clamp(36px, 8vw, 5rem)',
               color: 'var(--color-dark)',
@@ -167,9 +186,14 @@ export default function Collections() {
             }}
           >
             What Will makes.
-          </h2>
-          <p
+          </motion.h2>
+
+          {/* Sous-titre — +700ms */}
+          <motion.p
             className="font-jost mt-5 mx-auto leading-relaxed"
+            initial={{ opacity: 0, y: 16 }}
+            animate={headInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 1.2, delay: 0.7, ease: textEase }}
             style={{
               fontSize: '13px',
               color: 'var(--color-muted)',
@@ -180,21 +204,21 @@ export default function Collections() {
           >
             Some things are on the menu most days. Others appear when the season says so.
             Always made from scratch, always in small batches.
-          </p>
-        </motion.div>
+          </motion.p>
+        </div>
 
-        {/* Asymmetric grid */}
+        {/* Grille asymétrique — chaque produit = mini-chapitre */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-12 lg:gap-y-16">
           {products.map((product, i) => (
             <ProductCard key={product.id} product={product} index={i} />
           ))}
         </div>
 
-        {/* Instagram note */}
+        {/* Instagram note — +900ms après header */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={headInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 1.4, delay: 0.8, ease: textEase }}
+          transition={{ duration: 1.4, delay: 0.9, ease: textEase }}
           className="text-center mt-20"
         >
           <a

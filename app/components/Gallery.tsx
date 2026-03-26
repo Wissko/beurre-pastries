@@ -19,12 +19,14 @@ const galleryImages = [
 
 const ARC_RADIUS = 1400
 const SPREAD = 8
-
 const textEase = [0.22, 1, 0.36, 1] as const
 
 export default function Gallery() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-80px' })
+  const headerRef = useRef(null)
+  const carouselRef = useRef(null)
+  const headerInView = useInView(headerRef, { once: true, margin: '-80px' })
+  const carouselInView = useInView(carouselRef, { once: true, margin: '-80px' })
+
   const [active, setActive] = useState(4)
   const [isDragging, setIsDragging] = useState(false)
   const dragStart = useRef(0)
@@ -40,12 +42,10 @@ export default function Gallery() {
 
   const ITEM_WIDTH = isDesktop ? 320 : 260
   const ITEM_HEIGHT = isDesktop ? 420 : 340
-
   const total = galleryImages.length
-  const center = active
 
   const getItemStyle = (index: number) => {
-    const diff = index - center
+    const diff = index - active
     const angle = diff * SPREAD
     const angleRad = (angle * Math.PI) / 180
     const x = Math.sin(angleRad) * ARC_RADIUS
@@ -54,12 +54,11 @@ export default function Gallery() {
     const opacity = 1 - Math.abs(diff) * 0.18
     const blur = Math.abs(diff) * 0.8
     const zIndex = total - Math.abs(diff)
-    return { x, y: -y * 0.6, scale, opacity, blur, zIndex, diff }
+    return { x, y: -y * 0.6, scale, opacity, blur, zIndex }
   }
 
   const goTo = (index: number) => {
-    const clamped = Math.max(0, Math.min(total - 1, index))
-    setActive(clamped)
+    setActive(Math.max(0, Math.min(total - 1, index)))
   }
 
   const handleMouseDown = (e: React.MouseEvent) => {
@@ -73,11 +72,8 @@ export default function Gallery() {
     const delta = dragStart.current - e.clientX
     if (Math.abs(delta) > 40) goTo(active + (delta > 0 ? 1 : -1))
   }
-
   const touchStart = useRef(0)
-  const handleTouchStart = (e: React.TouchEvent) => {
-    touchStart.current = e.touches[0].clientX
-  }
+  const handleTouchStart = (e: React.TouchEvent) => { touchStart.current = e.touches[0].clientX }
   const handleTouchEnd = (e: React.TouchEvent) => {
     const delta = touchStart.current - e.changedTouches[0].clientX
     if (Math.abs(delta) > 40) goTo(active + (delta > 0 ? 1 : -1))
@@ -87,40 +83,52 @@ export default function Gallery() {
     <section
       id="gallery"
       className="section-padding overflow-hidden relative"
-      style={{ background: 'var(--color-bg)' }}
+      style={{ background: '#f5f2ed' }}
     >
       <span className="section-number hidden lg:block" style={{ top: '4rem', left: '6rem' }}>05</span>
 
       <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-        {/* Header */}
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 16 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 1.4, delay: 0.6, ease: textEase }}
-          className="text-center section-title-decorated mb-16"
-        >
-          {/* Chapter overline */}
-          <span className="chapter-overline" style={{ marginBottom: '16px' }}>Chapter 03 · The Light</span>
+        {/* Header — séquencé */}
+        <div ref={headerRef} className="text-center mb-16">
+          {/* Chapter overline — 0ms */}
+          <motion.span
+            className="chapter-overline"
+            initial={{ opacity: 0 }}
+            animate={headerInView ? { opacity: 0.85 } : {}}
+            transition={{ duration: 1.0, delay: 0, ease: textEase }}
+            style={{ marginBottom: '16px' }}
+          >
+            Chapter 03 · The Light
+          </motion.span>
 
-          <p
+          {/* Label — +300ms */}
+          <motion.p
             className="font-jost uppercase mb-5"
+            initial={{ opacity: 0, y: 16 }}
+            animate={headerInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 1.0, delay: 0.3, ease: textEase }}
             style={{ fontSize: '9px', letterSpacing: '0.35em', color: 'var(--color-muted)', fontWeight: 300 }}
           >
             Gallery
-          </p>
-          <h2
+          </motion.p>
+
+          {/* Titre — +300ms */}
+          <motion.h2
             className="font-cormorant italic"
+            initial={{ opacity: 0, y: 16 }}
+            animate={headerInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 1.2, delay: 0.3, ease: textEase }}
             style={{ fontSize: 'clamp(27px, 4vw, 5rem)', color: 'var(--color-dark)', fontWeight: 300, letterSpacing: '0.08em' }}
           >
             A few mornings.
-          </h2>
-        </motion.div>
+          </motion.h2>
+        </div>
 
-        {/* Arc Carousel */}
+        {/* Arc Carousel — images avec stagger clip-path */}
         <motion.div
+          ref={carouselRef}
           initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
+          animate={carouselInView ? { opacity: 1 } : {}}
           transition={{ duration: 1.2, delay: 0.4 }}
           className="relative select-none"
           style={{ height: `${ITEM_HEIGHT + 80}px`, cursor: 'grab' }}
@@ -133,6 +141,9 @@ export default function Gallery() {
           <div className="absolute inset-0 flex items-center justify-center">
             {galleryImages.map((img, i) => {
               const { x, y, scale, opacity, blur, zIndex } = getItemStyle(i)
+              // Stagger : chaque image apparaît avec un délai de +300ms par index visible
+              const staggerDelay = carouselInView ? Math.abs(i - active) * 0.3 : 0
+
               return (
                 <motion.div
                   key={`${img.src}-${i}`}
@@ -148,7 +159,7 @@ export default function Gallery() {
                   }}
                   onClick={() => !isDragging && goTo(i)}
                 >
-                  <div
+                  <motion.div
                     className="w-full h-full overflow-hidden relative"
                     style={{
                       borderRadius: '3px',
@@ -156,6 +167,9 @@ export default function Gallery() {
                         ? '0 24px 64px rgba(26,18,8,0.12)'
                         : '0 4px 16px rgba(26,18,8,0.04)',
                     }}
+                    initial={{ clipPath: 'inset(0 0 100% 0)' }}
+                    animate={carouselInView ? { clipPath: 'inset(0 0 0% 0)' } : {}}
+                    transition={{ duration: 1.0, delay: 0.4 + staggerDelay, ease: [0.22, 1, 0.36, 1] }}
                   >
                     <Image
                       src={img.src}
@@ -166,9 +180,9 @@ export default function Gallery() {
                       draggable={false}
                     />
                     {i !== active && (
-                      <div className="absolute inset-0" style={{ background: 'rgba(240,237,232,0.3)' }} />
+                      <div className="absolute inset-0" style={{ background: 'rgba(245,242,237,0.3)' }} />
                     )}
-                  </div>
+                  </motion.div>
                   {i === active && (
                     <motion.p
                       initial={{ opacity: 0, y: 4 }}
@@ -218,7 +232,7 @@ export default function Gallery() {
             disabled={active === 0}
             className="w-10 h-10 flex items-center justify-center border transition-all duration-300 disabled:opacity-30"
             style={{ borderColor: 'var(--color-border)', color: 'var(--color-dark)', cursor: 'pointer' }}
-            onMouseEnter={(e) => { if (!e.currentTarget.disabled) e.currentTarget.style.borderColor = 'var(--color-terracotta)' }}
+            onMouseEnter={(e) => { if (!(e.currentTarget as HTMLButtonElement).disabled) e.currentTarget.style.borderColor = 'var(--color-terracotta)' }}
             onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--color-border)' }}
           >
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -230,7 +244,7 @@ export default function Gallery() {
             disabled={active === total - 1}
             className="w-10 h-10 flex items-center justify-center border transition-all duration-300 disabled:opacity-30"
             style={{ borderColor: 'var(--color-border)', color: 'var(--color-dark)', cursor: 'pointer' }}
-            onMouseEnter={(e) => { if (!e.currentTarget.disabled) e.currentTarget.style.borderColor = 'var(--color-terracotta)' }}
+            onMouseEnter={(e) => { if (!(e.currentTarget as HTMLButtonElement).disabled) e.currentTarget.style.borderColor = 'var(--color-terracotta)' }}
             onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--color-border)' }}
           >
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
