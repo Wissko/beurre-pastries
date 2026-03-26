@@ -21,16 +21,16 @@ export default function About() {
   const text2Ref = useRef(null)
   const text3Ref = useRef(null)
 
-  const sectionInView = useInView(sectionRef, { once: true, amount: 0.1 })
-  const imgInView = useInView(imgRef, { once: true, margin: '-80px' })
-  const textInView = useInView(textRef, { once: true, margin: '-80px' })
+  const sectionInView = useInView(sectionRef, { once: true, amount: 0.05 })
+  const imgInView = useInView(imgRef, { once: true, amount: 0.1 })
+  const textInView = useInView(textRef, { once: true, amount: 0.1 })
 
   return (
     <section
       ref={sectionRef}
       id="about"
-      className="section-padding relative overflow-hidden"
-      style={{ background: '#faf8f4' }}
+      className="section-padding relative"
+      style={{ background: '#faf8f4', overflowX: 'hidden' }}
     >
       {/* Particules */}
       {sectionInView && PARTICLES.map((p, i) => (

@@ -24,8 +24,8 @@ const textEase = [0.22, 1, 0.36, 1] as const
 export default function Gallery() {
   const headerRef = useRef(null)
   const carouselRef = useRef(null)
-  const headerInView = useInView(headerRef, { once: true, margin: '-80px' })
-  const carouselInView = useInView(carouselRef, { once: true, margin: '-80px' })
+  const headerInView = useInView(headerRef, { once: true, amount: 0.1 })
+  const carouselInView = useInView(carouselRef, { once: true, amount: 0.05 })
 
   const [active, setActive] = useState(4)
   const [isDragging, setIsDragging] = useState(false)
@@ -131,7 +131,7 @@ export default function Gallery() {
           animate={carouselInView ? { opacity: 1 } : {}}
           transition={{ duration: 1.2, delay: 0.4 }}
           className="relative select-none"
-          style={{ height: `${ITEM_HEIGHT + 80}px`, cursor: 'grab' }}
+          style={{ height: `${ITEM_HEIGHT + 80}px`, cursor: 'grab', touchAction: 'pan-y' }}
           onMouseDown={handleMouseDown}
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUp}

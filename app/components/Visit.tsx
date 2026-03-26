@@ -29,7 +29,7 @@ function WordByWord({ text, isInView, baseDelay = 0 }: { text: string; isInView:
 
 export default function Visit() {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-80px' })
+  const isInView = useInView(ref, { once: true, amount: 0.1 })
   const [formData, setFormData] = useState({ name: '', email: '', message: '' })
   const [status, setStatus] = useState<'idle' | 'loading' | 'success'>('idle')
   const [errors, setErrors] = useState<Record<string, boolean>>({})
@@ -61,8 +61,8 @@ export default function Visit() {
   return (
     <section
       id="visit"
-      className="section-padding relative overflow-hidden"
-      style={{ background: '#f0ede8' }}
+      className="section-padding relative"
+      style={{ background: '#f0ede8', overflowX: 'hidden' }}
     >
       {/* Ghost typography "PARK RD" en fond */}
       <div

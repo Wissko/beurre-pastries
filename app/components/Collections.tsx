@@ -59,10 +59,11 @@ const products = [
 function ProductCard({ product, index }: { product: typeof products[0]; index: number }) {
   const ref = useRef(null)
   const imgRef = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-60px' })
-  const imgInView = useInView(imgRef, { once: true, margin: '-60px' })
+  const isInView = useInView(ref, { once: true, amount: 0.1 })
+  const imgInView = useInView(imgRef, { once: true, amount: 0.1 })
 
-  const nudge = index % 2 === 1 ? '2.5rem' : '0'
+  // nudge uniquement sur desktop (lg:), pas sur mobile
+  const nudgeClass = index % 2 === 1 ? 'lg:mt-10' : ''
 
   return (
     <motion.div
@@ -70,8 +71,8 @@ function ProductCard({ product, index }: { product: typeof products[0]; index: n
       initial={{ opacity: 0, y: 24 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 1.4, delay: 0.3, ease: textEase }}
-      className="group"
-      style={{ marginTop: nudge, cursor: 'default' }}
+      className={`group ${nudgeClass}`}
+      style={{ cursor: 'default' }}
     >
       {/* Image — wipe reveal gauche→droite */}
       <div
@@ -137,7 +138,7 @@ function ProductCard({ product, index }: { product: typeof products[0]; index: n
 
 export default function Collections() {
   const headRef = useRef(null)
-  const headInView = useInView(headRef, { once: true, margin: '-60px' })
+  const headInView = useInView(headRef, { once: true, amount: 0.1 })
 
   return (
     <section

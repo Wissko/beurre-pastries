@@ -124,7 +124,6 @@ export default function Hero() {
             color: 'var(--color-dark)',
             letterSpacing: '0.06em',
             fontWeight: 300,
-            opacity: 0,
             marginBottom: '44px',
             maxWidth: '280px',
           }}

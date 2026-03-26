@@ -41,15 +41,15 @@ export default function Workshops() {
   const textRef = useRef(null)
 
   const sectionInView = useInView(sectionRef, { once: true, amount: 0.05 })
-  const imgInView = useInView(imgRef, { once: true, margin: '-80px' })
-  const textInView = useInView(textRef, { once: true, margin: '-80px' })
+  const imgInView = useInView(imgRef, { once: true, amount: 0.1 })
+  const textInView = useInView(textRef, { once: true, amount: 0.1 })
 
   return (
     <section
       ref={sectionRef}
       id="workshops"
-      className="section-padding relative overflow-hidden"
-      style={{ background: '#1a1208' }}
+      className="section-padding relative"
+      style={{ background: '#1a1208', overflowX: 'hidden' }}
     >
       {/* Particules sur fond sombre */}
       {sectionInView && PARTICLES.map((p, i) => (
