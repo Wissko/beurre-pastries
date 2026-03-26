@@ -40,9 +40,9 @@ export default function Workshops() {
   const imgRef = useRef(null)
   const textRef = useRef(null)
 
-  const sectionInView = useInView(sectionRef, { once: true, amount: 0.05 })
-  const imgInView = useInView(imgRef, { once: true, amount: 0.1 })
-  const textInView = useInView(textRef, { once: true, amount: 0.1 })
+  const sectionInView = useInView(sectionRef, { once: true, amount: 0, margin: "0px 0px -5% 0px" })
+  const imgInView = useInView(imgRef, { once: true, amount: 0, margin: "0px 0px -5% 0px" })
+  const textInView = useInView(textRef, { once: true, amount: 0, margin: "0px 0px -5% 0px" })
 
   return (
     <section
@@ -74,7 +74,7 @@ export default function Workshops() {
       </span>
 
       {/* ── Mobile layout ── */}
-      <div className="lg:hidden" style={{ maxWidth: '100%' }}>
+      <div className="lg:hidden motion-safe-fallback" style={{ maxWidth: '100%' }}>
         {/* Image — wipe + noir et blanc doux */}
         <div
           ref={imgRef}
@@ -152,7 +152,7 @@ export default function Workshops() {
 
       {/* ── Desktop layout ── */}
       <div
-        className="hidden lg:flex gap-24 items-start"
+        className="hidden lg:flex gap-24 items-start motion-safe-fallback"
         style={{ maxWidth: '1400px', margin: '0 auto' }}
       >
         {/* Text — 60% */}
@@ -244,7 +244,7 @@ function WorkshopList({ isInView, desktop }: { isInView: boolean; desktop?: bool
           initial={{ opacity: 0, x: 16 }}
           animate={isInView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 1.4, delay: 0.9 + i * 0.2, ease }}
-          className="flex gap-5 items-start"
+          className="flex gap-5 items-start motion-safe-fallback"
         >
           <div className="flex-shrink-0 w-px self-stretch mt-1" style={{ background: 'rgba(194,96,31,0.3)' }} />
           <div>

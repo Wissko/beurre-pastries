@@ -59,8 +59,8 @@ const products = [
 function ProductCard({ product, index }: { product: typeof products[0]; index: number }) {
   const ref = useRef(null)
   const imgRef = useRef(null)
-  const isInView = useInView(ref, { once: true, amount: 0.1 })
-  const imgInView = useInView(imgRef, { once: true, amount: 0.1 })
+  const isInView = useInView(ref, { once: true, amount: 0, margin: "0px 0px -5% 0px" })
+  const imgInView = useInView(imgRef, { once: true, amount: 0, margin: "0px 0px -5% 0px" })
 
   // nudge uniquement sur desktop (lg:), pas sur mobile
   const nudgeClass = index % 2 === 1 ? 'lg:mt-10' : ''
@@ -71,7 +71,7 @@ function ProductCard({ product, index }: { product: typeof products[0]; index: n
       initial={{ opacity: 0, y: 24 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 1.4, delay: 0.3, ease: textEase }}
-      className={`group ${nudgeClass}`}
+      className={`group motion-safe-fallback ${nudgeClass}`}
       style={{ cursor: 'default' }}
     >
       {/* Image — wipe reveal gauche→droite */}
@@ -138,7 +138,7 @@ function ProductCard({ product, index }: { product: typeof products[0]; index: n
 
 export default function Collections() {
   const headRef = useRef(null)
-  const headInView = useInView(headRef, { once: true, amount: 0.1 })
+  const headInView = useInView(headRef, { once: true, amount: 0, margin: "0px 0px -5% 0px" })
 
   return (
     <section
@@ -220,7 +220,7 @@ export default function Collections() {
           initial={{ opacity: 0, y: 12 }}
           animate={headInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 1.4, delay: 0.9, ease: textEase }}
-          className="text-center mt-20"
+          className="text-center mt-20 motion-safe-fallback"
         >
           <a
             href="https://instagram.com/beurrepastriesbne"

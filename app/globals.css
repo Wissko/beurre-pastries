@@ -447,3 +447,11 @@ h1, h2, h3 {
 .chapter-number-label {
   animation: chapterFadeInOut 2.4s ease forwards;
 }
+
+/* Fallback si Framer Motion ne déclenche pas */
+@media (max-width: 768px) {
+  .motion-safe-fallback {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
