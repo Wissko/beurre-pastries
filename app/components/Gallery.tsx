@@ -1,9 +1,10 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import Image from 'next/image'
 import { motion, useInView } from 'framer-motion'
 
+// craft.jpg removed — 10 images remaining
 const galleryImages = [
   { src: '/images/beurre.jpg', caption: 'Our Space' },
   { src: '/images/cafecroissant.jpg', caption: 'Morning Ritual' },
@@ -13,14 +14,11 @@ const galleryImages = [
   { src: '/images/blanc.jpg', caption: 'Blanc' },
   { src: '/images/matcha.jpg', caption: 'Matcha' },
   { src: '/images/art.jpg', caption: 'The Art' },
-  { src: '/images/craft.jpg', caption: 'The Craft' },
   { src: '/images/late.jpg', caption: 'Late Morning' },
   { src: '/images/life.jpg', caption: 'La Vie' },
 ]
 
 const ARC_RADIUS = 1400
-const ITEM_WIDTH = 260
-const ITEM_HEIGHT = 340
 const SPREAD = 8 // degrees between items
 
 export default function Gallery() {
@@ -29,6 +27,18 @@ export default function Gallery() {
   const [active, setActive] = useState(4)
   const [isDragging, setIsDragging] = useState(false)
   const dragStart = useRef(0)
+  const [isDesktop, setIsDesktop] = useState(false)
+
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 1024px)')
+    setIsDesktop(mq.matches)
+    const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches)
+    mq.addEventListener('change', handler)
+    return () => mq.removeEventListener('change', handler)
+  }, [])
+
+  const ITEM_WIDTH = isDesktop ? 320 : 260
+  const ITEM_HEIGHT = isDesktop ? 420 : 340
 
   const total = galleryImages.length
   const center = active
@@ -61,12 +71,9 @@ export default function Gallery() {
   }
   const handleMouseUp = (e: React.MouseEvent) => {
     const delta = dragStart.current - e.clientX
-    if (Math.abs(delta) > 40) {
-      goTo(active + (delta > 0 ? 1 : -1))
-    }
+    if (Math.abs(delta) > 40) goTo(active + (delta > 0 ? 1 : -1))
   }
 
-  // Touch support
   const touchStart = useRef(0)
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStart.current = e.touches[0].clientX
@@ -79,17 +86,20 @@ export default function Gallery() {
   return (
     <section
       id="gallery"
-      className="section-padding overflow-hidden"
+      className="section-padding overflow-hidden relative"
       style={{ background: 'var(--color-surface)' }}
     >
-      <div className="max-w-7xl mx-auto">
+      {/* Section number */}
+      <span className="section-number hidden lg:block" style={{ top: '4rem', left: '6rem' }}>05</span>
+
+      <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
         {/* Header */}
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center section-title-decorated mb-16"
         >
           <p
             className="font-jost uppercase mb-5"
@@ -99,7 +109,7 @@ export default function Gallery() {
           </p>
           <h2
             className="font-cormorant"
-            style={{ fontSize: 'clamp(27px, 4vw, 43px)', color: 'var(--color-dark)', fontWeight: 300, letterSpacing: '0.10em' }}
+            style={{ fontSize: 'clamp(27px, 4vw, 5rem)', color: 'var(--color-dark)', fontWeight: 300, letterSpacing: '0.10em' }}
           >
             A Visual Journey
           </h2>
@@ -140,7 +150,7 @@ export default function Gallery() {
                     style={{
                       boxShadow:
                         i === active
-                          ? '0 16px 48px rgba(17,17,17,0.10)'
+                          ? '0 24px 64px rgba(17,17,17,0.12)'
                           : '0 4px 16px rgba(17,17,17,0.04)',
                     }}
                   >
@@ -149,18 +159,13 @@ export default function Gallery() {
                       alt={img.caption}
                       fill
                       className="object-cover"
-                      sizes="260px"
+                      sizes={`${ITEM_WIDTH}px`}
                       draggable={false}
                     />
-                    {/* Overlay for non-active */}
                     {i !== active && (
-                      <div
-                        className="absolute inset-0"
-                        style={{ background: 'rgba(255,255,255,0.25)' }}
-                      />
+                      <div className="absolute inset-0" style={{ background: 'rgba(255,255,255,0.25)' }} />
                     )}
                   </div>
-                  {/* Caption for active item */}
                   {i === active && (
                     <motion.p
                       initial={{ opacity: 0, y: 4 }}
@@ -209,9 +214,7 @@ export default function Gallery() {
             disabled={active === 0}
             className="w-10 h-10 flex items-center justify-center border transition-all duration-300 disabled:opacity-30"
             style={{ borderColor: 'var(--color-border)', color: 'var(--color-dark)' }}
-            onMouseEnter={(e) => {
-              if (!e.currentTarget.disabled) e.currentTarget.style.borderColor = 'var(--color-accent)'
-            }}
+            onMouseEnter={(e) => { if (!e.currentTarget.disabled) e.currentTarget.style.borderColor = 'var(--color-accent)' }}
             onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--color-border)' }}
           >
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -223,9 +226,7 @@ export default function Gallery() {
             disabled={active === total - 1}
             className="w-10 h-10 flex items-center justify-center border transition-all duration-300 disabled:opacity-30"
             style={{ borderColor: 'var(--color-border)', color: 'var(--color-dark)' }}
-            onMouseEnter={(e) => {
-              if (!e.currentTarget.disabled) e.currentTarget.style.borderColor = 'var(--color-accent)'
-            }}
+            onMouseEnter={(e) => { if (!e.currentTarget.disabled) e.currentTarget.style.borderColor = 'var(--color-accent)' }}
             onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--color-border)' }}
           >
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">

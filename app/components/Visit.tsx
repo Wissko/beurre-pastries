@@ -33,10 +33,12 @@ export default function Visit() {
   return (
     <section
       id="visit"
-      className="section-padding"
+      className="section-padding relative"
       style={{ background: 'var(--color-bg)' }}
     >
-      <div className="max-w-7xl mx-auto">
+      {/* Section number */}
+      <span className="section-number hidden lg:block" style={{ top: '4rem', left: '6rem' }}>06</span>
+      <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
         {/* Header */}
         <motion.div
           ref={ref}

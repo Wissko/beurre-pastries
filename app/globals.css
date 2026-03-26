@@ -34,6 +34,13 @@ body {
   overflow-x: hidden;
 }
 
+/* ─── Desktop: hide default cursor ─── */
+@media (min-width: 1024px) {
+  html, body, * {
+    cursor: none !important;
+  }
+}
+
 /* ─── Typography ─── */
 .font-cormorant {
   font-family: var(--font-cormorant), 'Cormorant Garamond', serif;
@@ -67,12 +74,12 @@ h1, h2, h3 {
 
 /* ─── Utility ─── */
 .section-padding {
-  padding: 130px 52px;
+  padding: 91px 26px;
 }
 
-@media (max-width: 768px) {
+@media (min-width: 1024px) {
   .section-padding {
-    padding: 91px 26px;
+    padding: 10rem 6rem;
   }
 }
 
@@ -82,4 +89,89 @@ h1, h2, h3 {
 }
 .img-hover:hover img {
   transform: scale(1.02);
+}
+
+/* ─── Section number decoration ─── */
+.section-number {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-family: var(--font-jost), 'Jost', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 300;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  opacity: 0.5;
+}
+
+/* ─── Decorative line before section titles ─── */
+.section-title-decorated {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.section-title-decorated::before {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 1px;
+  background: var(--color-border);
+  margin-bottom: 2rem;
+}
+
+/* ─── Nav underline animation ─── */
+.nav-link-desktop {
+  position: relative;
+}
+
+.nav-link-desktop::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--color-gold);
+  transition: width 0.4s ease;
+}
+
+.nav-link-desktop:hover::after {
+  width: 100%;
+}
+
+/* ─── Hero desktop background ─── */
+@media (min-width: 1024px) {
+  .hero-bg-fixed {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+  }
+}
+
+/* ─── Collections hover overlay ─── */
+.collection-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(17, 17, 17, 0.55);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.group:hover .collection-card-overlay {
+  opacity: 1;
+}
+
+/* ─── Workshops sticky image ─── */
+@media (min-width: 1024px) {
+  .workshops-sticky-img {
+    position: sticky;
+    top: 10rem;
+  }
 }

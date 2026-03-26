@@ -13,12 +13,19 @@ const links = [
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [heroVisible, setHeroVisible] = useState(true)
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 60)
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 60)
+      setHeroVisible(window.scrollY < window.innerHeight * 0.5)
+    }
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  // On desktop, when hero is visible, show white logo/links for contrast against hero bg image
+  const isLight = heroVisible && !scrolled
 
   return (
     <motion.nav
@@ -32,36 +39,43 @@ export default function Nav() {
         borderBottom: scrolled ? '1px solid var(--color-border)' : 'none',
       }}
     >
-      <div className="max-w-7xl mx-auto px-6 md:px-10 h-20 flex items-center justify-between">
+      <div
+        className="max-w-7xl mx-auto px-6 md:px-10 h-20 flex items-center justify-between"
+        style={{ maxWidth: '1400px' }}
+      >
         {/* Logo */}
         <a
           href="#"
-          className="font-cormorant italic"
+          className="font-cormorant italic transition-colors duration-500"
           style={{
-            fontSize: '26px',
+            fontSize: '28px',
             fontWeight: 300,
             letterSpacing: '0.08em',
-            color: scrolled ? 'var(--color-dark)' : 'var(--color-dark)',
+            color: isLight ? '#ffffff' : 'var(--color-dark)',
           }}
         >
           Beurre
         </a>
 
-        {/* Desktop links */}
-        <ul className="hidden md:flex items-center gap-12">
+        {/* Desktop links — with animated underline */}
+        <ul className="hidden md:flex items-center" style={{ gap: '3rem' }}>
           {links.map((link) => (
             <li key={link.href}>
               <a
                 href={link.href}
-                className="font-jost uppercase transition-colors duration-300"
+                className="nav-link-desktop font-jost uppercase transition-colors duration-300"
                 style={{
                   fontSize: '10px',
                   letterSpacing: '0.18em',
                   fontWeight: 300,
-                  color: 'var(--color-muted)',
+                  color: isLight ? 'rgba(255,255,255,0.8)' : 'var(--color-muted)',
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--color-dark)')}
-                onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--color-muted)')}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = isLight ? '#ffffff' : 'var(--color-dark)'
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = isLight ? 'rgba(255,255,255,0.8)' : 'var(--color-muted)'
+                }}
               >
                 {link.label}
               </a>
@@ -79,7 +93,7 @@ export default function Nav() {
             <span
               key={i}
               className="block w-6 h-px transition-all duration-300"
-              style={{ background: 'var(--color-dark)' }}
+              style={{ background: isLight ? '#ffffff' : 'var(--color-dark)' }}
             />
           ))}
         </button>

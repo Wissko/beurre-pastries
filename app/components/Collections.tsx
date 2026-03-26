@@ -56,26 +56,41 @@ function ProductCard({ product, index }: { product: typeof products[0]; index: n
       transition={{ duration: 0.8, delay: index * 0.08, ease: 'easeOut' }}
       className="group cursor-pointer"
     >
-      {/* Image — no border, no shadow */}
+      {/* Image */}
       <div
-        className="relative overflow-hidden mb-6 img-hover"
-        style={{ aspectRatio: '4/5', background: 'var(--color-surface)' }}
+        className="relative overflow-hidden mb-6"
+        style={{ aspectRatio: '3/4', background: 'var(--color-surface)' }}
       >
         <Image
           src={product.image}
           alt={product.name}
           fill
-          className="object-cover transition-transform duration-800 group-hover:scale-[1.03]"
+          className="object-cover transition-transform duration-700 group-hover:scale-[1.06]"
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
         />
+        {/* Hover overlay — text appears on hover (desktop) */}
+        <div className="collection-card-overlay hidden lg:flex">
+          <h3
+            className="font-cormorant italic text-white mb-3 text-center"
+            style={{ fontSize: 'clamp(18px, 1.6vw, 24px)', fontWeight: 300, letterSpacing: '0.05em' }}
+          >
+            {product.name}
+          </h3>
+          <p
+            className="font-jost text-center leading-relaxed"
+            style={{ fontSize: '12px', color: 'rgba(255,255,255,0.75)', fontWeight: 300, letterSpacing: '0.04em', maxWidth: '220px' }}
+          >
+            {product.description}
+          </p>
+        </div>
       </div>
 
-      {/* Text */}
-      <div>
+      {/* Text — always visible on mobile, hidden on desktop (shown in overlay) */}
+      <div className="lg:block">
         <h3
-          className="font-cormorant italic mb-2"
+          className="font-cormorant italic mb-2 lg:group-hover:text-[var(--color-accent)] transition-colors duration-300"
           style={{
-            fontSize: 'clamp(15px, 1.4vw, 18px)',
+            fontSize: 'clamp(16px, 1.3vw, 20px)',
             color: 'var(--color-dark)',
             fontWeight: 300,
             letterSpacing: '0.02em',
@@ -84,7 +99,7 @@ function ProductCard({ product, index }: { product: typeof products[0]; index: n
           {product.name}
         </h3>
         <p
-          className="font-jost leading-relaxed"
+          className="font-jost leading-relaxed lg:hidden"
           style={{ fontSize: '12px', color: 'var(--color-muted)', fontWeight: 300, letterSpacing: '0.02em' }}
         >
           {product.description}
@@ -101,17 +116,20 @@ export default function Collections() {
   return (
     <section
       id="collections"
-      className="section-padding"
+      className="section-padding relative"
       style={{ background: 'var(--color-bg)' }}
     >
-      <div className="max-w-7xl mx-auto">
+      {/* Section number */}
+      <span className="section-number hidden lg:block" style={{ top: '4rem', left: '6rem' }}>02</span>
+
+      <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
         {/* Header */}
         <motion.div
           ref={headRef}
           initial={{ opacity: 0, y: 16 }}
           animate={headInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, ease: 'easeOut' }}
-          className="text-center mb-26"
+          className="text-center section-title-decorated"
           style={{ marginBottom: '104px' }}
         >
           <p
@@ -123,11 +141,10 @@ export default function Collections() {
           <h2
             className="font-cormorant leading-tight"
             style={{
-              fontSize: 'clamp(28px, 4vw, 45px)',
+              fontSize: 'clamp(28px, 4vw, 5rem)',
               color: 'var(--color-dark)',
               fontWeight: 300,
               letterSpacing: '0.10em',
-              fontStyle: 'normal',
             }}
           >
             This Season&apos;s Creations
@@ -146,7 +163,7 @@ export default function Collections() {
           </p>
         </motion.div>
 
-        {/* Grid — generous gaps */}
+        {/* Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-20">
           {products.map((product, i) => (
             <ProductCard key={product.id} product={product} index={i} />
