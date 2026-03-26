@@ -50,7 +50,7 @@ export default function Workshops() {
           transition={{ duration: 0.9, ease: 'easeOut' }}
         >
           <Image
-            src="/images/workshop.jpg"
+            src="/images/life.jpg"
             alt="French pastry workshop at Beurre Brisbane"
             fill
             className="object-cover"
@@ -125,7 +125,7 @@ export default function Workshops() {
           transition={{ duration: 1, delay: 0.2, ease: 'easeOut' }}
         >
           <Image
-            src="/images/workshop.jpg"
+            src="/images/life.jpg"
             alt="French pastry art workshop at Beurre Brisbane"
             fill
             className="object-cover"

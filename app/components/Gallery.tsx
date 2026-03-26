@@ -15,7 +15,7 @@ const galleryImages = [
   { src: '/images/matcha.jpg', caption: 'Matcha' },
   { src: '/images/art.jpg', caption: 'The Art' },
   { src: '/images/late.jpg', caption: 'Late Morning' },
-  { src: '/images/life.jpg', caption: 'La Vie' },
+  { src: '/images/late.jpg', caption: 'La Vie' },
 ]
 
 const ARC_RADIUS = 1400

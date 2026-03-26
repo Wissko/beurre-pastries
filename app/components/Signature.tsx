@@ -18,7 +18,7 @@ export default function Signature() {
       {/* Background */}
       <div className="absolute inset-0">
         <Image
-          src="/images/life.jpg"
+          src="/images/late.jpg"
           alt="Beurre — the art of slowing down and savouring life"
           fill
           quality={90}

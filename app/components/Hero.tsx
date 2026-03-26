@@ -138,7 +138,7 @@ export default function Hero() {
           className="font-cormorant italic leading-none mb-8 text-center"
           style={{
             fontSize: 'clamp(8rem, 15vw, 18rem)',
-            color: '#ffffff',
+            color: '#f5f0e8',
             letterSpacing: '0.15em',
             fontWeight: 300,
             textShadow: '0 2px 40px rgba(0,0,0,0.2)',
