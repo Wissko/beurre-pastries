@@ -91,14 +91,14 @@ export default function Gallery() {
           className="text-center mb-16"
         >
           <p
-            className="font-jost text-xs tracking-[0.3em] uppercase mb-4"
-            style={{ color: 'var(--color-gold)' }}
+            className="font-jost uppercase mb-5"
+            style={{ fontSize: '10px', letterSpacing: '0.32em', color: 'var(--color-muted)', fontWeight: 300 }}
           >
             Gallery
           </p>
           <h2
-            className="font-cormorant italic"
-            style={{ fontSize: 'clamp(34px, 5vw, 54px)', color: 'var(--color-dark)' }}
+            className="font-cormorant"
+            style={{ fontSize: 'clamp(27px, 4vw, 43px)', color: 'var(--color-dark)', fontWeight: 300, letterSpacing: '0.10em' }}
           >
             A Visual Journey
           </h2>
@@ -139,8 +139,8 @@ export default function Gallery() {
                     style={{
                       boxShadow:
                         i === active
-                          ? '0 20px 60px rgba(26,20,16,0.2)'
-                          : '0 8px 24px rgba(26,20,16,0.08)',
+                          ? '0 16px 48px rgba(17,17,17,0.10)'
+                          : '0 4px 16px rgba(17,17,17,0.04)',
                     }}
                   >
                     <Image
@@ -155,7 +155,7 @@ export default function Gallery() {
                     {i !== active && (
                       <div
                         className="absolute inset-0"
-                        style={{ background: 'rgba(250,248,244,0.3)' }}
+                        style={{ background: 'rgba(255,255,255,0.25)' }}
                       />
                     )}
                   </div>
@@ -173,10 +173,10 @@ export default function Gallery() {
               onClick={() => goTo(i)}
               className="transition-all duration-300"
               style={{
-                width: i === active ? '24px' : '6px',
-                height: '6px',
+                width: i === active ? '20px' : '5px',
+                height: '5px',
                 borderRadius: '3px',
-                background: i === active ? 'var(--color-gold)' : 'var(--color-blush)',
+                background: i === active ? 'var(--color-dark)' : 'var(--color-border)',
               }}
               aria-label={`Go to image ${i + 1}`}
             />
@@ -189,11 +189,11 @@ export default function Gallery() {
             onClick={() => goTo(active - 1)}
             disabled={active === 0}
             className="w-10 h-10 flex items-center justify-center border transition-all duration-300 disabled:opacity-30"
-            style={{ borderColor: 'var(--color-blush)', color: 'var(--color-dark)' }}
+            style={{ borderColor: 'var(--color-border)', color: 'var(--color-dark)' }}
             onMouseEnter={(e) => {
-              if (!e.currentTarget.disabled) e.currentTarget.style.borderColor = 'var(--color-gold)'
+              if (!e.currentTarget.disabled) e.currentTarget.style.borderColor = 'var(--color-accent)'
             }}
-            onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--color-blush)' }}
+            onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--color-border)' }}
           >
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
               <path d="M10 3L5 8l5 5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -203,11 +203,11 @@ export default function Gallery() {
             onClick={() => goTo(active + 1)}
             disabled={active === total - 1}
             className="w-10 h-10 flex items-center justify-center border transition-all duration-300 disabled:opacity-30"
-            style={{ borderColor: 'var(--color-blush)', color: 'var(--color-dark)' }}
+            style={{ borderColor: 'var(--color-border)', color: 'var(--color-dark)' }}
             onMouseEnter={(e) => {
-              if (!e.currentTarget.disabled) e.currentTarget.style.borderColor = 'var(--color-gold)'
+              if (!e.currentTarget.disabled) e.currentTarget.style.borderColor = 'var(--color-accent)'
             }}
-            onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--color-blush)' }}
+            onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--color-border)' }}
           >
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
               <path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>

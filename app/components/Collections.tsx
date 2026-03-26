@@ -51,41 +51,41 @@ function ProductCard({ product, index }: { product: typeof products[0]; index: n
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 24 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.7, delay: index * 0.1, ease: 'easeOut' }}
+      transition={{ duration: 0.8, delay: index * 0.08, ease: 'easeOut' }}
       className="group cursor-pointer"
     >
-      {/* Image */}
+      {/* Image — no border, no shadow */}
       <div
-        className="relative overflow-hidden mb-5 img-hover"
-        style={{ aspectRatio: '4/5' }}
+        className="relative overflow-hidden mb-6 img-hover"
+        style={{ aspectRatio: '4/5', background: 'var(--color-surface)' }}
       >
         <Image
           src={product.image}
           alt={product.name}
           fill
-          className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+          className="object-cover transition-transform duration-800 group-hover:scale-[1.03]"
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-        />
-        {/* Hover overlay */}
-        <div
-          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-          style={{ background: 'rgba(26,20,16,0.08)' }}
         />
       </div>
 
       {/* Text */}
-      <div className="transition-transform duration-500 group-hover:-translate-y-1">
+      <div>
         <h3
-          className="font-cormorant italic text-xl mb-1.5"
-          style={{ color: 'var(--color-dark)' }}
+          className="font-cormorant italic mb-2"
+          style={{
+            fontSize: 'clamp(15px, 1.4vw, 18px)',
+            color: 'var(--color-dark)',
+            fontWeight: 300,
+            letterSpacing: '0.02em',
+          }}
         >
-          {product.name}
+          {product.name.toLowerCase()}
         </h3>
         <p
-          className="font-jost text-sm leading-relaxed"
-          style={{ color: 'var(--color-accent)' }}
+          className="font-jost leading-relaxed"
+          style={{ fontSize: '12px', color: 'var(--color-muted)', fontWeight: 300, letterSpacing: '0.02em' }}
         >
           {product.description}
         </p>
@@ -102,40 +102,52 @@ export default function Collections() {
     <section
       id="collections"
       className="section-padding"
-      style={{ background: 'var(--color-surface)' }}
+      style={{ background: 'var(--color-bg)' }}
     >
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div
           ref={headRef}
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={headInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, ease: 'easeOut' }}
-          className="text-center mb-20"
+          className="text-center mb-26"
+          style={{ marginBottom: '104px' }}
         >
           <p
-            className="font-jost text-xs tracking-[0.3em] uppercase mb-4"
-            style={{ color: 'var(--color-gold)' }}
+            className="font-jost uppercase mb-5"
+            style={{ fontSize: '10px', letterSpacing: '0.32em', color: 'var(--color-muted)', fontWeight: 300 }}
           >
             Collections
           </p>
           <h2
-            className="font-cormorant italic leading-tight"
-            style={{ fontSize: 'clamp(36px, 5vw, 56px)', color: 'var(--color-dark)' }}
+            className="font-cormorant leading-tight"
+            style={{
+              fontSize: 'clamp(28px, 4vw, 45px)',
+              color: 'var(--color-dark)',
+              fontWeight: 300,
+              letterSpacing: '0.10em',
+              fontStyle: 'normal',
+            }}
           >
             This Season&apos;s Creations
           </h2>
           <p
-            className="font-jost text-sm mt-4 max-w-md mx-auto leading-relaxed"
-            style={{ color: 'var(--color-accent)' }}
+            className="font-jost mt-5 mx-auto leading-relaxed"
+            style={{
+              fontSize: '13px',
+              color: 'var(--color-muted)',
+              maxWidth: '400px',
+              fontWeight: 300,
+              letterSpacing: '0.02em',
+            }}
           >
-            Inspired by the rhythms of each season, our collection changes to reflect the finest
-            ingredients available — always fresh, always made by hand.
+            Inspired by the rhythms of each season — always fresh, always made by hand.
           </p>
         </motion.div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-14">
+        {/* Grid — generous gaps */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-20">
           {products.map((product, i) => (
             <ProductCard key={product.id} product={product} index={i} />
           ))}

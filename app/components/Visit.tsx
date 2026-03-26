@@ -11,38 +11,19 @@ export default function Visit() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // Replace with actual form endpoint (Formspree, etc.)
     setSent(true)
   }
 
   const infoItems = [
     {
-      icon: (
-        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-          <path d="M9 1C6.24 1 4 3.24 4 6c0 4.25 5 11 5 11s5-6.75 5-11c0-2.76-2.24-5-5-5zm0 6.75A1.75 1.75 0 1 1 9 4.25a1.75 1.75 0 0 1 0 3.5z" fill="currentColor"/>
-        </svg>
-      ),
       label: 'Location',
       value: 'Brisbane, Queensland, Australia',
     },
     {
-      icon: (
-        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-          <circle cx="9" cy="9" r="7.5" stroke="currentColor" strokeWidth="1.2"/>
-          <path d="M9 5v4l2.5 2.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round"/>
-        </svg>
-      ),
       label: 'Hours',
       value: 'Tue – Fri: 7am – 4pm\nSat – Sun: 7am – 2pm',
     },
     {
-      icon: (
-        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-          <rect x="2" y="2" width="14" height="14" rx="4" stroke="currentColor" strokeWidth="1.2"/>
-          <circle cx="9" cy="9" r="3" stroke="currentColor" strokeWidth="1.2"/>
-          <circle cx="13.5" cy="4.5" r="0.75" fill="currentColor"/>
-        </svg>
-      ),
       label: 'Instagram',
       value: '@beurrepastriesbne',
       link: 'https://instagram.com/beurrepastriesbne',
@@ -59,78 +40,75 @@ export default function Visit() {
         {/* Header */}
         <motion.div
           ref={ref}
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-20"
+          className="text-center"
+          style={{ marginBottom: '104px' }}
         >
           <p
-            className="font-jost text-xs tracking-[0.3em] uppercase mb-4"
-            style={{ color: 'var(--color-gold)' }}
+            className="font-jost uppercase mb-5"
+            style={{ fontSize: '10px', letterSpacing: '0.32em', color: 'var(--color-muted)', fontWeight: 300 }}
           >
             Find Us
           </p>
           <h2
             className="font-cormorant italic"
-            style={{ fontSize: 'clamp(34px, 5vw, 56px)', color: 'var(--color-dark)' }}
+            style={{ fontSize: 'clamp(27px, 4vw, 45px)', color: 'var(--color-dark)', fontWeight: 300, letterSpacing: '0.08em' }}
           >
             Come Find Us
           </h2>
           <p
-            className="font-jost text-sm mt-4 max-w-sm mx-auto leading-relaxed"
-            style={{ color: 'var(--color-accent)' }}
+            className="font-jost mt-5 max-w-xs mx-auto leading-relaxed"
+            style={{ fontSize: '13px', color: 'var(--color-muted)', fontWeight: 300 }}
           >
-            We'd love to welcome you into our little corner of Paris in Brisbane.
+            A little corner of Paris in Brisbane.
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-16 md:gap-24">
+        <div className="grid md:grid-cols-2 gap-20 md:gap-32">
           {/* Info */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
+            initial={{ opacity: 0, x: -24 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.1 }}
           >
             <div className="space-y-10">
               {infoItems.map((item) => (
-                <div key={item.label} className="flex gap-5 items-start">
-                  <div style={{ color: 'var(--color-gold)', marginTop: '2px' }}>{item.icon}</div>
-                  <div>
-                    <p
-                      className="font-jost text-xs tracking-widest uppercase mb-2"
-                      style={{ color: 'var(--color-gold)' }}
+                <div key={item.label}>
+                  <p
+                    className="font-jost uppercase mb-2"
+                    style={{ fontSize: '9px', letterSpacing: '0.28em', color: 'var(--color-muted)', fontWeight: 300 }}
+                  >
+                    {item.label}
+                  </p>
+                  {item.link ? (
+                    <a
+                      href={item.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-cormorant transition-colors duration-300 hover:underline"
+                      style={{ fontSize: '20px', color: 'var(--color-dark)', fontWeight: 300, letterSpacing: '0.02em' }}
                     >
-                      {item.label}
+                      {item.value}
+                    </a>
+                  ) : (
+                    <p
+                      className="font-cormorant leading-snug whitespace-pre-line"
+                      style={{ fontSize: '20px', color: 'var(--color-dark)', fontWeight: 300, letterSpacing: '0.02em' }}
+                    >
+                      {item.value}
                     </p>
-                    {item.link ? (
-                      <a
-                        href={item.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="font-cormorant text-xl transition-colors duration-300 hover:underline"
-                        style={{ color: 'var(--color-dark)' }}
-                      >
-                        {item.value}
-                      </a>
-                    ) : (
-                      <p
-                        className="font-cormorant text-xl leading-snug whitespace-pre-line"
-                        style={{ color: 'var(--color-dark)' }}
-                      >
-                        {item.value}
-                      </p>
-                    )}
-                  </div>
+                  )}
                 </div>
               ))}
             </div>
 
-            {/* Divider */}
-            <div className="mt-12 h-px" style={{ background: 'var(--color-blush)' }} />
+            <div className="mt-16 h-px" style={{ background: 'var(--color-border)' }} />
 
             <p
-              className="font-cormorant italic text-2xl mt-8 leading-snug"
-              style={{ color: 'var(--color-accent)' }}
+              className="font-cormorant italic mt-10 leading-snug"
+              style={{ fontSize: '20px', color: 'var(--color-muted)', fontWeight: 300 }}
             >
               "A little butter makes everything better."
             </p>
@@ -138,27 +116,33 @@ export default function Visit() {
 
           {/* Contact form */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
+            initial={{ opacity: 0, x: 24 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             {sent ? (
               <div
-                className="h-full flex flex-col items-center justify-center text-center py-16 px-8"
+                className="h-full flex flex-col items-center justify-center text-center py-20 px-8"
                 style={{ background: 'var(--color-surface)', minHeight: '360px' }}
               >
-                <div className="font-cormorant italic text-3xl mb-4" style={{ color: 'var(--color-dark)' }}>
+                <div
+                  className="font-cormorant italic mb-4"
+                  style={{ fontSize: '28px', color: 'var(--color-dark)', fontWeight: 300 }}
+                >
                   Merci ✨
                 </div>
-                <p className="font-jost text-sm leading-relaxed" style={{ color: 'var(--color-accent)' }}>
+                <p
+                  className="font-jost leading-relaxed"
+                  style={{ fontSize: '13px', color: 'var(--color-muted)', fontWeight: 300 }}
+                >
                   Your message has been received. We'll be in touch shortly.
                 </p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-7">
                 <p
-                  className="font-jost text-xs tracking-[0.25em] uppercase mb-8"
-                  style={{ color: 'var(--color-gold)' }}
+                  className="font-jost uppercase mb-10"
+                  style={{ fontSize: '10px', letterSpacing: '0.28em', color: 'var(--color-muted)', fontWeight: 300 }}
                 >
                   Send us a message
                 </p>
@@ -170,8 +154,8 @@ export default function Visit() {
                   <div key={field.id}>
                     <label
                       htmlFor={field.id}
-                      className="block font-jost text-xs tracking-wider uppercase mb-2"
-                      style={{ color: 'var(--color-accent)' }}
+                      className="block font-jost uppercase mb-2"
+                      style={{ fontSize: '9px', letterSpacing: '0.22em', color: 'var(--color-muted)', fontWeight: 300 }}
                     >
                       {field.label}
                     </label>
@@ -182,13 +166,15 @@ export default function Visit() {
                       placeholder={field.placeholder}
                       value={formData[field.id as 'name' | 'email']}
                       onChange={(e) => setFormData({ ...formData, [field.id]: e.target.value })}
-                      className="w-full font-jost text-sm py-3 px-0 border-b outline-none transition-colors duration-300 bg-transparent"
+                      className="w-full font-jost py-3 px-0 border-b outline-none transition-colors duration-300 bg-transparent"
                       style={{
-                        borderColor: 'var(--color-blush)',
+                        fontSize: '13px',
+                        fontWeight: 300,
+                        borderColor: 'var(--color-border)',
                         color: 'var(--color-dark)',
                       }}
-                      onFocus={(e) => (e.currentTarget.style.borderColor = 'var(--color-gold)')}
-                      onBlur={(e) => (e.currentTarget.style.borderColor = 'var(--color-blush)')}
+                      onFocus={(e) => (e.currentTarget.style.borderColor = 'var(--color-accent)')}
+                      onBlur={(e) => (e.currentTarget.style.borderColor = 'var(--color-border)')}
                     />
                   </div>
                 ))}
@@ -196,8 +182,8 @@ export default function Visit() {
                 <div>
                   <label
                     htmlFor="message"
-                    className="block font-jost text-xs tracking-wider uppercase mb-2"
-                    style={{ color: 'var(--color-accent)' }}
+                    className="block font-jost uppercase mb-2"
+                    style={{ fontSize: '9px', letterSpacing: '0.22em', color: 'var(--color-muted)', fontWeight: 300 }}
                   >
                     Message
                   </label>
@@ -208,25 +194,39 @@ export default function Visit() {
                     placeholder="How can we help you?"
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full font-jost text-sm py-3 px-0 border-b outline-none transition-colors duration-300 bg-transparent resize-none"
+                    className="w-full font-jost py-3 px-0 border-b outline-none transition-colors duration-300 bg-transparent resize-none"
                     style={{
-                      borderColor: 'var(--color-blush)',
+                      fontSize: '13px',
+                      fontWeight: 300,
+                      borderColor: 'var(--color-border)',
                       color: 'var(--color-dark)',
                     }}
-                    onFocus={(e) => (e.currentTarget.style.borderColor = 'var(--color-gold)')}
-                    onBlur={(e) => (e.currentTarget.style.borderColor = 'var(--color-blush)')}
+                    onFocus={(e) => (e.currentTarget.style.borderColor = 'var(--color-accent)')}
+                    onBlur={(e) => (e.currentTarget.style.borderColor = 'var(--color-border)')}
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="font-jost text-xs tracking-[0.18em] uppercase px-8 py-4 transition-all duration-400 mt-2"
+                  className="font-jost uppercase transition-all duration-300 mt-2"
                   style={{
-                    background: 'var(--color-dark)',
-                    color: 'var(--color-bg)',
+                    fontSize: '10px',
+                    letterSpacing: '0.18em',
+                    fontWeight: 300,
+                    color: 'var(--color-dark)',
+                    borderBottom: '1px solid var(--color-border)',
+                    paddingBottom: '4px',
+                    background: 'none',
+                    cursor: 'pointer',
                   }}
-                  onMouseEnter={(e) => (e.currentTarget.style.background = 'var(--color-gold)')}
-                  onMouseLeave={(e) => (e.currentTarget.style.background = 'var(--color-dark)')}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderBottomColor = 'var(--color-gold)'
+                    e.currentTarget.style.color = 'var(--color-accent)'
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderBottomColor = 'var(--color-border)'
+                    e.currentTarget.style.color = 'var(--color-dark)'
+                  }}
                 >
                   Send Message
                 </button>
