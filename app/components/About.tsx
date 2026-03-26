@@ -59,21 +59,33 @@ export default function About() {
             </div>
           </motion.div>
 
-          {/* Image — 2/5 */}
+          {/* Images — 2/5 */}
           <motion.div
-            className="md:col-span-2"
+            className="md:col-span-2 flex flex-col gap-4"
             initial={{ opacity: 0, x: 30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 1, delay: 0.2, ease: 'easeOut' }}
-            style={{ aspectRatio: '3/4', position: 'relative' }}
           >
-            <Image
-              src="/images/craft.jpg"
-              alt="Artisan pastry making at Beurre"
-              fill
-              className="object-cover img-hover"
-              sizes="(max-width: 768px) 100vw, 40vw"
-            />
+            {/* Main image: the space / café */}
+            <div style={{ aspectRatio: '3/4', position: 'relative' }}>
+              <Image
+                src="/images/beurre.jpg"
+                alt="Beurre — our café and patisserie space"
+                fill
+                className="object-cover img-hover"
+                sizes="(max-width: 768px) 100vw, 40vw"
+              />
+            </div>
+            {/* Secondary image: the craft */}
+            <div style={{ aspectRatio: '3/2', position: 'relative' }}>
+              <Image
+                src="/images/craft.jpg"
+                alt="Artisan pastry making at Beurre"
+                fill
+                className="object-cover img-hover"
+                sizes="(max-width: 768px) 100vw, 40vw"
+              />
+            </div>
           </motion.div>
         </div>
       </div>

@@ -18,8 +18,8 @@ export default function Signature() {
       {/* Background */}
       <div className="absolute inset-0">
         <Image
-          src="/images/signature.jpg"
-          alt="Beurre signature creation — every piece tells a story"
+          src="/images/life.jpg"
+          alt="Beurre — the art of slowing down and savouring life"
           fill
           quality={90}
           className="object-cover object-center"

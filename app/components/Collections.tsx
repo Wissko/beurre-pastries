@@ -8,39 +8,39 @@ import { useRef } from 'react'
 const products = [
   {
     id: 1,
-    image: '/images/p1.jpg',
-    name: 'Mille-Feuille Vanille',
-    description: 'Crisp caramelised pastry, Tahitian vanilla cream, fondant glacé',
+    image: '/images/cafecroissant.jpg',
+    name: 'Café & Croissant',
+    description: 'Seventy-two-hour laminated dough, AOP cultured butter, paired with our house blend',
   },
   {
     id: 2,
-    image: '/images/p2.jpg',
-    name: 'Tarte Citron Meringuée',
-    description: 'Burnt Italian meringue, lemon curd, shortcrust sablé',
+    image: '/images/fraise.jpg',
+    name: 'Strawberry Tart',
+    description: 'Seasonal Queensland strawberries, pastry cream, almond frangipane, sablé breton',
   },
   {
     id: 3,
-    image: '/images/p3.jpg',
-    name: 'Croissant au Beurre',
-    description: 'Seventy-two-hour laminated dough, AOP cultured butter',
+    image: '/images/crepe.jpg',
+    name: 'Crêpe Dentelle',
+    description: 'Delicate lace crêpe, salted caramel, Breton butter, folded to perfection',
   },
   {
     id: 4,
-    image: '/images/p4.jpg',
-    name: 'Paris-Brest Praliné',
-    description: 'Choux pastry ring, hazelnut mousseline, pralin feuilletine',
+    image: '/images/confitur.jpg',
+    name: 'House Jam',
+    description: 'Small-batch seasonal fruit conserves, slow-cooked, minimally sweetened',
   },
   {
     id: 5,
-    image: '/images/p5.jpg',
-    name: 'Éclair au Chocolat',
-    description: 'Dark Valrhona ganache, crisp choux, mirror glaze',
+    image: '/images/blanc.jpg',
+    name: 'Blanc',
+    description: 'Whipped chantilly, white chocolate glaze, vanilla bean, pure and precise',
   },
   {
     id: 6,
-    image: '/images/p6.jpg',
-    name: 'Tarte aux Fraises',
-    description: 'Seasonal Queensland strawberries, pastry cream, almond frangipane',
+    image: '/images/matcha.jpg',
+    name: 'Matcha Délice',
+    description: 'Ceremonial grade matcha, light mousse, almond dacquoise, miso caramel',
   },
 ]
 
@@ -81,7 +81,7 @@ function ProductCard({ product, index }: { product: typeof products[0]; index: n
             letterSpacing: '0.02em',
           }}
         >
-          {product.name.toLowerCase()}
+          {product.name}
         </h3>
         <p
           className="font-jost leading-relaxed"

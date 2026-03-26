@@ -38,7 +38,7 @@ export default function Workshops() {
     >
       <div className="max-w-7xl mx-auto">
         <div className="grid md:grid-cols-2 gap-20 md:gap-26 items-center">
-          {/* Image — no corner decorations */}
+          {/* Image */}
           <motion.div
             initial={{ opacity: 0, x: -24 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
@@ -48,8 +48,8 @@ export default function Workshops() {
             style={{ aspectRatio: '4/5' }}
           >
             <Image
-              src="/images/workshop.jpg"
-              alt="French pastry workshop at Beurre Brisbane"
+              src="/images/art.jpg"
+              alt="French pastry art workshop at Beurre Brisbane"
               fill
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 50vw"

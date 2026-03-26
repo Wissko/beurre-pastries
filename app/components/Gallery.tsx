@@ -1,20 +1,22 @@
 'use client'
 
-import { useRef, useState, useEffect } from 'react'
+import { useRef, useState } from 'react'
 import Image from 'next/image'
 import { motion, useInView } from 'framer-motion'
 
 const galleryImages = [
-  { src: '/images/hero.jpg', alt: 'Beurre pastry showcase' },
-  { src: '/images/p1.jpg', alt: 'Mille-Feuille Vanille' },
-  { src: '/images/craft.jpg', alt: 'Artisan pastry making' },
-  { src: '/images/p2.jpg', alt: 'Tarte Citron Meringuée' },
-  { src: '/images/signature.jpg', alt: 'Signature creation' },
-  { src: '/images/p3.jpg', alt: 'Croissant au Beurre' },
-  { src: '/images/workshop.jpg', alt: 'Pastry workshop' },
-  { src: '/images/p4.jpg', alt: 'Paris-Brest Praliné' },
-  { src: '/images/p5.jpg', alt: 'Éclair au Chocolat' },
-  { src: '/images/p6.jpg', alt: 'Tarte aux Fraises' },
+  { src: '/images/hero.jpg', caption: 'Beurre' },
+  { src: '/images/beurre.jpg', caption: 'Our Space' },
+  { src: '/images/cafecroissant.jpg', caption: 'Morning Ritual' },
+  { src: '/images/fraise.jpg', caption: 'Strawberry Season' },
+  { src: '/images/crepe.jpg', caption: 'Crêpe Dentelle' },
+  { src: '/images/confitur.jpg', caption: 'House Jam' },
+  { src: '/images/blanc.jpg', caption: 'Blanc' },
+  { src: '/images/matcha.jpg', caption: 'Matcha' },
+  { src: '/images/art.jpg', caption: 'The Art' },
+  { src: '/images/craft.jpg', caption: 'The Craft' },
+  { src: '/images/late.jpg', caption: 'Late Morning' },
+  { src: '/images/life.jpg', caption: 'La Vie' },
 ]
 
 const ARC_RADIUS = 1400
@@ -145,7 +147,7 @@ export default function Gallery() {
                   >
                     <Image
                       src={img.src}
-                      alt={img.alt}
+                      alt={img.caption}
                       fill
                       className="object-cover"
                       sizes="260px"
@@ -159,6 +161,24 @@ export default function Gallery() {
                       />
                     )}
                   </div>
+                  {/* Caption for active item */}
+                  {i === active && (
+                    <motion.p
+                      initial={{ opacity: 0, y: 4 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4 }}
+                      className="font-jost text-center mt-3"
+                      style={{
+                        fontSize: '10px',
+                        letterSpacing: '0.22em',
+                        color: 'var(--color-muted)',
+                        fontWeight: 300,
+                        textTransform: 'uppercase',
+                      }}
+                    >
+                      {img.caption}
+                    </motion.p>
+                  )}
                 </motion.div>
               )
             })}
