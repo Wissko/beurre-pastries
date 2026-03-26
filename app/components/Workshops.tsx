@@ -37,12 +37,16 @@ const workshops = [
 
 export default function Workshops() {
   const sectionRef = useRef(null)
-  const imgRef = useRef(null)
-  const textRef = useRef(null)
+  const mobileImgRef = useRef(null)
+  const mobileTextRef = useRef(null)
+  const desktopImgRef = useRef(null)
+  const desktopTextRef = useRef(null)
 
   const sectionInView = useInView(sectionRef, { once: true, amount: 0, margin: "0px 0px -5% 0px" })
-  const imgInView = useInView(imgRef, { once: true, amount: 0, margin: "0px 0px -5% 0px" })
-  const textInView = useInView(textRef, { once: true, amount: 0, margin: "0px 0px -5% 0px" })
+  const mobileImgInView = useInView(mobileImgRef, { once: true, amount: 0, margin: "0px 0px -5% 0px" })
+  const mobileTextInView = useInView(mobileTextRef, { once: true, amount: 0, margin: "0px 0px -5% 0px" })
+  const desktopImgInView = useInView(desktopImgRef, { once: true, amount: 0, margin: "0px 0px -5% 0px" })
+  const desktopTextInView = useInView(desktopTextRef, { once: true, amount: 0, margin: "0px 0px -5% 0px" })
 
   return (
     <section
@@ -77,14 +81,14 @@ export default function Workshops() {
       <div className="lg:hidden motion-safe-fallback" style={{ maxWidth: '100%' }}>
         {/* Image — wipe + noir et blanc doux */}
         <div
-          ref={imgRef}
+          ref={mobileImgRef}
           className="relative mobile-full-bleed"
           style={{ aspectRatio: '4/5', marginBottom: '48px', overflow: 'hidden' }}
         >
           <motion.div
             style={{ position: 'absolute', inset: 0 }}
             initial={{ clipPath: 'inset(0 100% 0 0)' }}
-            animate={imgInView ? { clipPath: 'inset(0 0% 0 0)' } : {}}
+            animate={mobileImgInView ? { clipPath: 'inset(0 0% 0 0)' } : {}}
             transition={{ duration: 1.4, delay: 0, ease: wipeEase }}
           >
             <Image
@@ -98,12 +102,12 @@ export default function Workshops() {
           </motion.div>
         </div>
 
-        <div ref={textRef} style={{ paddingLeft: '4px', paddingRight: '4px' }}>
+        <div ref={mobileTextRef} style={{ paddingLeft: '4px', paddingRight: '4px' }}>
           {/* Chapter overline — 0ms */}
           <motion.span
             className="chapter-overline"
             initial={{ opacity: 0 }}
-            animate={textInView ? { opacity: 0.85 } : {}}
+            animate={mobileTextInView ? { opacity: 0.85 } : {}}
             transition={{ duration: 1.0, delay: 0, ease: textEase }}
           >
             Chapter 04 · The Hands
@@ -113,7 +117,7 @@ export default function Workshops() {
           <motion.p
             className="font-jost uppercase mb-6"
             initial={{ opacity: 0, y: 16 }}
-            animate={textInView ? { opacity: 1, y: 0 } : {}}
+            animate={mobileTextInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1.0, delay: 0.3, ease: textEase }}
             style={{ fontSize: '9px', letterSpacing: '0.35em', color: 'rgba(194,150,100,0.6)', fontWeight: 300 }}
           >
@@ -124,7 +128,7 @@ export default function Workshops() {
           <motion.h2
             className="font-cormorant italic leading-tight mb-8"
             initial={{ opacity: 0, y: 16 }}
-            animate={textInView ? { opacity: 1, y: 0 } : {}}
+            animate={mobileTextInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1.2, delay: 0.3, ease: textEase }}
             style={{ fontSize: 'clamp(34px, 9vw, 52px)', color: '#f5f0e8', fontWeight: 300, letterSpacing: '0.04em' }}
           >
@@ -136,7 +140,7 @@ export default function Workshops() {
           <motion.p
             className="font-jost leading-relaxed mb-14"
             initial={{ opacity: 0, y: 16 }}
-            animate={textInView ? { opacity: 1, y: 0 } : {}}
+            animate={mobileTextInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1.2, delay: 0.7, ease: textEase }}
             style={{ fontSize: '14px', color: 'rgba(245,240,232,0.6)', fontWeight: 300, lineHeight: 1.8 }}
           >
@@ -145,7 +149,7 @@ export default function Workshops() {
           </motion.p>
 
           {/* Workshop list — item par item */}
-          <WorkshopList isInView={textInView} />
+          <WorkshopList isInView={mobileTextInView} />
           <WorkshopCTA />
         </div>
       </div>
@@ -156,12 +160,12 @@ export default function Workshops() {
         style={{ maxWidth: '1400px', margin: '0 auto' }}
       >
         {/* Text — 60% */}
-        <div ref={textRef} className="flex-1" style={{ flexBasis: '60%' }}>
+        <div ref={desktopTextRef} className="flex-1" style={{ flexBasis: '60%' }}>
           {/* Chapter overline — 0ms */}
           <motion.span
             className="chapter-overline"
             initial={{ opacity: 0 }}
-            animate={textInView ? { opacity: 0.85 } : {}}
+            animate={desktopTextInView ? { opacity: 0.85 } : {}}
             transition={{ duration: 1.0, delay: 0, ease: textEase }}
           >
             Chapter 04 · The Hands
@@ -171,7 +175,7 @@ export default function Workshops() {
           <motion.p
             className="font-jost uppercase mb-6"
             initial={{ opacity: 0, y: 16 }}
-            animate={textInView ? { opacity: 1, y: 0 } : {}}
+            animate={desktopTextInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1.0, delay: 0.3, ease: textEase }}
             style={{ fontSize: '9px', letterSpacing: '0.35em', color: 'rgba(194,150,100,0.6)', fontWeight: 300 }}
           >
@@ -182,7 +186,7 @@ export default function Workshops() {
           <motion.h2
             className="font-cormorant italic leading-tight mb-8"
             initial={{ opacity: 0, y: 16 }}
-            animate={textInView ? { opacity: 1, y: 0 } : {}}
+            animate={desktopTextInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1.2, delay: 0.3, ease: textEase }}
             style={{ fontSize: 'clamp(3rem, 4vw, 5rem)', color: '#f5f0e8', fontWeight: 300, letterSpacing: '0.04em' }}
           >
@@ -194,7 +198,7 @@ export default function Workshops() {
           <motion.p
             className="font-jost leading-relaxed mb-16"
             initial={{ opacity: 0, y: 16 }}
-            animate={textInView ? { opacity: 1, y: 0 } : {}}
+            animate={desktopTextInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1.2, delay: 0.7, ease: textEase }}
             style={{ fontSize: '15px', color: 'rgba(245,240,232,0.6)', maxWidth: '500px', fontWeight: 300, lineHeight: 1.8 }}
           >
@@ -203,20 +207,20 @@ export default function Workshops() {
           </motion.p>
 
           {/* Workshop list — item par item */}
-          <WorkshopList isInView={textInView} desktop />
+          <WorkshopList isInView={desktopTextInView} desktop />
           <WorkshopCTA />
         </div>
 
         {/* Image — 40%, sticky, noir et blanc doux */}
         <div
-          ref={imgRef}
+          ref={desktopImgRef}
           className="workshops-sticky-img"
           style={{ flexBasis: '40%', aspectRatio: '4/5', position: 'relative', overflow: 'hidden' }}
         >
           <motion.div
             style={{ position: 'absolute', inset: 0 }}
             initial={{ clipPath: 'inset(0 100% 0 0)' }}
-            animate={imgInView ? { clipPath: 'inset(0 0% 0 0)' } : {}}
+            animate={desktopImgInView ? { clipPath: 'inset(0 0% 0 0)' } : {}}
             transition={{ duration: 1.4, delay: 0, ease: wipeEase }}
           >
             <Image

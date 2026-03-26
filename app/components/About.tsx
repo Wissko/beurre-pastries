@@ -16,14 +16,16 @@ const PARTICLES = [
 
 export default function About() {
   const sectionRef = useRef(null)
-  const imgRef = useRef(null)
-  const textRef = useRef(null)
-  const text2Ref = useRef(null)
-  const text3Ref = useRef(null)
+  const mobileImgRef = useRef(null)
+  const mobileTextRef = useRef(null)
+  const desktopImgRef = useRef(null)
+  const desktopTextRef = useRef(null)
 
   const sectionInView = useInView(sectionRef, { once: true, amount: 0.05 })
-  const imgInView = useInView(imgRef, { once: true, amount: 0.1 })
-  const textInView = useInView(textRef, { once: true, amount: 0.1 })
+  const mobileImgInView = useInView(mobileImgRef, { once: true, amount: 0.1 })
+  const mobileTextInView = useInView(mobileTextRef, { once: true, amount: 0.1 })
+  const desktopImgInView = useInView(desktopImgRef, { once: true, amount: 0.1 })
+  const desktopTextInView = useInView(desktopTextRef, { once: true, amount: 0.1 })
 
   return (
     <section
@@ -43,14 +45,14 @@ export default function About() {
       <div className="lg:hidden" style={{ maxWidth: '100%' }}>
         {/* Image — wipe reveal horizontal */}
         <div
-          ref={imgRef}
+          ref={mobileImgRef}
           className="mobile-full-bleed"
           style={{ position: 'relative', aspectRatio: '3/4', marginBottom: '48px', overflow: 'hidden' }}
         >
           <motion.div
             style={{ position: 'absolute', inset: 0 }}
             initial={{ clipPath: 'inset(0 100% 0 0)' }}
-            animate={imgInView ? { clipPath: 'inset(0 0% 0 0)' } : {}}
+            animate={mobileImgInView ? { clipPath: 'inset(0 0% 0 0)' } : {}}
             transition={{ duration: 1.4, delay: 0, ease: wipeEase }}
           >
             <Image
@@ -64,12 +66,12 @@ export default function About() {
         </div>
 
         {/* Text block — séquencé */}
-        <div ref={textRef} style={{ paddingLeft: '4px', paddingRight: '4px' }}>
+        <div ref={mobileTextRef} style={{ paddingLeft: '4px', paddingRight: '4px' }}>
           {/* Chapter overline — +300ms */}
           <motion.span
             className="chapter-overline"
             initial={{ opacity: 0 }}
-            animate={textInView ? { opacity: 0.85 } : {}}
+            animate={mobileTextInView ? { opacity: 0.85 } : {}}
             transition={{ duration: 1.0, delay: 0.3, ease: textEase }}
           >
             Chapter 01 · The Beginning
@@ -79,7 +81,7 @@ export default function About() {
           <motion.p
             className="font-jost uppercase mb-6"
             initial={{ opacity: 0, y: 20 }}
-            animate={textInView ? { opacity: 1, y: 0 } : {}}
+            animate={mobileTextInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1.2, delay: 0.7, ease: textEase }}
             style={{ fontSize: '9px', letterSpacing: '0.35em', color: 'var(--color-muted)', fontWeight: 300 }}
           >
@@ -90,7 +92,7 @@ export default function About() {
           <motion.h2
             className="font-cormorant italic leading-tight mb-10"
             initial={{ opacity: 0, y: 20 }}
-            animate={textInView ? { opacity: 1, y: 0 } : {}}
+            animate={mobileTextInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1.2, delay: 0.7, ease: textEase }}
             style={{ fontSize: 'clamp(34px, 9vw, 54px)', color: 'var(--color-dark)', fontWeight: 300, letterSpacing: '0.04em' }}
           >
@@ -102,7 +104,7 @@ export default function About() {
           <motion.p
             className="font-jost leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
-            animate={textInView ? { opacity: 1, y: 0 } : {}}
+            animate={mobileTextInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1.2, delay: 0.7, ease: textEase }}
             style={{ fontSize: '14px', color: 'var(--color-muted)', fontWeight: 300, lineHeight: 1.8, marginBottom: '24px' }}
           >
@@ -115,7 +117,7 @@ export default function About() {
           <motion.p
             className="font-jost leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
-            animate={textInView ? { opacity: 1, y: 0 } : {}}
+            animate={mobileTextInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1.2, delay: 0.9, ease: textEase }}
             style={{ fontSize: '14px', color: 'var(--color-muted)', fontWeight: 300, lineHeight: 1.8, marginBottom: '24px' }}
           >
@@ -129,7 +131,7 @@ export default function About() {
           <motion.p
             className="font-jost leading-relaxed mb-12"
             initial={{ opacity: 0, y: 20 }}
-            animate={textInView ? { opacity: 1, y: 0 } : {}}
+            animate={mobileTextInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1.2, delay: 1.1, ease: textEase }}
             style={{ fontSize: '14px', color: 'var(--color-muted)', fontWeight: 300, lineHeight: 1.8 }}
           >
@@ -142,7 +144,7 @@ export default function About() {
           <motion.div
             style={{ position: 'absolute', inset: 0 }}
             initial={{ clipPath: 'inset(0 100% 0 0)' }}
-            animate={textInView ? { clipPath: 'inset(0 0% 0 0)' } : {}}
+            animate={mobileTextInView ? { clipPath: 'inset(0 0% 0 0)' } : {}}
             transition={{ duration: 1.4, delay: 0.4, ease: wipeEase }}
           >
             <Image src="/images/beurre.jpg" alt="Beurre Pastries — Park Road Milton" fill className="object-cover" sizes="100vw" />
@@ -157,9 +159,9 @@ export default function About() {
           <motion.div
             style={{ position: 'absolute', inset: 0 }}
             initial={{ clipPath: 'inset(0 100% 0 0)' }}
-            animate={imgInView ? { clipPath: 'inset(0 0% 0 0)' } : {}}
+            animate={desktopImgInView ? { clipPath: 'inset(0 0% 0 0)' } : {}}
             transition={{ duration: 1.4, delay: 0, ease: wipeEase }}
-            ref={imgRef}
+            ref={desktopImgRef}
           >
             <Image src="/images/art.jpg" alt="Pastry craft — Beurre Pastries Brisbane" fill className="object-cover" sizes="55vw" />
           </motion.div>
@@ -168,7 +170,7 @@ export default function About() {
             <motion.div
               style={{ position: 'absolute', inset: 0 }}
               initial={{ clipPath: 'inset(0 100% 0 0)' }}
-              animate={imgInView ? { clipPath: 'inset(0 0% 0 0)' } : {}}
+              animate={desktopImgInView ? { clipPath: 'inset(0 0% 0 0)' } : {}}
               transition={{ duration: 1.4, delay: 0.5, ease: wipeEase }}
             >
               <Image src="/images/beurre.jpg" alt="Beurre counter" fill className="object-cover" sizes="240px" />
@@ -177,13 +179,13 @@ export default function About() {
         </div>
 
         {/* Text — right 40%, séquencé */}
-        <div ref={textRef} className="flex-1 flex flex-col justify-center" style={{ flexBasis: '45%', maxWidth: '480px' }}>
+        <div ref={desktopTextRef} className="flex-1 flex flex-col justify-center" style={{ flexBasis: '45%', maxWidth: '480px' }}>
           {/* Image overlay — 0ms */}
           {/* Chapter overline — +300ms */}
           <motion.span
             className="chapter-overline"
             initial={{ opacity: 0 }}
-            animate={textInView ? { opacity: 0.85 } : {}}
+            animate={desktopTextInView ? { opacity: 0.85 } : {}}
             transition={{ duration: 1.0, delay: 0.3, ease: textEase }}
           >
             Chapter 01 · The Beginning
@@ -192,7 +194,7 @@ export default function About() {
           {/* Title — +700ms */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            animate={textInView ? { opacity: 1, y: 0 } : {}}
+            animate={desktopTextInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1.2, delay: 0.7, ease: textEase }}
           >
             <p className="font-jost uppercase mb-7" style={{ fontSize: '9px', letterSpacing: '0.35em', color: 'var(--color-muted)', fontWeight: 300 }}>
@@ -211,7 +213,7 @@ export default function About() {
           <motion.p
             className="font-jost leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
-            animate={textInView ? { opacity: 1, y: 0 } : {}}
+            animate={desktopTextInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1.2, delay: 0.7, ease: textEase }}
             style={{ fontSize: '15px', color: 'var(--color-muted)', fontWeight: 300, lineHeight: 1.8, marginBottom: '24px' }}
           >
@@ -224,7 +226,7 @@ export default function About() {
           <motion.p
             className="font-jost leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
-            animate={textInView ? { opacity: 1, y: 0 } : {}}
+            animate={desktopTextInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1.2, delay: 0.9, ease: textEase }}
             style={{ fontSize: '15px', color: 'var(--color-muted)', fontWeight: 300, lineHeight: 1.8, marginBottom: '24px' }}
           >
@@ -238,7 +240,7 @@ export default function About() {
           <motion.p
             className="font-jost leading-relaxed"
             initial={{ opacity: 0, y: 20 }}
-            animate={textInView ? { opacity: 1, y: 0 } : {}}
+            animate={desktopTextInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 1.2, delay: 1.1, ease: textEase }}
             style={{ fontSize: '15px', color: 'var(--color-muted)', fontWeight: 300, lineHeight: 1.8 }}
           >
