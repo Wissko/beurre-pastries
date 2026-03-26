@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-bg: #faf8f4;
+  --color-surface: #f2ede4;
+  --color-dark: #1a1410;
+  --color-gold: #b8975a;
+  --color-blush: #e8d5c4;
+  --color-accent: #8b6f47;
+  --color-text: #2d2318;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-jost), 'Jost', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ─── Typography ─── */
+.font-cormorant {
+  font-family: var(--font-cormorant), 'Cormorant Garamond', serif;
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-blush);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gold);
+}
+
+/* ─── Selection ─── */
+::selection {
+  background: var(--color-blush);
+  color: var(--color-dark);
+}
+
+/* ─── Utility ─── */
+.section-padding {
+  padding: 100px 40px;
+}
+
+@media (max-width: 768px) {
+  .section-padding {
+    padding: 70px 20px;
+  }
+}
+
+/* ─── Carousel arc ─── */
+.arc-carousel-container {
+  perspective: 1200px;
+}
+
+/* ─── Image hover scale ─── */
+.img-hover img {
+  transition: transform 0.6s ease;
+}
+.img-hover:hover img {
+  transform: scale(1.02);
+}
