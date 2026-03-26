@@ -6,26 +6,26 @@ export default function Footer() {
       className="py-20 px-6"
       style={{ background: 'var(--color-dark)', color: 'var(--color-bg)' }}
     >
-      <div className="max-w-7xl mx-auto">
+      <div className="mx-auto" style={{ maxWidth: '1400px' }}>
         <div className="flex flex-col md:flex-row items-center justify-between gap-8">
           {/* Logo */}
           <div className="text-center md:text-left">
             <p
               className="font-cormorant italic"
-              style={{ fontSize: '36px', fontWeight: 300, letterSpacing: '0.08em', color: '#ffffff' }}
+              style={{ fontSize: '36px', fontWeight: 300, letterSpacing: '0.06em', color: 'var(--color-terracotta)' }}
             >
-              Beurre
+              beurre.
             </p>
             <p
               className="font-jost uppercase mt-2"
-              style={{ fontSize: '9px', letterSpacing: '0.28em', color: 'rgba(255,255,255,0.35)', fontWeight: 300 }}
+              style={{ fontSize: '8px', letterSpacing: '0.42em', color: 'rgba(240,237,232,0.35)', fontWeight: 300 }}
             >
-              French Pastry · Brisbane
+              Pastries · Park Road · Milton
             </p>
           </div>
 
-          {/* Center divider line */}
-          <div className="hidden md:block flex-1 mx-12 h-px" style={{ background: 'rgba(255,255,255,0.06)' }} />
+          {/* Center divider */}
+          <div className="hidden md:block flex-1 mx-12 h-px" style={{ background: 'rgba(240,237,232,0.06)' }} />
 
           {/* Links */}
           <div className="flex flex-col items-center md:items-end gap-4">
@@ -34,9 +34,9 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               className="font-jost uppercase transition-colors duration-300 flex items-center gap-2"
-              style={{ fontSize: '9px', letterSpacing: '0.22em', fontWeight: 300, color: 'rgba(255,255,255,0.35)' }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.7)')}
-              onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(255,255,255,0.35)')}
+              style={{ fontSize: '8px', letterSpacing: '0.24em', fontWeight: 300, color: 'rgba(240,237,232,0.35)', cursor: 'pointer' }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = 'rgba(240,237,232,0.7)')}
+              onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(240,237,232,0.35)')}
             >
               <svg width="13" height="13" viewBox="0 0 18 18" fill="none">
                 <rect x="2" y="2" width="14" height="14" rx="4" stroke="currentColor" strokeWidth="1.2"/>
@@ -47,23 +47,23 @@ export default function Footer() {
             </a>
             <p
               className="font-jost"
-              style={{ fontSize: '10px', fontWeight: 300, color: 'rgba(255,255,255,0.15)' }}
+              style={{ fontSize: '9px', fontWeight: 300, color: 'rgba(240,237,232,0.15)' }}
             >
               © 2025 Beurre Pastries. All rights reserved.
             </p>
           </div>
         </div>
 
-        {/* Bottom quote */}
+        {/* Bottom */}
         <div
           className="mt-14 pt-8 text-center"
-          style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}
+          style={{ borderTop: '1px solid rgba(240,237,232,0.05)' }}
         >
           <p
             className="font-cormorant italic"
-            style={{ fontSize: '16px', fontWeight: 300, color: 'rgba(255,255,255,0.18)' }}
+            style={{ fontSize: '15px', fontWeight: 300, color: 'rgba(240,237,232,0.18)' }}
           >
-            Made with butter, made with love — Brisbane, Queensland
+            Will Leung · formerly LeBakerman, Christchurch · now on Park Road, Brisbane
           </p>
         </div>
       </div>

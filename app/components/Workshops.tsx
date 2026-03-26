@@ -1,36 +1,39 @@
 'use client'
 
 import Image from 'next/image'
-import { motion } from 'framer-motion'
-import { useInView } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
+
+const ease = [0.22, 1, 0.36, 1] as const
 
 const workshops = [
   {
     title: 'Croissant Masterclass',
     duration: '4 hours',
     description:
-      'Master the art of laminated dough. Learn hand-folding techniques and take home your own batch of golden croissants.',
+      'Start with flour, end with a dozen golden croissants to take home. Will walks you through the lamination, the turns, the resting. No shortcuts.',
   },
   {
-    title: 'French Tart Atelier',
+    title: 'Morning Bun Atelier',
     duration: '3 hours',
     description:
-      'From sablé dough to crème pâtissière — build a classic French tart from start to finish under expert guidance.',
+      'Roll your own cinnamon monkey cube or black sesame bun. Learn the dough, the shaping, the glazing. Small group, hands-on.',
   },
   {
-    title: 'Choux & Éclairs',
+    title: 'Pastry Foundations',
     duration: '3.5 hours',
     description:
-      'Conquer the delicate science of choux pastry. Pipe, bake, fill and glaze your own éclairs and Paris-Brest.',
+      'Sablé, crème pâtissière, frangipane — the building blocks of everything at Beurre. A session for people who want to understand the why, not just the how.',
   },
 ]
 
 export default function Workshops() {
   const mobileRef = useRef(null)
   const desktopRef = useRef(null)
+  const imgRef = useRef(null)
   const isInViewMobile = useInView(mobileRef, { once: true, margin: '-80px' })
   const isInViewDesktop = useInView(desktopRef, { once: true, margin: '-80px' })
+  const imgInView = useInView(imgRef, { once: true, margin: '-80px' })
 
   return (
     <section
@@ -38,52 +41,56 @@ export default function Workshops() {
       className="section-padding relative"
       style={{ background: 'var(--color-surface)' }}
     >
-      {/* Section number */}
       <span className="section-number hidden lg:block" style={{ top: '4rem', left: '6rem' }}>04</span>
 
       {/* ── Mobile layout ── */}
       <div className="lg:hidden" style={{ maxWidth: '100%' }}>
-        {/* Image pleine largeur */}
-        <motion.div
-          ref={mobileRef}
+        {/* Image */}
+        <div
+          ref={imgRef}
           className="relative mobile-full-bleed"
-          style={{ aspectRatio: '4/5', marginBottom: '48px' }}
-          initial={{ opacity: 0, y: 24 }}
-          animate={isInViewMobile ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.9, ease: 'easeOut' }}
+          style={{ aspectRatio: '4/5', marginBottom: '48px', overflow: 'hidden' }}
         >
-          <Image
-            src="/images/life.jpg"
-            alt="French pastry workshop at Beurre Brisbane"
-            fill
-            className="object-cover"
-            sizes="100vw"
-          />
-        </motion.div>
+          <motion.div
+            style={{ position: 'absolute', inset: 0 }}
+            initial={{ clipPath: 'inset(100% 0 0 0)' }}
+            animate={imgInView ? { clipPath: 'inset(0% 0 0 0)' } : {}}
+            transition={{ duration: 1.1, ease }}
+          >
+            <Image
+              src="/images/life.jpg"
+              alt="Pastry workshop at Beurre Brisbane"
+              fill
+              className="object-cover"
+              sizes="100vw"
+            />
+          </motion.div>
+        </div>
 
         <motion.div
+          ref={mobileRef}
           initial={{ opacity: 0, y: 24 }}
           animate={isInViewMobile ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
+          transition={{ duration: 0.8, delay: 0.1, ease }}
           style={{ paddingLeft: '4px', paddingRight: '4px' }}
         >
-          <p className="font-jost uppercase mb-6" style={{ fontSize: '10px', letterSpacing: '0.32em', color: 'var(--color-muted)', fontWeight: 300 }}>
+          <p className="font-jost uppercase mb-6" style={{ fontSize: '9px', letterSpacing: '0.35em', color: 'var(--color-muted)', fontWeight: 300 }}>
             Workshops
           </p>
           <h2 className="font-cormorant italic leading-tight mb-8" style={{ fontSize: 'clamp(34px, 9vw, 52px)', color: 'var(--color-dark)', fontWeight: 300, letterSpacing: '0.04em' }}>
-            Learn the Art of
-            <br />French Pastry
+            Come learn
+            <br />in the kitchen.
           </h2>
-          <p className="font-jost leading-relaxed mb-14" style={{ fontSize: '14px', color: 'var(--color-muted)', fontWeight: 300, lineHeight: 1.7 }}>
-            Step into our kitchen and discover the joy of making pastry from scratch. Our
-            intimate workshops are designed for all skill levels.
+          <p className="font-jost leading-relaxed mb-14" style={{ fontSize: '14px', color: 'var(--color-muted)', fontWeight: 300, lineHeight: 1.8 }}>
+            Small groups only. Will teaches. You leave with your own batch and a better
+            understanding of what goes into the counter every morning.
           </p>
           <WorkshopList isInView={isInViewMobile} />
           <WorkshopCTA />
         </motion.div>
       </div>
 
-      {/* ── Desktop layout: 60/40 text-left, sticky image right ── */}
+      {/* ── Desktop layout ── */}
       <div
         className="hidden lg:flex gap-24 items-start"
         style={{ maxWidth: '1400px', margin: '0 auto' }}
@@ -95,10 +102,10 @@ export default function Workshops() {
           style={{ flexBasis: '60%' }}
           initial={{ opacity: 0, x: -30 }}
           animate={isInViewDesktop ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.9, ease: 'easeOut' }}
+          transition={{ duration: 0.9, ease }}
         >
           <div className="section-title-decorated" style={{ alignItems: 'flex-start' }}>
-            <p className="font-jost uppercase mb-6" style={{ fontSize: '10px', letterSpacing: '0.32em', color: 'var(--color-muted)', fontWeight: 300 }}>
+            <p className="font-jost uppercase mb-6" style={{ fontSize: '9px', letterSpacing: '0.35em', color: 'var(--color-muted)', fontWeight: 300 }}>
               Workshops
             </p>
           </div>
@@ -106,42 +113,48 @@ export default function Workshops() {
             className="font-cormorant italic leading-tight mb-8"
             style={{ fontSize: 'clamp(3rem, 4vw, 5rem)', color: 'var(--color-dark)', fontWeight: 300, letterSpacing: '0.04em' }}
           >
-            Learn the Art of
-            <br />French Pastry
+            Come learn
+            <br />in the kitchen.
           </h2>
           <p
             className="font-jost leading-relaxed mb-16"
-            style={{ fontSize: '15px', color: 'var(--color-muted)', maxWidth: '500px', fontWeight: 300 }}
+            style={{ fontSize: '15px', color: 'var(--color-muted)', maxWidth: '500px', fontWeight: 300, lineHeight: 1.8 }}
           >
-            Step into our kitchen and discover the joy of making pastry from scratch. Our
-            intimate workshops are designed for all skill levels.
+            Small groups only. Will teaches. You leave with your own batch and a better
+            understanding of what goes into the counter every morning.
           </p>
           <WorkshopList isInView={isInViewDesktop} desktop />
           <WorkshopCTA />
         </motion.div>
 
         {/* Image — 40%, sticky */}
-        <motion.div
+        <div
+          ref={imgRef}
           className="workshops-sticky-img"
-          style={{ flexBasis: '40%', aspectRatio: '4/5', position: 'relative' }}
-          initial={{ opacity: 0, x: 30 }}
-          animate={isInViewDesktop ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 1, delay: 0.2, ease: 'easeOut' }}
+          style={{ flexBasis: '40%', aspectRatio: '4/5', position: 'relative', overflow: 'hidden' }}
         >
-          <Image
-            src="/images/life.jpg"
-            alt="French pastry art workshop at Beurre Brisbane"
-            fill
-            className="object-cover"
-            sizes="40vw"
-          />
-        </motion.div>
+          <motion.div
+            style={{ position: 'absolute', inset: 0 }}
+            initial={{ clipPath: 'inset(100% 0 0 0)' }}
+            animate={imgInView ? { clipPath: 'inset(0% 0 0 0)' } : {}}
+            transition={{ duration: 1.1, ease }}
+          >
+            <Image
+              src="/images/life.jpg"
+              alt="Will Leung teaching a pastry workshop at Beurre Brisbane"
+              fill
+              className="object-cover"
+              sizes="40vw"
+            />
+          </motion.div>
+        </div>
       </div>
     </section>
   )
 }
 
 function WorkshopList({ isInView, desktop }: { isInView: boolean; desktop?: boolean }) {
+  const ease = [0.22, 1, 0.36, 1] as const
   return (
     <div className="space-y-8 mb-12">
       {workshops.map((w, i) => (
@@ -149,7 +162,7 @@ function WorkshopList({ isInView, desktop }: { isInView: boolean; desktop?: bool
           key={w.title}
           initial={{ opacity: 0, x: 16 }}
           animate={isInView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.3 + i * 0.1, ease: 'easeOut' }}
+          transition={{ duration: 0.6, delay: 0.3 + i * 0.1, ease }}
           className="flex gap-5 items-start"
         >
           <div className="flex-shrink-0 w-px self-stretch mt-1" style={{ background: 'var(--color-border)' }} />
@@ -161,11 +174,11 @@ function WorkshopList({ isInView, desktop }: { isInView: boolean; desktop?: bool
               >
                 {w.title}
               </h3>
-              <span className="font-jost" style={{ fontSize: '10px', letterSpacing: '0.12em', color: 'var(--color-muted)', fontWeight: 300 }}>
+              <span className="font-jost" style={{ fontSize: '9px', letterSpacing: '0.14em', color: 'var(--color-muted)', fontWeight: 300 }}>
                 {w.duration}
               </span>
             </div>
-            <p className="font-jost leading-relaxed" style={{ fontSize: desktop ? '13px' : '13px', color: 'var(--color-muted)', fontWeight: 300 }}>
+            <p className="font-jost leading-relaxed" style={{ fontSize: '13px', color: 'var(--color-muted)', fontWeight: 300, lineHeight: 1.7 }}>
               {w.description}
             </p>
           </div>
@@ -181,22 +194,13 @@ function WorkshopCTA() {
       href="https://instagram.com/beurrepastriesbne"
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-flex items-center gap-3 font-jost uppercase transition-all duration-300"
+      className="btn-underline inline-flex items-center gap-3 font-jost uppercase"
       style={{
-        fontSize: '10px',
-        letterSpacing: '0.18em',
+        fontSize: '9px',
+        letterSpacing: '0.20em',
         fontWeight: 300,
         color: 'var(--color-dark)',
-        borderBottom: '1px solid var(--color-border)',
-        paddingBottom: '4px',
-      }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.borderBottomColor = 'var(--color-gold)'
-        e.currentTarget.style.color = 'var(--color-accent)'
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.borderBottomColor = 'var(--color-border)'
-        e.currentTarget.style.color = 'var(--color-dark)'
+        paddingBottom: '3px',
       }}
     >
       Book via Instagram

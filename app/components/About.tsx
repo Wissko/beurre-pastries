@@ -1,51 +1,63 @@
 'use client'
 
 import Image from 'next/image'
-import { motion } from 'framer-motion'
-import { useInView } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
+
+const ease = [0.22, 1, 0.36, 1] as const
 
 export default function About() {
   const mobileRef = useRef(null)
   const desktopRef = useRef(null)
+  const imgRef = useRef(null)
   const isInViewMobile = useInView(mobileRef, { once: true, margin: '-80px' })
   const isInViewDesktop = useInView(desktopRef, { once: true, margin: '-80px' })
+  const imgInView = useInView(imgRef, { once: true, margin: '-80px' })
 
   return (
     <section id="about" className="section-padding relative" style={{ background: 'var(--color-surface)' }}>
-      {/* Section number */}
       <span className="section-number hidden lg:block" style={{ top: '4rem', left: '6rem' }}>01</span>
 
       {/* ── Mobile layout ── */}
       <div className="lg:hidden" style={{ maxWidth: '100%' }}>
-        {/* Image pleine largeur en premier */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={isInViewMobile ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 1, ease: 'easeOut' }}
+        {/* Image pleine largeur */}
+        <div
+          ref={imgRef}
           className="mobile-full-bleed"
-          style={{ position: 'relative', aspectRatio: '3/4', marginBottom: '48px' }}
+          style={{
+            position: 'relative',
+            aspectRatio: '3/4',
+            marginBottom: '48px',
+            overflow: 'hidden',
+          }}
         >
-          <Image
-            src="/images/art.jpg"
-            alt="Artisan pastry making at Beurre"
-            fill
-            className="object-cover"
-            sizes="100vw"
-          />
-        </motion.div>
+          <motion.div
+            style={{ position: 'absolute', inset: 0 }}
+            initial={{ clipPath: 'inset(100% 0 0 0)' }}
+            animate={imgInView ? { clipPath: 'inset(0% 0 0 0)' } : {}}
+            transition={{ duration: 1.1, ease }}
+          >
+            <Image
+              src="/images/art.jpg"
+              alt="Will Leung crafting pastry at Beurre Pastries, Milton Brisbane"
+              fill
+              className="object-cover"
+              sizes="100vw"
+            />
+          </motion.div>
+        </div>
 
         {/* Texte */}
         <motion.div
           ref={mobileRef}
           initial={{ opacity: 0, y: 24 }}
           animate={isInViewMobile ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.9, delay: 0.15, ease: 'easeOut' }}
+          transition={{ duration: 0.9, delay: 0.1, ease }}
           style={{ paddingLeft: '4px', paddingRight: '4px' }}
         >
           <p
             className="font-jost uppercase mb-6"
-            style={{ fontSize: '10px', letterSpacing: '0.32em', color: 'var(--color-muted)', fontWeight: 300 }}
+            style={{ fontSize: '9px', letterSpacing: '0.35em', color: 'var(--color-muted)', fontWeight: 300 }}
           >
             Our Story
           </p>
@@ -53,94 +65,106 @@ export default function About() {
             className="font-cormorant italic leading-tight mb-10"
             style={{ fontSize: 'clamp(34px, 9vw, 54px)', color: 'var(--color-dark)', fontWeight: 300, letterSpacing: '0.04em' }}
           >
-            Crafted with butter,
+            From Christchurch
             <br />
-            made with love.
+            to Park Road.
           </h2>
           <div
             className="font-jost leading-relaxed space-y-6 mb-12"
-            style={{ fontSize: '14px', color: 'var(--color-accent)', fontWeight: 300, letterSpacing: '0.01em' }}
+            style={{ fontSize: '14px', color: 'var(--color-muted)', fontWeight: 300, lineHeight: 1.8 }}
           >
             <p>
-              Born from a deep reverence for the French pastry tradition, Beurre brings the
-              artistry of a Parisian pâtisserie to the heart of Brisbane. Each piece is shaped
-              by hand, layered with intention, and finished with care.
+              Will Leung baked his first croissants under the name LeBakerman in Christchurch.
+              He moved to Brisbane with a simple idea: a small counter, honest pastry, and
+              coffee worth waking up for.
             </p>
             <p>
-              We source the finest ingredients — single-origin chocolates, seasonal fruits,
-              cultured butters — because great pastry begins long before it reaches your hands.
+              Beurre Pastries sits on Park Road in Milton, across from La Dolce Vita.
+              Most mornings it's Bear Bones Coffee and something laminated. Some days there's
+              a black sesame morning bun with yuzu glaze, or a Pain Suisse loaded with
+              peanut butter, Belgian chocolate and morello cherries.
             </p>
             <p>
-              This is not fast food. This is slow, deliberate, beautiful work.
+              Nothing here is mass-produced. The specials rotate. The regulars know.
             </p>
           </div>
         </motion.div>
 
         {/* Seconde image */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={isInViewMobile ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 1, delay: 0.3, ease: 'easeOut' }}
+        <div
           className="mobile-full-bleed"
-          style={{ position: 'relative', aspectRatio: '3/2', marginTop: '32px' }}
+          style={{ position: 'relative', aspectRatio: '3/2', marginTop: '32px', overflow: 'hidden' }}
         >
-          <Image
-            src="/images/beurre.jpg"
-            alt="Beurre — our café and patisserie space"
-            fill
-            className="object-cover img-hover"
-            sizes="100vw"
-          />
-        </motion.div>
+          <motion.div
+            style={{ position: 'absolute', inset: 0 }}
+            initial={{ clipPath: 'inset(100% 0 0 0)' }}
+            animate={isInViewMobile ? { clipPath: 'inset(0% 0 0 0)' } : {}}
+            transition={{ duration: 1, delay: 0.2, ease }}
+          >
+            <Image
+              src="/images/beurre.jpg"
+              alt="Beurre Pastries — Park Road Milton"
+              fill
+              className="object-cover"
+              sizes="100vw"
+            />
+          </motion.div>
+        </div>
       </div>
 
-      {/* ── Desktop layout: 50/50 — image left, text right ── */}
+      {/* ── Desktop layout ── */}
       <div className="hidden lg:flex w-full" style={{ maxWidth: '1400px', margin: '0 auto', gap: '6rem', alignItems: 'stretch' }}>
-        {/* Image — full height left column */}
-        <motion.div
+        {/* Image — left column */}
+        <div
           className="flex-1"
-          initial={{ opacity: 0, x: -40 }}
-          animate={isInViewDesktop ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 1.1, ease: 'easeOut' }}
-          style={{ position: 'relative', height: '80vh', flexBasis: '50%' }}
+          style={{ position: 'relative', height: '80vh', flexBasis: '50%', overflow: 'hidden' }}
         >
-          <Image
-            src="/images/art.jpg"
-            alt="Artisan pastry at Beurre Brisbane"
-            fill
-            className="object-cover"
-            sizes="50vw"
-          />
-          <div
-            className="absolute bottom-0 right-0 w-1/2"
-            style={{ height: '40%', marginRight: '-3rem', marginBottom: '-3rem', position: 'absolute' }}
+          <motion.div
+            style={{ position: 'absolute', inset: 0 }}
+            initial={{ clipPath: 'inset(100% 0 0 0)' }}
+            animate={isInViewDesktop ? { clipPath: 'inset(0% 0 0 0)' } : {}}
+            transition={{ duration: 1.2, ease }}
           >
-            <div style={{ position: 'relative', width: '260px', height: '340px', bottom: '-60px', left: 'calc(100% - 220px)' }}>
+            <Image
+              src="/images/art.jpg"
+              alt="Pastry craft — Beurre Pastries Brisbane"
+              fill
+              className="object-cover"
+              sizes="50vw"
+            />
+          </motion.div>
+          {/* Floating second image */}
+          <div style={{ position: 'absolute', bottom: '-60px', right: '-40px', width: '240px', height: '320px', overflow: 'hidden', boxShadow: '0 20px 60px rgba(26,18,8,0.10)' }}>
+            <motion.div
+              style={{ position: 'absolute', inset: 0 }}
+              initial={{ clipPath: 'inset(100% 0 0 0)' }}
+              animate={isInViewDesktop ? { clipPath: 'inset(0% 0 0 0)' } : {}}
+              transition={{ duration: 1, delay: 0.3, ease }}
+            >
               <Image
                 src="/images/beurre.jpg"
-                alt="Beurre pastries"
+                alt="Beurre counter"
                 fill
                 className="object-cover"
-                sizes="260px"
-                style={{ boxShadow: '0 20px 60px rgba(0,0,0,0.12)' }}
+                sizes="240px"
               />
-            </div>
+            </motion.div>
           </div>
-        </motion.div>
+        </div>
 
-        {/* Text — right column, vertically centered */}
+        {/* Text — right column */}
         <motion.div
           ref={desktopRef}
           className="flex-1 flex flex-col justify-center"
           style={{ flexBasis: '50%', maxWidth: '480px' }}
           initial={{ opacity: 0, x: 40 }}
           animate={isInViewDesktop ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 1, delay: 0.2, ease: 'easeOut' }}
+          transition={{ duration: 1, delay: 0.2, ease }}
         >
           <div className="section-title-decorated">
             <p
               className="font-jost uppercase mb-7"
-              style={{ fontSize: '10px', letterSpacing: '0.32em', color: 'var(--color-muted)', fontWeight: 300 }}
+              style={{ fontSize: '9px', letterSpacing: '0.35em', color: 'var(--color-muted)', fontWeight: 300 }}
             >
               Our Story
             </p>
@@ -149,25 +173,27 @@ export default function About() {
             className="font-cormorant italic leading-tight mb-10"
             style={{ fontSize: 'clamp(2.5rem, 3.5vw, 4rem)', color: 'var(--color-dark)', fontWeight: 300, letterSpacing: '0.04em' }}
           >
-            Crafted with butter,
+            From Christchurch
             <br />
-            made with love.
+            to Park Road.
           </h2>
           <div
             className="font-jost leading-relaxed space-y-6"
-            style={{ fontSize: '15px', color: 'var(--color-accent)', fontWeight: 300, letterSpacing: '0.01em' }}
+            style={{ fontSize: '15px', color: 'var(--color-muted)', fontWeight: 300, lineHeight: 1.8 }}
           >
             <p>
-              Born from a deep reverence for the French pastry tradition, Beurre brings the
-              artistry of a Parisian pâtisserie to the heart of Brisbane. Each piece is shaped
-              by hand, layered with intention, and finished with care.
+              Will Leung baked his first croissants under the name LeBakerman in Christchurch.
+              He moved to Brisbane with a simple idea: a small counter, honest pastry, and
+              coffee worth waking up for.
             </p>
             <p>
-              We source the finest ingredients — single-origin chocolates, seasonal fruits,
-              cultured butters — because great pastry begins long before it reaches your hands.
+              Beurre Pastries sits on Park Road in Milton, across from La Dolce Vita.
+              Most mornings it's Bear Bones Coffee and something laminated. Some days there's
+              a black sesame morning bun with yuzu glaze, or a Pain Suisse loaded with
+              peanut butter, Belgian chocolate and morello cherries.
             </p>
             <p>
-              This is not fast food. This is slow, deliberate, beautiful work.
+              Nothing here is mass-produced. The specials rotate. The regulars know.
             </p>
           </div>
         </motion.div>

@@ -11,12 +11,10 @@ const Workshops = dynamic(() => import('./components/Workshops'), { ssr: false }
 const Gallery = dynamic(() => import('./components/Gallery'), { ssr: false })
 const Visit = dynamic(() => import('./components/Visit'), { ssr: false })
 const Footer = dynamic(() => import('./components/Footer'), { ssr: false })
-const CustomCursor = dynamic(() => import('./components/CustomCursor'), { ssr: false })
 
 export default function Home() {
   return (
     <main>
-      <CustomCursor />
       <Nav />
       <Hero />
       <About />

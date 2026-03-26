@@ -1,91 +1,108 @@
 'use client'
 
+import Image from 'next/image'
 import { motion } from 'framer-motion'
+
+const ease = [0.22, 1, 0.36, 1] as const
 
 export default function Hero() {
   return (
     <section
       className="relative w-full flex flex-col items-center justify-center overflow-hidden"
       id="hero"
-      style={{ background: '#1a1410', minHeight: '100svh' }}
+      style={{ background: '#f0ede8', minHeight: '100svh' }}
     >
+      {/* Subtle background image — very low opacity for warmth */}
+      <div className="absolute inset-0 pointer-events-none" style={{ opacity: 0.08 }}>
+        <Image
+          src="/images/hero.jpg"
+          alt=""
+          fill
+          className="object-cover object-center"
+          sizes="100vw"
+          priority
+          aria-hidden
+        />
+      </div>
+
       {/* ── Mobile layout ── */}
       <div
-        className="lg:hidden flex flex-col items-center justify-center w-full"
-        style={{ paddingTop: '100px', paddingBottom: '100px' }}
+        className="lg:hidden flex flex-col items-center justify-center w-full relative z-10"
+        style={{ paddingTop: '120px', paddingBottom: '100px', paddingLeft: '24px', paddingRight: '24px' }}
       >
         {/* Overline */}
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="font-jost uppercase mb-8"
-          style={{ fontSize: '10px', letterSpacing: '0.35em', color: 'rgba(255,255,255,0.55)', fontWeight: 300 }}
+        <p
+          className="font-jost uppercase anim-in stagger-0"
+          style={{ fontSize: '9px', letterSpacing: '0.38em', color: 'var(--color-muted)', fontWeight: 300, marginBottom: '28px' }}
         >
-          Est. Brisbane, Australia
-        </motion.p>
+          Park Road · Milton · Brisbane
+        </p>
 
-        {/* Gold ornament separator */}
+        {/* Thin ornament */}
         <motion.div
           initial={{ scaleX: 0, opacity: 0 }}
           animate={{ scaleX: 1, opacity: 1 }}
-          transition={{ duration: 0.7, delay: 0.3 }}
-          style={{ width: '36px', height: '1px', background: 'var(--color-gold)', marginBottom: '36px', transformOrigin: 'center' }}
+          transition={{ duration: 0.6, delay: 0.25, ease }}
+          style={{ width: '32px', height: '1px', background: 'var(--color-terracotta)', marginBottom: '32px', transformOrigin: 'center' }}
         />
 
         {/* Monumental title */}
-        <motion.h1
-          initial={{ opacity: 0, y: 28 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.1, delay: 0.4 }}
-          className="font-cormorant italic leading-none mb-8 text-center"
+        <h1
+          className="font-cormorant italic leading-none text-center anim-in stagger-2"
           style={{
-            fontSize: 'clamp(80px, 25vw, 140px)',
-            color: '#ffffff',
-            letterSpacing: '0.12em',
+            fontSize: 'clamp(80px, 26vw, 140px)',
+            color: 'var(--color-terracotta)',
+            letterSpacing: '0.06em',
             fontWeight: 300,
+            marginBottom: '16px',
           }}
         >
-          Beurre
-        </motion.h1>
+          beurre.
+        </h1>
 
-        {/* Tagline */}
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.65 }}
-          className="font-cormorant italic mb-20 text-center"
-          style={{ fontSize: 'clamp(17px, 4.5vw, 24px)', color: 'rgba(255,255,255,0.75)', letterSpacing: '0.10em', fontWeight: 300 }}
-        >
-          French Pastry · Brisbane
-        </motion.p>
-
-        {/* CTA */}
-        <motion.a
-          href="#collections"
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.0 }}
-          className="font-jost uppercase inline-block transition-all duration-300"
+        <p
+          className="font-jost uppercase text-center anim-in stagger-3"
           style={{
             fontSize: '10px',
-            letterSpacing: '0.25em',
-            color: 'rgba(255,255,255,0.85)',
-            borderBottom: '1px solid rgba(255,255,255,0.3)',
-            paddingBottom: '5px',
+            letterSpacing: '0.45em',
+            color: 'var(--color-muted)',
             fontWeight: 300,
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.borderBottomColor = 'var(--color-gold)'
-            e.currentTarget.style.color = '#ffffff'
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.borderBottomColor = 'rgba(255,255,255,0.3)'
-            e.currentTarget.style.color = 'rgba(255,255,255,0.85)'
+            marginBottom: '32px',
           }}
         >
-          Explore our Collection
-        </motion.a>
+          Pastries
+        </p>
+
+        {/* Tagline */}
+        <p
+          className="font-cormorant italic text-center anim-in stagger-3"
+          style={{
+            fontSize: 'clamp(16px, 4.5vw, 22px)',
+            color: 'var(--color-dark)',
+            letterSpacing: '0.06em',
+            fontWeight: 300,
+            opacity: 0.75,
+            marginBottom: '52px',
+            maxWidth: '280px',
+          }}
+        >
+          Morning pastry. Real craft. Bear Bones Coffee.
+        </p>
+
+        {/* CTA */}
+        <a
+          href="#collections"
+          className="btn-underline font-jost uppercase anim-in stagger-4"
+          style={{
+            fontSize: '9px',
+            letterSpacing: '0.28em',
+            color: 'var(--color-dark)',
+            paddingBottom: '4px',
+            fontWeight: 300,
+          }}
+        >
+          See our specialties
+        </a>
       </div>
 
       {/* ── Desktop layout ── */}
@@ -93,87 +110,89 @@ export default function Hero() {
         className="hidden lg:flex flex-col items-center justify-center w-full relative z-10"
         style={{ minHeight: '100svh', paddingTop: '80px', paddingBottom: '80px' }}
       >
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="font-jost uppercase mb-10"
-          style={{ fontSize: '10px', letterSpacing: '0.35em', color: 'rgba(255,255,255,0.6)', fontWeight: 300 }}
+        <p
+          className="font-jost uppercase anim-in stagger-0"
+          style={{ fontSize: '9px', letterSpacing: '0.38em', color: 'var(--color-muted)', fontWeight: 300, marginBottom: '36px' }}
         >
-          Est. Brisbane, Australia
-        </motion.p>
+          Park Road · Milton · Brisbane
+        </p>
 
-        <motion.h1
-          initial={{ opacity: 0, y: 32 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, delay: 0.3 }}
-          className="font-cormorant italic leading-none mb-8 text-center"
+        <motion.div
+          initial={{ scaleX: 0, opacity: 0 }}
+          animate={{ scaleX: 1, opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.2, ease }}
+          style={{ width: '40px', height: '1px', background: 'var(--color-terracotta)', marginBottom: '40px', transformOrigin: 'center' }}
+        />
+
+        <h1
+          className="font-cormorant italic leading-none text-center anim-in stagger-2"
           style={{
-            fontSize: 'clamp(8rem, 15vw, 18rem)',
-            color: '#ffffff',
-            letterSpacing: '0.15em',
+            fontSize: 'clamp(8rem, 16vw, 20rem)',
+            color: 'var(--color-terracotta)',
+            letterSpacing: '0.08em',
             fontWeight: 300,
+            marginBottom: '12px',
           }}
         >
-          Beurre
-        </motion.h1>
+          beurre.
+        </h1>
 
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="font-cormorant italic mb-16"
+        <p
+          className="font-jost uppercase text-center anim-in stagger-2"
+          style={{
+            fontSize: '11px',
+            letterSpacing: '0.55em',
+            color: 'var(--color-muted)',
+            fontWeight: 300,
+            marginBottom: '36px',
+          }}
+        >
+          Pastries
+        </p>
+
+        <p
+          className="font-cormorant italic anim-in stagger-3"
           style={{
             fontSize: 'clamp(16px, 1.4vw, 22px)',
-            color: 'rgba(255,255,255,0.85)',
-            letterSpacing: '0.12em',
+            color: 'var(--color-dark)',
+            letterSpacing: '0.08em',
             fontWeight: 300,
+            opacity: 0.7,
+            marginBottom: '52px',
           }}
         >
-          French Pastry · Brisbane
-        </motion.p>
+          Morning pastry. Real craft. Bear Bones Coffee.
+        </p>
 
-        <motion.a
+        <a
           href="#collections"
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.0 }}
-          className="font-jost uppercase inline-block transition-all duration-300"
+          className="btn-underline font-jost uppercase anim-in stagger-4"
           style={{
-            fontSize: '10px',
+            fontSize: '9px',
             letterSpacing: '0.28em',
-            color: 'rgba(255,255,255,0.9)',
-            borderBottom: '1px solid rgba(255,255,255,0.4)',
-            paddingBottom: '5px',
+            color: 'var(--color-dark)',
+            paddingBottom: '4px',
             fontWeight: 300,
           }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.borderBottomColor = 'var(--color-gold)'
-            e.currentTarget.style.color = '#ffffff'
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.borderBottomColor = 'rgba(255,255,255,0.4)'
-            e.currentTarget.style.color = 'rgba(255,255,255,0.9)'
-          }}
         >
-          Explore our Collection
-        </motion.a>
+          See our specialties
+        </a>
 
         {/* Scroll indicator */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.6 }}
+          transition={{ duration: 1, delay: 1.8 }}
           className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
         >
-          <span className="font-jost uppercase" style={{ fontSize: '9px', letterSpacing: '0.28em', color: 'rgba(255,255,255,0.4)' }}>
+          <span className="font-jost uppercase" style={{ fontSize: '8px', letterSpacing: '0.32em', color: 'var(--color-muted)' }}>
             Scroll
           </span>
           <motion.div
             animate={{ y: [0, 8, 0] }}
             transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
             className="w-px h-10"
-            style={{ background: 'rgba(255,255,255,0.25)' }}
+            style={{ background: 'var(--color-border)' }}
           />
         </motion.div>
       </div>
@@ -182,17 +201,14 @@ export default function Hero() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 1.4 }}
+        transition={{ duration: 1, delay: 1.6 }}
         className="lg:hidden absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
       >
-        <span className="font-jost uppercase" style={{ fontSize: '9px', letterSpacing: '0.28em', color: 'rgba(255,255,255,0.4)' }}>
-          Scroll
-        </span>
         <motion.div
           animate={{ y: [0, 6, 0] }}
           transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
           className="w-px h-8"
-          style={{ background: 'rgba(255,255,255,0.2)' }}
+          style={{ background: 'var(--color-border)' }}
         />
       </motion.div>
     </section>

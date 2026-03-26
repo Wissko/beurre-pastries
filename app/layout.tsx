@@ -18,12 +18,13 @@ const jost = Jost({
 })
 
 export const metadata: Metadata = {
-  title: 'Beurre Pastries — French Pastry · Brisbane',
-  description: 'Artisan French pastry crafted with butter, made with love. Discover our seasonal creations and workshops in Brisbane, Queensland.',
-  keywords: 'French pastry, Brisbane, artisan, croissant, patisserie, French bakery, workshops',
+  title: 'Beurre Pastries — Park Road, Milton, Brisbane',
+  description:
+    'Beurre Pastries by Will Leung. Croissants, pain au chocolat, black sesame morning buns, cinnamon monkey cube, Pain Suisse. Park Road, Milton, Brisbane. Bear Bones Coffee.',
+  keywords: 'Beurre Pastries, Brisbane, Milton, Park Road, Will Leung, croissant, pastry, Bear Bones Coffee, LeBakerman',
   openGraph: {
-    title: 'Beurre Pastries — French Pastry · Brisbane',
-    description: 'Artisan French pastry crafted with butter, made with love.',
+    title: 'Beurre Pastries — Park Road, Milton, Brisbane',
+    description: 'Croissants, morning buns, Pain Suisse. Real pastry. Bear Bones Coffee. Park Road, Milton.',
     type: 'website',
     locale: 'en_AU',
   },

@@ -4,22 +4,23 @@ import { useRef, useState, useEffect } from 'react'
 import Image from 'next/image'
 import { motion, useInView } from 'framer-motion'
 
-// craft.jpg removed — 10 images remaining
 const galleryImages = [
-  { src: '/images/beurre.jpg', caption: 'Our Space' },
-  { src: '/images/cafecroissant.jpg', caption: 'Morning Ritual' },
-  { src: '/images/fraise.jpg', caption: 'Strawberry Season' },
-  { src: '/images/crepe.jpg', caption: 'Crêpe Dentelle' },
-  { src: '/images/confitur.jpg', caption: 'House Jam' },
-  { src: '/images/blanc.jpg', caption: 'Blanc' },
-  { src: '/images/matcha.jpg', caption: 'Matcha' },
-  { src: '/images/art.jpg', caption: 'The Art' },
-  { src: '/images/late.jpg', caption: 'Late Morning' },
-  { src: '/images/late.jpg', caption: 'La Vie' },
+  { src: '/images/cafecroissant.jpg', caption: 'Morning ritual' },
+  { src: '/images/fraise.jpg', caption: 'Strawberry season' },
+  { src: '/images/poudre.jpg', caption: 'Dusted' },
+  { src: '/images/confitur.jpg', caption: 'House jam' },
+  { src: '/images/blanc.jpg', caption: 'Clean' },
+  { src: '/images/matcha.jpg', caption: 'Black sesame' },
+  { src: '/images/art.jpg', caption: 'Craft' },
+  { src: '/images/late.jpg', caption: 'Late morning' },
+  { src: '/images/beurre.jpg', caption: 'The counter' },
+  { src: '/images/life.jpg', caption: 'In the kitchen' },
 ]
 
 const ARC_RADIUS = 1400
-const SPREAD = 8 // degrees between items
+const SPREAD = 8
+
+const ease = [0.22, 1, 0.36, 1] as const
 
 export default function Gallery() {
   const ref = useRef(null)
@@ -53,7 +54,6 @@ export default function Gallery() {
     const opacity = 1 - Math.abs(diff) * 0.18
     const blur = Math.abs(diff) * 0.8
     const zIndex = total - Math.abs(diff)
-
     return { x, y: -y * 0.6, scale, opacity, blur, zIndex, diff }
   }
 
@@ -87,9 +87,8 @@ export default function Gallery() {
     <section
       id="gallery"
       className="section-padding overflow-hidden relative"
-      style={{ background: 'var(--color-surface)' }}
+      style={{ background: 'var(--color-bg)' }}
     >
-      {/* Section number */}
       <span className="section-number hidden lg:block" style={{ top: '4rem', left: '6rem' }}>05</span>
 
       <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
@@ -98,20 +97,20 @@ export default function Gallery() {
           ref={ref}
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.8, ease }}
           className="text-center section-title-decorated mb-16"
         >
           <p
             className="font-jost uppercase mb-5"
-            style={{ fontSize: '10px', letterSpacing: '0.32em', color: 'var(--color-muted)', fontWeight: 300 }}
+            style={{ fontSize: '9px', letterSpacing: '0.35em', color: 'var(--color-muted)', fontWeight: 300 }}
           >
             Gallery
           </p>
           <h2
-            className="font-cormorant"
-            style={{ fontSize: 'clamp(27px, 4vw, 5rem)', color: 'var(--color-dark)', fontWeight: 300, letterSpacing: '0.10em' }}
+            className="font-cormorant italic"
+            style={{ fontSize: 'clamp(27px, 4vw, 5rem)', color: 'var(--color-dark)', fontWeight: 300, letterSpacing: '0.08em' }}
           >
-            A Visual Journey
+            A few mornings.
           </h2>
         </motion.div>
 
@@ -121,7 +120,7 @@ export default function Gallery() {
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 0.8, delay: 0.3 }}
           className="relative select-none"
-          style={{ height: `${ITEM_HEIGHT + 80}px` }}
+          style={{ height: `${ITEM_HEIGHT + 80}px`, cursor: 'grab' }}
           onMouseDown={handleMouseDown}
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUp}
@@ -133,25 +132,26 @@ export default function Gallery() {
               const { x, y, scale, opacity, blur, zIndex } = getItemStyle(i)
               return (
                 <motion.div
-                  key={img.src}
+                  key={`${img.src}-${i}`}
                   animate={{ x, y, scale, opacity }}
                   transition={{ duration: 0.6, ease: [0.33, 1, 0.68, 1] }}
-                  className="absolute cursor-pointer"
+                  className="absolute"
                   style={{
                     width: ITEM_WIDTH,
                     height: ITEM_HEIGHT,
                     zIndex,
                     filter: blur > 0 ? `blur(${blur}px)` : 'none',
+                    cursor: i === active ? 'grab' : 'pointer',
                   }}
                   onClick={() => !isDragging && goTo(i)}
                 >
                   <div
                     className="w-full h-full overflow-hidden relative"
                     style={{
-                      boxShadow:
-                        i === active
-                          ? '0 24px 64px rgba(17,17,17,0.12)'
-                          : '0 4px 16px rgba(17,17,17,0.04)',
+                      borderRadius: '3px',
+                      boxShadow: i === active
+                        ? '0 24px 64px rgba(26,18,8,0.12)'
+                        : '0 4px 16px rgba(26,18,8,0.04)',
                     }}
                   >
                     <Image
@@ -163,7 +163,7 @@ export default function Gallery() {
                       draggable={false}
                     />
                     {i !== active && (
-                      <div className="absolute inset-0" style={{ background: 'rgba(255,255,255,0.25)' }} />
+                      <div className="absolute inset-0" style={{ background: 'rgba(240,237,232,0.3)' }} />
                     )}
                   </div>
                   {i === active && (
@@ -173,8 +173,8 @@ export default function Gallery() {
                       transition={{ duration: 0.4 }}
                       className="font-jost text-center mt-3"
                       style={{
-                        fontSize: '10px',
-                        letterSpacing: '0.22em',
+                        fontSize: '9px',
+                        letterSpacing: '0.24em',
                         color: 'var(--color-muted)',
                         fontWeight: 300,
                         textTransform: 'uppercase',
@@ -200,7 +200,8 @@ export default function Gallery() {
                 width: i === active ? '20px' : '5px',
                 height: '5px',
                 borderRadius: '3px',
-                background: i === active ? 'var(--color-dark)' : 'var(--color-border)',
+                background: i === active ? 'var(--color-terracotta)' : 'var(--color-border)',
+                cursor: 'pointer',
               }}
               aria-label={`Go to image ${i + 1}`}
             />
@@ -213,8 +214,8 @@ export default function Gallery() {
             onClick={() => goTo(active - 1)}
             disabled={active === 0}
             className="w-10 h-10 flex items-center justify-center border transition-all duration-300 disabled:opacity-30"
-            style={{ borderColor: 'var(--color-border)', color: 'var(--color-dark)' }}
-            onMouseEnter={(e) => { if (!e.currentTarget.disabled) e.currentTarget.style.borderColor = 'var(--color-accent)' }}
+            style={{ borderColor: 'var(--color-border)', color: 'var(--color-dark)', cursor: 'pointer' }}
+            onMouseEnter={(e) => { if (!e.currentTarget.disabled) e.currentTarget.style.borderColor = 'var(--color-terracotta)' }}
             onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--color-border)' }}
           >
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -225,8 +226,8 @@ export default function Gallery() {
             onClick={() => goTo(active + 1)}
             disabled={active === total - 1}
             className="w-10 h-10 flex items-center justify-center border transition-all duration-300 disabled:opacity-30"
-            style={{ borderColor: 'var(--color-border)', color: 'var(--color-dark)' }}
-            onMouseEnter={(e) => { if (!e.currentTarget.disabled) e.currentTarget.style.borderColor = 'var(--color-accent)' }}
+            style={{ borderColor: 'var(--color-border)', color: 'var(--color-dark)', cursor: 'pointer' }}
+            onMouseEnter={(e) => { if (!e.currentTarget.disabled) e.currentTarget.style.borderColor = 'var(--color-terracotta)' }}
             onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--color-border)' }}
           >
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">

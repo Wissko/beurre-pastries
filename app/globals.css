@@ -3,15 +3,17 @@
 @tailwind utilities;
 
 :root {
-  --color-bg: #faf8f4;
-  --color-surface: #fafafa;
-  --color-dark: #111111;
-  --color-gold: #c8a96e;
-  --color-blush: #f5f0eb;
-  --color-accent: #6b5b4e;
-  --color-text: #222222;
-  --color-muted: #888888;
-  --color-border: #e8e8e8;
+  --color-bg: #f0ede8;
+  --color-surface: #faf8f4;
+  --color-warm: #ede8e0;
+  --color-dark: #1a1208;
+  --color-terracotta: #c2601f;
+  --color-gold: #c2601f;
+  --color-blush: #fdf9f5;
+  --color-accent: #c2601f;
+  --color-text: #1a1208;
+  --color-muted: #8a7c6e;
+  --color-border: #ddd6cc;
 }
 
 * {
@@ -32,13 +34,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
-}
-
-/* ─── Desktop: hide default cursor ─── */
-@media (min-width: 1024px) {
-  html, body, * {
-    cursor: none !important;
-  }
+  cursor: auto;
 }
 
 /* ─── Typography ─── */
@@ -68,7 +64,7 @@ h1, h2, h3 {
 
 /* ─── Selection ─── */
 ::selection {
-  background: var(--color-blush);
+  background: rgba(194, 96, 31, 0.15);
   color: var(--color-dark);
 }
 
@@ -110,11 +106,13 @@ h1, h2, h3 {
 }
 
 /* ─── Image hover scale ─── */
-.img-hover img {
-  transition: transform 0.8s ease;
+.img-hover img,
+.img-hover-self {
+  transition: transform 0.5s ease;
 }
-.img-hover:hover img {
-  transform: scale(1.02);
+.img-hover:hover img,
+.img-hover-self:hover {
+  transform: scale(1.03);
 }
 
 /* ─── Section number decoration ─── */
@@ -128,7 +126,7 @@ h1, h2, h3 {
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--color-muted);
-  opacity: 0.5;
+  opacity: 0.4;
 }
 
 /* ─── Decorative line before section titles ─── */
@@ -141,13 +139,13 @@ h1, h2, h3 {
 .section-title-decorated::before {
   content: '';
   display: block;
-  width: 60px;
+  width: 40px;
   height: 1px;
   background: var(--color-border);
   margin-bottom: 2rem;
 }
 
-/* ─── Nav underline animation ─── */
+/* ─── Nav underline animation — slides from left ─── */
 .nav-link-desktop {
   position: relative;
 }
@@ -159,28 +157,78 @@ h1, h2, h3 {
   left: 0;
   width: 0;
   height: 1px;
-  background: var(--color-gold);
-  transition: width 0.4s ease;
+  background: var(--color-terracotta);
+  transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .nav-link-desktop:hover::after {
   width: 100%;
 }
 
-/* ─── Hero desktop background ─── */
-@media (min-width: 1024px) {
-  .hero-bg-fixed {
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-  }
+/* ─── Button micro-interactions ─── */
+.btn-underline {
+  position: relative;
+  display: inline-block;
+}
+
+.btn-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--color-terracotta);
+  transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.btn-underline:hover::after {
+  width: 100%;
+}
+
+.btn-underline:active {
+  transform: scale(0.97);
+  transition: transform 0.1s ease;
+}
+
+.btn-underline:focus-visible {
+  outline: 1px solid var(--color-terracotta);
+  outline-offset: 4px;
+}
+
+/* ─── Curtain lift — word by word ─── */
+.curtain-word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  padding-bottom: 0.05em;
+}
+
+.curtain-word-inner {
+  display: inline-block;
+  transform: translateY(110%);
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.curtain-word.revealed .curtain-word-inner {
+  transform: translateY(0);
+}
+
+/* ─── Clip-path image reveal ─── */
+.clip-reveal {
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.clip-reveal.revealed {
+  clip-path: inset(0% 0 0 0);
 }
 
 /* ─── Collections hover overlay ─── */
 .collection-card-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(17, 17, 17, 0.55);
+  background: rgba(26, 18, 8, 0.5);
   opacity: 0;
   transition: opacity 0.5s ease;
   display: flex;
@@ -194,10 +242,91 @@ h1, h2, h3 {
   opacity: 1;
 }
 
+/* ─── Form micro-interactions ─── */
+.form-field {
+  position: relative;
+}
+
+.form-input-line {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0%;
+  height: 1px;
+  background: var(--color-terracotta);
+  transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.form-field:focus-within .form-input-line {
+  width: 100%;
+}
+
+.form-label-float {
+  transition: transform 0.25s ease, font-size 0.25s ease, color 0.25s ease;
+}
+
+/* ─── Shake animation ─── */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+
+.shake {
+  animation: shake 0.3s ease;
+}
+
+/* ─── Spinner ─── */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--color-border);
+  border-top-color: var(--color-terracotta);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+/* ─── Checkmark ─── */
+@keyframes draw-check {
+  from { stroke-dashoffset: 24; }
+  to { stroke-dashoffset: 0; }
+}
+
+.check-path {
+  stroke-dasharray: 24;
+  stroke-dashoffset: 24;
+  animation: draw-check 0.4s ease forwards;
+}
+
 /* ─── Workshops sticky image ─── */
 @media (min-width: 1024px) {
   .workshops-sticky-img {
     position: sticky;
     top: 10rem;
   }
+}
+
+/* ─── Above fold stagger ─── */
+.stagger-0 { animation-delay: 0ms; }
+.stagger-1 { animation-delay: 120ms; }
+.stagger-2 { animation-delay: 240ms; }
+.stagger-3 { animation-delay: 360ms; }
+.stagger-4 { animation-delay: 480ms; }
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.anim-in {
+  opacity: 0;
+  animation: fadeSlideUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }

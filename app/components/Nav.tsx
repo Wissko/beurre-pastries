@@ -5,27 +5,22 @@ import { motion } from 'framer-motion'
 
 const links = [
   { label: 'Our Story', href: '#about' },
-  { label: 'Collections', href: '#collections' },
-  { label: 'Workshops', href: '#workshops' },
+  { label: 'Specialties', href: '#collections' },
+  { label: 'Gallery', href: '#gallery' },
   { label: 'Visit Us', href: '#visit' },
 ]
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
-  const [heroVisible, setHeroVisible] = useState(true)
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 60)
-      setHeroVisible(window.scrollY < window.innerHeight * 0.5)
     }
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
-
-  // On desktop, when hero is visible, show white logo/links for contrast against hero bg image
-  const isLight = heroVisible && !scrolled
 
   return (
     <motion.nav
@@ -34,31 +29,30 @@ export default function Nav() {
       transition={{ duration: 0.8, ease: 'easeOut' }}
       className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
       style={{
-        background: scrolled ? 'rgba(255,255,255,0.94)' : 'transparent',
-        backdropFilter: scrolled ? 'blur(12px)' : 'none',
+        background: scrolled ? 'rgba(240, 237, 232, 0.92)' : 'transparent',
+        backdropFilter: scrolled ? 'blur(14px)' : 'none',
         borderBottom: scrolled ? '1px solid var(--color-border)' : 'none',
       }}
     >
       <div
-        className="max-w-7xl mx-auto px-6 md:px-10 h-20 flex items-center justify-between"
+        className="mx-auto px-6 md:px-10 h-20 flex items-center justify-between"
         style={{ maxWidth: '1400px' }}
       >
         {/* Logo */}
         <a
           href="#"
-          className="font-cormorant italic transition-colors duration-500"
+          className="font-cormorant italic transition-colors duration-300"
           style={{
             fontSize: '28px',
             fontWeight: 300,
-            letterSpacing: '0.08em',
-            color: isLight ? '#ffffff' : 'var(--color-dark)',
-            textShadow: isLight ? '0 1px 8px rgba(0,0,0,0.5)' : 'none',
+            letterSpacing: '0.06em',
+            color: 'var(--color-terracotta)',
           }}
         >
-          Beurre
+          beurre.
         </a>
 
-        {/* Desktop links — with animated underline */}
+        {/* Desktop links */}
         <ul className="hidden md:flex items-center" style={{ gap: '3rem' }}>
           {links.map((link) => (
             <li key={link.href}>
@@ -66,17 +60,16 @@ export default function Nav() {
                 href={link.href}
                 className="nav-link-desktop font-jost uppercase transition-colors duration-300"
                 style={{
-                  fontSize: '10px',
-                  letterSpacing: '0.18em',
+                  fontSize: '9px',
+                  letterSpacing: '0.20em',
                   fontWeight: 300,
-                  color: isLight ? 'rgba(255,255,255,0.9)' : 'var(--color-muted)',
-                  textShadow: isLight ? '0 1px 8px rgba(0,0,0,0.5)' : 'none',
+                  color: 'var(--color-muted)',
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.color = isLight ? '#ffffff' : 'var(--color-dark)'
+                  e.currentTarget.style.color = 'var(--color-dark)'
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.color = isLight ? 'rgba(255,255,255,0.8)' : 'var(--color-muted)'
+                  e.currentTarget.style.color = 'var(--color-muted)'
                 }}
               >
                 {link.label}
@@ -90,12 +83,13 @@ export default function Nav() {
           className="md:hidden flex flex-col gap-1.5 p-2"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
+          style={{ cursor: 'pointer' }}
         >
           {[0, 1, 2].map((i) => (
             <span
               key={i}
               className="block w-6 h-px transition-all duration-300"
-              style={{ background: isLight ? '#ffffff' : 'var(--color-dark)' }}
+              style={{ background: 'var(--color-dark)' }}
             />
           ))}
         </button>
@@ -110,7 +104,7 @@ export default function Nav() {
           className="md:hidden"
           style={{ background: 'var(--color-bg)', borderTop: '1px solid var(--color-border)' }}
         >
-              <ul className="flex flex-col py-10 px-8 gap-8">
+          <ul className="flex flex-col py-10 px-8 gap-8">
             {links.map((link, i) => (
               <motion.li
                 key={link.href}

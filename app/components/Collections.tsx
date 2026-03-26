@@ -1,110 +1,126 @@
 'use client'
 
 import Image from 'next/image'
-import { motion } from 'framer-motion'
-import { useInView } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
+
+const ease = [0.22, 1, 0.36, 1] as const
 
 const products = [
   {
     id: 1,
     image: '/images/cafecroissant.jpg',
-    name: 'Café & Croissant',
-    description: 'Seventy-two-hour laminated dough, AOP cultured butter, paired with our house blend',
+    name: 'Croissant',
+    description: 'Classic laminated dough. 72-hour process, AOP butter. Honey-brown crust, open crumb, nothing to hide.',
+    ratio: '3/4',
   },
   {
     id: 2,
     image: '/images/fraise.jpg',
-    name: 'Strawberry Tart',
-    description: 'Seasonal Queensland strawberries, pastry cream, almond frangipane, sablé breton',
+    name: 'Pain au Chocolat',
+    description: 'Belgian dark chocolate, twice-wrapped in buttery layers. Best warm, first thing.',
+    ratio: '4/5',
   },
   {
     id: 3,
-    image: '/images/crepe.jpg',
-    name: 'Crêpe Dentelle',
-    description: 'Delicate lace crêpe, salted caramel, Breton butter, folded to perfection',
+    image: '/images/poudre.jpg',
+    name: 'Cinnamon Monkey Cube',
+    description: 'Pull-apart brioche, cinnamon sugar, baked in a block. Order it while you still can.',
+    ratio: '3/4',
   },
   {
     id: 4,
-    image: '/images/confitur.jpg',
-    name: 'House Jam',
-    description: 'Small-batch seasonal fruit conserves, slow-cooked, minimally sweetened',
+    image: '/images/matcha.jpg',
+    name: 'Black Sesame Morning Bun',
+    description: 'Rolled in black sesame, glazed with yuzu. Edgy without trying.',
+    ratio: '3/4',
   },
   {
     id: 5,
     image: '/images/blanc.jpg',
-    name: 'Blanc',
-    description: 'Whipped chantilly, white chocolate glaze, vanilla bean, pure and precise',
+    name: 'Pain Suisse',
+    description: 'Peanut butter, Belgian chocolate, morello cherries. Not traditional — better.',
+    ratio: '4/5',
   },
   {
     id: 6,
-    image: '/images/matcha.jpg',
-    name: 'Matcha Délice',
-    description: 'Ceremonial grade matcha, light mousse, almond dacquoise, miso caramel',
+    image: '/images/confitur.jpg',
+    name: 'Seasonal Specials',
+    description: "Bespoke creations that change with what's in season. Follow @beurrepastriesbne to know first.",
+    ratio: '3/4',
   },
 ]
 
 function ProductCard({ product, index }: { product: typeof products[0]; index: number }) {
   const ref = useRef(null)
+  const imgRef = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-60px' })
+  const imgInView = useInView(imgRef, { once: true, margin: '-60px' })
+
+  // Asymmetric offset — every other card nudged up
+  const nudge = index % 2 === 1 ? '2.5rem' : '0'
 
   return (
     <motion.div
       ref={ref}
       initial={{ opacity: 0, y: 24 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.8, delay: index * 0.08, ease: 'easeOut' }}
-      className="group cursor-pointer"
+      transition={{ duration: 0.8, delay: index * 0.07, ease }}
+      className="group"
+      style={{ marginTop: nudge, cursor: 'default' }}
     >
       {/* Image */}
       <div
-        className="relative overflow-hidden mb-6"
-        style={{ aspectRatio: '3/4', background: 'var(--color-surface)' }}
+        ref={imgRef}
+        className="relative overflow-hidden mb-5"
+        style={{ aspectRatio: product.ratio, background: 'var(--color-warm)', borderRadius: '3px' }}
       >
-        <Image
-          src={product.image}
-          alt={product.name}
-          fill
-          className="object-cover transition-transform duration-700 group-hover:scale-[1.06]"
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-        />
-        {/* Hover overlay — text appears on hover (desktop) */}
+        <motion.div
+          style={{ position: 'absolute', inset: 0 }}
+          initial={{ clipPath: 'inset(100% 0 0 0)' }}
+          animate={imgInView ? { clipPath: 'inset(0% 0 0 0)' } : {}}
+          transition={{ duration: 0.95, delay: index * 0.04, ease }}
+        >
+          <Image
+            src={product.image}
+            alt={product.name}
+            fill
+            className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          />
+        </motion.div>
+        {/* Hover overlay — desktop */}
         <div className="collection-card-overlay hidden lg:flex">
-          <h3
-            className="font-cormorant italic text-white mb-3 text-center"
-            style={{ fontSize: 'clamp(18px, 1.6vw, 24px)', fontWeight: 300, letterSpacing: '0.05em' }}
-          >
-            {product.name}
-          </h3>
           <p
             className="font-jost text-center leading-relaxed"
-            style={{ fontSize: '12px', color: 'rgba(255,255,255,0.75)', fontWeight: 300, letterSpacing: '0.04em', maxWidth: '220px' }}
+            style={{ fontSize: '12px', color: 'rgba(250,248,244,0.85)', fontWeight: 300, letterSpacing: '0.03em', maxWidth: '220px' }}
           >
             {product.description}
           </p>
         </div>
       </div>
 
-      {/* Text — always visible on mobile, hidden on desktop (shown in overlay) */}
-      <div className="lg:hidden" style={{ paddingTop: '16px' }}>
-        <h3
-          className="font-cormorant italic mb-3"
-          style={{
-            fontSize: 'clamp(22px, 5.5vw, 30px)',
-            color: 'var(--color-dark)',
-            fontWeight: 300,
-            letterSpacing: '0.04em',
-          }}
-        >
-          {product.name}
-        </h3>
-        <p
-          className="font-jost leading-relaxed"
-          style={{ fontSize: '13px', color: 'var(--color-muted)', fontWeight: 300, letterSpacing: '0.02em' }}
-        >
-          {product.description}
-        </p>
-      </div>
+      {/* Name */}
+      <h3
+        className="font-cormorant italic"
+        style={{
+          fontSize: 'clamp(20px, 3vw, 26px)',
+          color: 'var(--color-dark)',
+          fontWeight: 300,
+          letterSpacing: '0.04em',
+          marginBottom: '6px',
+        }}
+      >
+        {product.name}
+      </h3>
+
+      {/* Description — always visible on mobile */}
+      <p
+        className="font-jost lg:hidden leading-relaxed"
+        style={{ fontSize: '13px', color: 'var(--color-muted)', fontWeight: 300 }}
+      >
+        {product.description}
+      </p>
     </motion.div>
   )
 }
@@ -117,9 +133,8 @@ export default function Collections() {
     <section
       id="collections"
       className="section-padding relative"
-      style={{ background: 'var(--color-bg)' }}
+      style={{ background: 'var(--color-warm)' }}
     >
-      {/* Section number */}
       <span className="section-number hidden lg:block" style={{ top: '4rem', left: '6rem' }}>02</span>
 
       <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
@@ -128,15 +143,15 @@ export default function Collections() {
           ref={headRef}
           initial={{ opacity: 0, y: 16 }}
           animate={headInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
-          className="text-center section-title-decorated"
+          transition={{ duration: 0.8, ease }}
+          className="section-title-decorated text-center"
           style={{ marginBottom: '80px' }}
         >
           <p
             className="font-jost uppercase mb-5"
-            style={{ fontSize: '10px', letterSpacing: '0.32em', color: 'var(--color-muted)', fontWeight: 300 }}
+            style={{ fontSize: '9px', letterSpacing: '0.35em', color: 'var(--color-muted)', fontWeight: 300 }}
           >
-            Collections
+            Specialties
           </p>
           <h2
             className="font-cormorant italic leading-tight"
@@ -144,31 +159,56 @@ export default function Collections() {
               fontSize: 'clamp(36px, 8vw, 5rem)',
               color: 'var(--color-dark)',
               fontWeight: 300,
-              letterSpacing: '0.08em',
+              letterSpacing: '0.06em',
             }}
           >
-            This Season&apos;s Creations
+            What Will makes.
           </h2>
           <p
             className="font-jost mt-5 mx-auto leading-relaxed"
             style={{
               fontSize: '13px',
               color: 'var(--color-muted)',
-              maxWidth: '400px',
+              maxWidth: '360px',
               fontWeight: 300,
-              letterSpacing: '0.02em',
+              lineHeight: 1.7,
             }}
           >
-            Inspired by the rhythms of each season — always fresh, always made by hand.
+            Some things are on the menu most days. Others appear when the season says so.
+            Always made from scratch, always in small batches.
           </p>
         </motion.div>
 
-        {/* Grid — 1 col mobile, 2 col sm, 3 col lg */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-16 lg:gap-y-20">
+        {/* Asymmetric grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-12 lg:gap-y-16">
           {products.map((product, i) => (
             <ProductCard key={product.id} product={product} index={i} />
           ))}
         </div>
+
+        {/* Instagram note */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={headInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.6, ease }}
+          className="text-center mt-20"
+        >
+          <a
+            href="https://instagram.com/beurrepastriesbne"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-underline font-jost uppercase inline-block"
+            style={{
+              fontSize: '9px',
+              letterSpacing: '0.28em',
+              color: 'var(--color-muted)',
+              paddingBottom: '3px',
+              fontWeight: 300,
+            }}
+          >
+            @beurrepastriesbne — see what's in today
+          </a>
+        </motion.div>
       </div>
     </section>
   )
