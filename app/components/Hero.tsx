@@ -1,6 +1,5 @@
 'use client'
 
-import Image from 'next/image'
 import { motion } from 'framer-motion'
 
 export default function Hero() {
@@ -10,26 +9,6 @@ export default function Hero() {
       id="hero"
       style={{ background: '#1a1410', minHeight: '100svh' }}
     >
-      {/* ── Desktop: full-bleed background image (fixed parallax) ── */}
-      <div className="hidden lg:block hero-bg-fixed">
-        <Image
-          src="/images/beurre.jpg"
-          alt="Beurre Pastries Brisbane — artisan French pastry"
-          fill
-          priority
-          quality={90}
-          className="object-cover object-center"
-          sizes="100vw"
-        />
-        {/* Dark overlay for text contrast */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background: 'linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.5) 100%)',
-          }}
-        />
-      </div>
-
       {/* ── Mobile layout ── */}
       <div
         className="lg:hidden flex flex-col items-center justify-center w-full"
@@ -40,7 +19,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
           className="font-jost uppercase mb-10"
-          style={{ fontSize: '10px', letterSpacing: '0.35em', color: 'var(--color-muted)', fontWeight: 300 }}
+          style={{ fontSize: '10px', letterSpacing: '0.35em', color: 'rgba(255,255,255,0.6)', fontWeight: 300 }}
         >
           Est. Brisbane, Australia
         </motion.p>
@@ -52,7 +31,7 @@ export default function Hero() {
           className="font-cormorant leading-none mb-6"
           style={{
             fontSize: 'clamp(64px, 14vw, 120px)',
-            color: 'var(--color-dark)',
+            color: '#ffffff',
             letterSpacing: '0.10em',
             fontWeight: 300,
             fontStyle: 'normal',
@@ -66,28 +45,10 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.55 }}
           className="font-cormorant italic mb-16"
-          style={{ fontSize: 'clamp(14px, 1.8vw, 20px)', color: 'var(--color-muted)', letterSpacing: '0.08em', fontWeight: 300 }}
+          style={{ fontSize: 'clamp(14px, 1.8vw, 20px)', color: 'rgba(255,255,255,0.7)', letterSpacing: '0.08em', fontWeight: 300 }}
         >
           French Pastry · Brisbane
         </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, scale: 0.97 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.2, delay: 0.5, ease: 'easeOut' }}
-          className="relative img-hover"
-          style={{ width: 'min(380px, 80vw)', aspectRatio: '4/5', marginBottom: '52px' }}
-        >
-          <Image
-            src="/images/beurre.jpg"
-            alt="Beurre Pastries Brisbane"
-            fill
-            priority
-            quality={90}
-            className="object-cover"
-            sizes="(max-width: 768px) 80vw, 380px"
-          />
-        </motion.div>
 
         <motion.a
           href="#collections"
@@ -98,25 +59,25 @@ export default function Hero() {
           style={{
             fontSize: '10px',
             letterSpacing: '0.22em',
-            color: 'var(--color-dark)',
-            borderBottom: '1px solid var(--color-border)',
+            color: 'rgba(255,255,255,0.85)',
+            borderBottom: '1px solid rgba(255,255,255,0.3)',
             paddingBottom: '4px',
             fontWeight: 300,
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.borderBottomColor = 'var(--color-gold)'
-            e.currentTarget.style.color = 'var(--color-accent)'
+            e.currentTarget.style.color = '#ffffff'
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.borderBottomColor = 'var(--color-border)'
-            e.currentTarget.style.color = 'var(--color-dark)'
+            e.currentTarget.style.borderBottomColor = 'rgba(255,255,255,0.3)'
+            e.currentTarget.style.color = 'rgba(255,255,255,0.85)'
           }}
         >
           Explore our Collection
         </motion.a>
       </div>
 
-      {/* ── Desktop layout — content over fixed background ── */}
+      {/* ── Desktop layout ── */}
       <div
         className="hidden lg:flex flex-col items-center justify-center w-full relative z-10"
         style={{ minHeight: '100svh', paddingTop: '80px', paddingBottom: '80px' }}
@@ -126,7 +87,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
           className="font-jost uppercase mb-10"
-          style={{ fontSize: '10px', letterSpacing: '0.35em', color: 'rgba(255,255,255,0.75)', fontWeight: 300, textShadow: '0 1px 8px rgba(0,0,0,0.5)' }}
+          style={{ fontSize: '10px', letterSpacing: '0.35em', color: 'rgba(255,255,255,0.6)', fontWeight: 300 }}
         >
           Est. Brisbane, Australia
         </motion.p>
@@ -141,7 +102,6 @@ export default function Hero() {
             color: '#ffffff',
             letterSpacing: '0.15em',
             fontWeight: 300,
-            textShadow: '0 4px 40px rgba(0,0,0,0.6), 0 2px 8px rgba(0,0,0,0.4)',
           }}
         >
           Beurre
@@ -154,10 +114,9 @@ export default function Hero() {
           className="font-cormorant italic mb-16"
           style={{
             fontSize: 'clamp(16px, 1.4vw, 22px)',
-            color: 'rgba(255,255,255,0.9)',
+            color: 'rgba(255,255,255,0.85)',
             letterSpacing: '0.12em',
             fontWeight: 300,
-            textShadow: '0 2px 12px rgba(0,0,0,0.5)',
           }}
         >
           French Pastry · Brisbane
@@ -196,14 +155,14 @@ export default function Hero() {
           transition={{ duration: 1, delay: 1.6 }}
           className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
         >
-          <span className="font-jost uppercase" style={{ fontSize: '9px', letterSpacing: '0.28em', color: 'rgba(255,255,255,0.5)' }}>
+          <span className="font-jost uppercase" style={{ fontSize: '9px', letterSpacing: '0.28em', color: 'rgba(255,255,255,0.4)' }}>
             Scroll
           </span>
           <motion.div
             animate={{ y: [0, 8, 0] }}
             transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
             className="w-px h-10"
-            style={{ background: 'rgba(255,255,255,0.3)' }}
+            style={{ background: 'rgba(255,255,255,0.25)' }}
           />
         </motion.div>
       </div>
@@ -215,14 +174,14 @@ export default function Hero() {
         transition={{ duration: 1, delay: 1.4 }}
         className="lg:hidden absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
       >
-        <span className="font-jost uppercase" style={{ fontSize: '9px', letterSpacing: '0.28em', color: 'var(--color-muted)' }}>
+        <span className="font-jost uppercase" style={{ fontSize: '9px', letterSpacing: '0.28em', color: 'rgba(255,255,255,0.4)' }}>
           Scroll
         </span>
         <motion.div
           animate={{ y: [0, 6, 0] }}
           transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
           className="w-px h-8"
-          style={{ background: 'var(--color-border)' }}
+          style={{ background: 'rgba(255,255,255,0.2)' }}
         />
       </motion.div>
     </section>
