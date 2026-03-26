@@ -4,7 +4,10 @@ import Image from 'next/image'
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 
-const ease = [0.22, 1, 0.36, 1] as const
+// Image wipe: left → right, like a page revealing
+const wipeEase = [0.76, 0, 0.24, 1] as const
+// Title/text easing
+const textEase = [0.22, 1, 0.36, 1] as const
 
 export default function About() {
   const mobileRef = useRef(null)
@@ -20,7 +23,7 @@ export default function About() {
 
       {/* ── Mobile layout ── */}
       <div className="lg:hidden" style={{ maxWidth: '100%' }}>
-        {/* Image pleine largeur */}
+        {/* Image — horizontal wipe reveal */}
         <div
           ref={imgRef}
           className="mobile-full-bleed"
@@ -33,9 +36,9 @@ export default function About() {
         >
           <motion.div
             style={{ position: 'absolute', inset: 0 }}
-            initial={{ clipPath: 'inset(100% 0 0 0)' }}
-            animate={imgInView ? { clipPath: 'inset(0% 0 0 0)' } : {}}
-            transition={{ duration: 1.1, ease }}
+            initial={{ clipPath: 'inset(0 100% 0 0)' }}
+            animate={imgInView ? { clipPath: 'inset(0 0% 0 0)' } : {}}
+            transition={{ duration: 1.2, delay: 0.2, ease: wipeEase }}
           >
             <Image
               src="/images/art.jpg"
@@ -47,14 +50,17 @@ export default function About() {
           </motion.div>
         </div>
 
-        {/* Texte */}
+        {/* Text */}
         <motion.div
           ref={mobileRef}
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={isInViewMobile ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.9, delay: 0.1, ease }}
+          transition={{ duration: 1.4, delay: 0.6, ease: textEase }}
           style={{ paddingLeft: '4px', paddingRight: '4px' }}
         >
+          {/* Chapter overline */}
+          <span className="chapter-overline">Chapter 01 · The Beginning</span>
+
           <p
             className="font-jost uppercase mb-6"
             style={{ fontSize: '9px', letterSpacing: '0.35em', color: 'var(--color-muted)', fontWeight: 300 }}
@@ -90,16 +96,16 @@ export default function About() {
           </div>
         </motion.div>
 
-        {/* Seconde image */}
+        {/* Second image — horizontal wipe */}
         <div
           className="mobile-full-bleed"
           style={{ position: 'relative', aspectRatio: '3/2', marginTop: '32px', overflow: 'hidden' }}
         >
           <motion.div
             style={{ position: 'absolute', inset: 0 }}
-            initial={{ clipPath: 'inset(100% 0 0 0)' }}
-            animate={isInViewMobile ? { clipPath: 'inset(0% 0 0 0)' } : {}}
-            transition={{ duration: 1, delay: 0.2, ease }}
+            initial={{ clipPath: 'inset(0 100% 0 0)' }}
+            animate={isInViewMobile ? { clipPath: 'inset(0 0% 0 0)' } : {}}
+            transition={{ duration: 1.2, delay: 0.4, ease: wipeEase }}
           >
             <Image
               src="/images/beurre.jpg"
@@ -114,16 +120,16 @@ export default function About() {
 
       {/* ── Desktop layout ── */}
       <div className="hidden lg:flex w-full" style={{ maxWidth: '1400px', margin: '0 auto', gap: '6rem', alignItems: 'stretch' }}>
-        {/* Image — left column */}
+        {/* Image — left column, horizontal wipe */}
         <div
           className="flex-1"
           style={{ position: 'relative', height: '80vh', flexBasis: '50%', overflow: 'hidden' }}
         >
           <motion.div
             style={{ position: 'absolute', inset: 0 }}
-            initial={{ clipPath: 'inset(100% 0 0 0)' }}
-            animate={isInViewDesktop ? { clipPath: 'inset(0% 0 0 0)' } : {}}
-            transition={{ duration: 1.2, ease }}
+            initial={{ clipPath: 'inset(0 100% 0 0)' }}
+            animate={isInViewDesktop ? { clipPath: 'inset(0 0% 0 0)' } : {}}
+            transition={{ duration: 1.2, delay: 0.2, ease: wipeEase }}
           >
             <Image
               src="/images/art.jpg"
@@ -137,9 +143,9 @@ export default function About() {
           <div style={{ position: 'absolute', bottom: '-60px', right: '-40px', width: '240px', height: '320px', overflow: 'hidden', boxShadow: '0 20px 60px rgba(26,18,8,0.10)' }}>
             <motion.div
               style={{ position: 'absolute', inset: 0 }}
-              initial={{ clipPath: 'inset(100% 0 0 0)' }}
-              animate={isInViewDesktop ? { clipPath: 'inset(0% 0 0 0)' } : {}}
-              transition={{ duration: 1, delay: 0.3, ease }}
+              initial={{ clipPath: 'inset(0 100% 0 0)' }}
+              animate={isInViewDesktop ? { clipPath: 'inset(0 0% 0 0)' } : {}}
+              transition={{ duration: 1.2, delay: 0.5, ease: wipeEase }}
             >
               <Image
                 src="/images/beurre.jpg"
@@ -152,15 +158,18 @@ export default function About() {
           </div>
         </div>
 
-        {/* Text — right column */}
+        {/* Text — right column, slow fade-in after image */}
         <motion.div
           ref={desktopRef}
           className="flex-1 flex flex-col justify-center"
           style={{ flexBasis: '50%', maxWidth: '480px' }}
-          initial={{ opacity: 0, x: 40 }}
-          animate={isInViewDesktop ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 1, delay: 0.2, ease }}
+          initial={{ opacity: 0, y: 16 }}
+          animate={isInViewDesktop ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 1.4, delay: 0.6, ease: textEase }}
         >
+          {/* Chapter overline */}
+          <span className="chapter-overline">Chapter 01 · The Beginning</span>
+
           <div className="section-title-decorated">
             <p
               className="font-jost uppercase mb-7"

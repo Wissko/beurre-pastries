@@ -4,7 +4,8 @@ import Image from 'next/image'
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 
-const ease = [0.22, 1, 0.36, 1] as const
+const wipeEase = [0.76, 0, 0.24, 1] as const
+const textEase = [0.22, 1, 0.36, 1] as const
 
 const products = [
   {
@@ -63,13 +64,13 @@ function ProductCard({ product, index }: { product: typeof products[0]; index: n
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 24 }}
+      initial={{ opacity: 0, y: 16 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.8, delay: index * 0.07, ease }}
+      transition={{ duration: 1.4, delay: 0.6 + index * 0.07, ease: textEase }}
       className="group"
       style={{ marginTop: nudge, cursor: 'default' }}
     >
-      {/* Image */}
+      {/* Image — horizontal wipe */}
       <div
         ref={imgRef}
         className="relative overflow-hidden mb-5"
@@ -77,9 +78,9 @@ function ProductCard({ product, index }: { product: typeof products[0]; index: n
       >
         <motion.div
           style={{ position: 'absolute', inset: 0 }}
-          initial={{ clipPath: 'inset(100% 0 0 0)' }}
-          animate={imgInView ? { clipPath: 'inset(0% 0 0 0)' } : {}}
-          transition={{ duration: 0.95, delay: index * 0.04, ease }}
+          initial={{ clipPath: 'inset(0 100% 0 0)' }}
+          animate={imgInView ? { clipPath: 'inset(0 0% 0 0)' } : {}}
+          transition={{ duration: 1.2, delay: 0.2 + index * 0.04, ease: wipeEase }}
         >
           <Image
             src={product.image}
@@ -143,10 +144,13 @@ export default function Collections() {
           ref={headRef}
           initial={{ opacity: 0, y: 16 }}
           animate={headInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, ease }}
+          transition={{ duration: 1.4, delay: 0.6, ease: textEase }}
           className="section-title-decorated text-center"
           style={{ marginBottom: '80px' }}
         >
+          {/* Chapter overline */}
+          <span className="chapter-overline" style={{ marginBottom: '16px' }}>Chapter 02 · The Craft</span>
+
           <p
             className="font-jost uppercase mb-5"
             style={{ fontSize: '9px', letterSpacing: '0.35em', color: 'var(--color-muted)', fontWeight: 300 }}
@@ -190,7 +194,7 @@ export default function Collections() {
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={headInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.6, ease }}
+          transition={{ duration: 1.4, delay: 0.8, ease: textEase }}
           className="text-center mt-20"
         >
           <a

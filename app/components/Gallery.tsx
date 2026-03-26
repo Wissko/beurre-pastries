@@ -20,7 +20,7 @@ const galleryImages = [
 const ARC_RADIUS = 1400
 const SPREAD = 8
 
-const ease = [0.22, 1, 0.36, 1] as const
+const textEase = [0.22, 1, 0.36, 1] as const
 
 export default function Gallery() {
   const ref = useRef(null)
@@ -95,11 +95,14 @@ export default function Gallery() {
         {/* Header */}
         <motion.div
           ref={ref}
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, ease }}
+          transition={{ duration: 1.4, delay: 0.6, ease: textEase }}
           className="text-center section-title-decorated mb-16"
         >
+          {/* Chapter overline */}
+          <span className="chapter-overline" style={{ marginBottom: '16px' }}>Chapter 03 · The Light</span>
+
           <p
             className="font-jost uppercase mb-5"
             style={{ fontSize: '9px', letterSpacing: '0.35em', color: 'var(--color-muted)', fontWeight: 300 }}
@@ -118,7 +121,7 @@ export default function Gallery() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.8, delay: 0.3 }}
+          transition={{ duration: 1.2, delay: 0.4 }}
           className="relative select-none"
           style={{ height: `${ITEM_HEIGHT + 80}px`, cursor: 'grab' }}
           onMouseDown={handleMouseDown}

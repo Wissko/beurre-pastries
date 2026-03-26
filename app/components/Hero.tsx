@@ -12,17 +12,24 @@ export default function Hero() {
       id="hero"
       style={{ background: '#f0ede8', minHeight: '100svh' }}
     >
-      {/* Subtle background image — very low opacity for warmth */}
-      <div className="absolute inset-0 pointer-events-none" style={{ opacity: 0.08 }}>
-        <Image
-          src="/images/hero.jpg"
-          alt=""
-          fill
-          className="object-cover object-center"
-          sizes="100vw"
-          priority
-          aria-hidden
-        />
+      {/* Background image — very subtle, with slow zoom-out breathing */}
+      <div className="absolute inset-0 pointer-events-none" style={{ opacity: 0.08, overflow: 'hidden' }}>
+        <motion.div
+          className="absolute inset-0"
+          initial={{ scale: 1.05 }}
+          animate={{ scale: 1.0 }}
+          transition={{ duration: 2.0, ease: 'easeOut' }}
+        >
+          <Image
+            src="/images/hero.jpg"
+            alt=""
+            fill
+            className="object-cover object-center"
+            sizes="100vw"
+            priority
+            aria-hidden
+          />
+        </motion.div>
       </div>
 
       {/* ── Mobile layout ── */}
@@ -30,7 +37,7 @@ export default function Hero() {
         className="lg:hidden flex flex-col items-center justify-center w-full relative z-10"
         style={{ paddingTop: '120px', paddingBottom: '100px', paddingLeft: '24px', paddingRight: '24px' }}
       >
-        {/* Overline */}
+        {/* Overline — stagger 0s */}
         <p
           className="font-jost uppercase anim-in stagger-0"
           style={{ fontSize: '9px', letterSpacing: '0.38em', color: 'var(--color-muted)', fontWeight: 300, marginBottom: '28px' }}
@@ -38,15 +45,15 @@ export default function Hero() {
           Park Road · Milton · Brisbane
         </p>
 
-        {/* Thin ornament */}
+        {/* Ornament line — stagger 0.4s */}
         <motion.div
           initial={{ scaleX: 0, opacity: 0 }}
           animate={{ scaleX: 1, opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.25, ease }}
+          transition={{ duration: 0.8, delay: 0.4, ease }}
           style={{ width: '32px', height: '1px', background: 'var(--color-terracotta)', marginBottom: '32px', transformOrigin: 'center' }}
         />
 
-        {/* Monumental title */}
+        {/* Monumental title — stagger 0.8s */}
         <h1
           className="font-cormorant italic leading-none text-center anim-in stagger-2"
           style={{
@@ -60,6 +67,7 @@ export default function Hero() {
           beurre.
         </h1>
 
+        {/* Pastries sub-label — stagger 1.2s */}
         <p
           className="font-jost uppercase text-center anim-in stagger-3"
           style={{
@@ -73,7 +81,7 @@ export default function Hero() {
           Pastries
         </p>
 
-        {/* Tagline */}
+        {/* Tagline — stagger 1.2s */}
         <p
           className="font-cormorant italic text-center anim-in stagger-3"
           style={{
@@ -89,7 +97,7 @@ export default function Hero() {
           Morning pastry. Real craft. Bear Bones Coffee.
         </p>
 
-        {/* CTA */}
+        {/* CTA — stagger 1.6s */}
         <a
           href="#collections"
           className="btn-underline font-jost uppercase anim-in stagger-4"
@@ -110,6 +118,7 @@ export default function Hero() {
         className="hidden lg:flex flex-col items-center justify-center w-full relative z-10"
         style={{ minHeight: '100svh', paddingTop: '80px', paddingBottom: '80px' }}
       >
+        {/* Overline — stagger 0s */}
         <p
           className="font-jost uppercase anim-in stagger-0"
           style={{ fontSize: '9px', letterSpacing: '0.38em', color: 'var(--color-muted)', fontWeight: 300, marginBottom: '36px' }}
@@ -117,13 +126,15 @@ export default function Hero() {
           Park Road · Milton · Brisbane
         </p>
 
+        {/* Ornament — stagger 0.4s */}
         <motion.div
           initial={{ scaleX: 0, opacity: 0 }}
           animate={{ scaleX: 1, opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.2, ease }}
+          transition={{ duration: 0.8, delay: 0.4, ease }}
           style={{ width: '40px', height: '1px', background: 'var(--color-terracotta)', marginBottom: '40px', transformOrigin: 'center' }}
         />
 
+        {/* Title — stagger 0.8s */}
         <h1
           className="font-cormorant italic leading-none text-center anim-in stagger-2"
           style={{
@@ -137,8 +148,9 @@ export default function Hero() {
           beurre.
         </h1>
 
+        {/* Pastries — stagger 1.2s */}
         <p
-          className="font-jost uppercase text-center anim-in stagger-2"
+          className="font-jost uppercase text-center anim-in stagger-3"
           style={{
             fontSize: '11px',
             letterSpacing: '0.55em',
@@ -150,6 +162,7 @@ export default function Hero() {
           Pastries
         </p>
 
+        {/* Tagline — stagger 1.2s */}
         <p
           className="font-cormorant italic anim-in stagger-3"
           style={{
@@ -164,6 +177,7 @@ export default function Hero() {
           Morning pastry. Real craft. Bear Bones Coffee.
         </p>
 
+        {/* CTA — stagger 1.6s */}
         <a
           href="#collections"
           className="btn-underline font-jost uppercase anim-in stagger-4"
@@ -182,7 +196,7 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.8 }}
+          transition={{ duration: 1.2, delay: 2.2 }}
           className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
         >
           <span className="font-jost uppercase" style={{ fontSize: '8px', letterSpacing: '0.32em', color: 'var(--color-muted)' }}>
@@ -190,7 +204,7 @@ export default function Hero() {
           </span>
           <motion.div
             animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+            transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
             className="w-px h-10"
             style={{ background: 'var(--color-border)' }}
           />
@@ -201,12 +215,12 @@ export default function Hero() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 1.6 }}
+        transition={{ duration: 1.2, delay: 2.0 }}
         className="lg:hidden absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
       >
         <motion.div
           animate={{ y: [0, 6, 0] }}
-          transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+          transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
           className="w-px h-8"
           style={{ background: 'var(--color-border)' }}
         />

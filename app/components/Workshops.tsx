@@ -4,7 +4,8 @@ import Image from 'next/image'
 import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 
-const ease = [0.22, 1, 0.36, 1] as const
+const wipeEase = [0.76, 0, 0.24, 1] as const
+const textEase = [0.22, 1, 0.36, 1] as const
 
 const workshops = [
   {
@@ -45,7 +46,7 @@ export default function Workshops() {
 
       {/* ── Mobile layout ── */}
       <div className="lg:hidden" style={{ maxWidth: '100%' }}>
-        {/* Image */}
+        {/* Image — horizontal wipe */}
         <div
           ref={imgRef}
           className="relative mobile-full-bleed"
@@ -53,9 +54,9 @@ export default function Workshops() {
         >
           <motion.div
             style={{ position: 'absolute', inset: 0 }}
-            initial={{ clipPath: 'inset(100% 0 0 0)' }}
-            animate={imgInView ? { clipPath: 'inset(0% 0 0 0)' } : {}}
-            transition={{ duration: 1.1, ease }}
+            initial={{ clipPath: 'inset(0 100% 0 0)' }}
+            animate={imgInView ? { clipPath: 'inset(0 0% 0 0)' } : {}}
+            transition={{ duration: 1.2, delay: 0.2, ease: wipeEase }}
           >
             <Image
               src="/images/life.jpg"
@@ -69,11 +70,14 @@ export default function Workshops() {
 
         <motion.div
           ref={mobileRef}
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={isInViewMobile ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.1, ease }}
+          transition={{ duration: 1.4, delay: 0.6, ease: textEase }}
           style={{ paddingLeft: '4px', paddingRight: '4px' }}
         >
+          {/* Chapter overline */}
+          <span className="chapter-overline">Chapter 04 · The Hands</span>
+
           <p className="font-jost uppercase mb-6" style={{ fontSize: '9px', letterSpacing: '0.35em', color: 'var(--color-muted)', fontWeight: 300 }}>
             Workshops
           </p>
@@ -100,10 +104,13 @@ export default function Workshops() {
           ref={desktopRef}
           className="flex-1"
           style={{ flexBasis: '60%' }}
-          initial={{ opacity: 0, x: -30 }}
-          animate={isInViewDesktop ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.9, ease }}
+          initial={{ opacity: 0, y: 16 }}
+          animate={isInViewDesktop ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 1.4, delay: 0.6, ease: textEase }}
         >
+          {/* Chapter overline */}
+          <span className="chapter-overline">Chapter 04 · The Hands</span>
+
           <div className="section-title-decorated" style={{ alignItems: 'flex-start' }}>
             <p className="font-jost uppercase mb-6" style={{ fontSize: '9px', letterSpacing: '0.35em', color: 'var(--color-muted)', fontWeight: 300 }}>
               Workshops
@@ -127,7 +134,7 @@ export default function Workshops() {
           <WorkshopCTA />
         </motion.div>
 
-        {/* Image — 40%, sticky */}
+        {/* Image — 40%, sticky, horizontal wipe */}
         <div
           ref={imgRef}
           className="workshops-sticky-img"
@@ -135,9 +142,9 @@ export default function Workshops() {
         >
           <motion.div
             style={{ position: 'absolute', inset: 0 }}
-            initial={{ clipPath: 'inset(100% 0 0 0)' }}
-            animate={imgInView ? { clipPath: 'inset(0% 0 0 0)' } : {}}
-            transition={{ duration: 1.1, ease }}
+            initial={{ clipPath: 'inset(0 100% 0 0)' }}
+            animate={imgInView ? { clipPath: 'inset(0 0% 0 0)' } : {}}
+            transition={{ duration: 1.2, delay: 0.2, ease: wipeEase }}
           >
             <Image
               src="/images/life.jpg"
@@ -162,7 +169,7 @@ function WorkshopList({ isInView, desktop }: { isInView: boolean; desktop?: bool
           key={w.title}
           initial={{ opacity: 0, x: 16 }}
           animate={isInView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.3 + i * 0.1, ease }}
+          transition={{ duration: 1.4, delay: 0.6 + i * 0.15, ease }}
           className="flex gap-5 items-start"
         >
           <div className="flex-shrink-0 w-px self-stretch mt-1" style={{ background: 'var(--color-border)' }} />

@@ -3,7 +3,7 @@
 import { useRef, useState } from 'react'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 
-const ease = [0.22, 1, 0.36, 1] as const
+const textEase = [0.22, 1, 0.36, 1] as const
 
 export default function Visit() {
   const ref = useRef(null)
@@ -66,10 +66,13 @@ export default function Visit() {
           ref={ref}
           initial={{ opacity: 0, y: 16 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, ease }}
+          transition={{ duration: 1.0, delay: 0, ease: textEase }}
           className="text-center"
           style={{ marginBottom: '96px' }}
         >
+          {/* Chapter overline */}
+          <span className="chapter-overline" style={{ marginBottom: '16px' }}>Chapter 05 · Find Us</span>
+
           <p
             className="font-jost uppercase mb-5"
             style={{ fontSize: '9px', letterSpacing: '0.35em', color: 'var(--color-muted)', fontWeight: 300 }}
@@ -82,20 +85,23 @@ export default function Visit() {
           >
             Park Road, Milton.
           </h2>
-          <p
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 1.4, delay: 0.6, ease: 'easeOut' }}
             className="font-jost mt-5 max-w-xs mx-auto leading-relaxed"
             style={{ fontSize: '13px', color: 'var(--color-muted)', fontWeight: 300, lineHeight: 1.7 }}
           >
             A small counter. Good coffee. Something laminated.
-          </p>
+          </motion.p>
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-20 md:gap-32">
           {/* Info */}
           <motion.div
-            initial={{ opacity: 0, x: -24 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.1, ease }}
+            initial={{ opacity: 0, y: 16 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 1.4, delay: 0.6, ease: 'easeOut' }}
           >
             <div className="space-y-10">
               {infoItems.map((item) => (
@@ -140,9 +146,9 @@ export default function Visit() {
 
           {/* Contact form */}
           <motion.div
-            initial={{ opacity: 0, x: 24 }}
-            animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.2, ease }}
+            initial={{ opacity: 0, y: 16 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 1.4, delay: 0.8, ease: 'easeOut' }}
           >
             <AnimatePresence mode="wait">
               {status === 'success' ? (
@@ -150,11 +156,10 @@ export default function Visit() {
                   key="success"
                   initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, ease }}
+                  transition={{ duration: 0.5, ease: textEase }}
                   className="h-full flex flex-col items-center justify-center text-center py-20 px-8"
                   style={{ background: 'var(--color-surface)', minHeight: '360px', borderRadius: '3px' }}
                 >
-                  {/* Animated checkmark */}
                   <svg width="40" height="40" viewBox="0 0 40 40" fill="none" style={{ marginBottom: '20px' }}>
                     <circle cx="20" cy="20" r="18" stroke="var(--color-border)" strokeWidth="1" />
                     <path
