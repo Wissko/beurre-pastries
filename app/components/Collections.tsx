@@ -86,21 +86,21 @@ function ProductCard({ product, index }: { product: typeof products[0]; index: n
       </div>
 
       {/* Text — always visible on mobile, hidden on desktop (shown in overlay) */}
-      <div className="lg:hidden">
+      <div className="lg:hidden" style={{ paddingTop: '16px' }}>
         <h3
-          className="font-cormorant italic mb-2 lg:group-hover:text-[var(--color-accent)] transition-colors duration-300"
+          className="font-cormorant italic mb-3"
           style={{
-            fontSize: 'clamp(16px, 1.3vw, 20px)',
+            fontSize: 'clamp(22px, 5.5vw, 30px)',
             color: 'var(--color-dark)',
             fontWeight: 300,
-            letterSpacing: '0.02em',
+            letterSpacing: '0.04em',
           }}
         >
           {product.name}
         </h3>
         <p
-          className="font-jost leading-relaxed lg:hidden"
-          style={{ fontSize: '12px', color: 'var(--color-muted)', fontWeight: 300, letterSpacing: '0.02em' }}
+          className="font-jost leading-relaxed"
+          style={{ fontSize: '13px', color: 'var(--color-muted)', fontWeight: 300, letterSpacing: '0.02em' }}
         >
           {product.description}
         </p>
@@ -130,7 +130,7 @@ export default function Collections() {
           animate={headInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, ease: 'easeOut' }}
           className="text-center section-title-decorated"
-          style={{ marginBottom: '104px' }}
+          style={{ marginBottom: '80px' }}
         >
           <p
             className="font-jost uppercase mb-5"
@@ -139,12 +139,12 @@ export default function Collections() {
             Collections
           </p>
           <h2
-            className="font-cormorant leading-tight"
+            className="font-cormorant italic leading-tight"
             style={{
-              fontSize: 'clamp(28px, 4vw, 5rem)',
+              fontSize: 'clamp(36px, 8vw, 5rem)',
               color: 'var(--color-dark)',
               fontWeight: 300,
-              letterSpacing: '0.10em',
+              letterSpacing: '0.08em',
             }}
           >
             This Season&apos;s Creations
@@ -163,8 +163,8 @@ export default function Collections() {
           </p>
         </motion.div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-20">
+        {/* Grid — 1 col mobile, 2 col sm, 3 col lg */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-16 lg:gap-y-20">
           {products.map((product, i) => (
             <ProductCard key={product.id} product={product} index={i} />
           ))}

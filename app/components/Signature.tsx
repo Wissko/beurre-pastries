@@ -40,7 +40,7 @@ export default function Signature() {
           transition={{ duration: 1, delay: 0.15, ease: 'easeOut' }}
           className="font-cormorant italic"
           style={{
-            fontSize: 'clamp(34px, 7vw, 100px)',
+            fontSize: 'clamp(52px, 12vw, 100px)',
             color: '#ffffff',
             lineHeight: 1.1,
             fontWeight: 300,

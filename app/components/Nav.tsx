@@ -110,18 +110,23 @@ export default function Nav() {
           className="md:hidden"
           style={{ background: 'var(--color-bg)', borderTop: '1px solid var(--color-border)' }}
         >
-          <ul className="flex flex-col py-8 px-6 gap-7">
-            {links.map((link) => (
-              <li key={link.href}>
+              <ul className="flex flex-col py-10 px-8 gap-8">
+            {links.map((link, i) => (
+              <motion.li
+                key={link.href}
+                initial={{ opacity: 0, x: -12 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.3, delay: i * 0.06 }}
+              >
                 <a
                   href={link.href}
-                  className="font-jost uppercase"
-                  style={{ fontSize: '10px', letterSpacing: '0.18em', fontWeight: 300, color: 'var(--color-dark)' }}
+                  className="font-cormorant italic"
+                  style={{ fontSize: '28px', fontWeight: 300, letterSpacing: '0.04em', color: 'var(--color-dark)' }}
                   onClick={() => setMenuOpen(false)}
                 >
                   {link.label}
                 </a>
-              </li>
+              </motion.li>
             ))}
           </ul>
         </motion.div>

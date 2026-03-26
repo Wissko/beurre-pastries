@@ -42,11 +42,12 @@ export default function Workshops() {
       <span className="section-number hidden lg:block" style={{ top: '4rem', left: '6rem' }}>04</span>
 
       {/* ── Mobile layout ── */}
-      <div className="lg:hidden max-w-2xl mx-auto">
+      <div className="lg:hidden" style={{ maxWidth: '100%' }}>
+        {/* Image pleine largeur */}
         <motion.div
           ref={mobileRef}
-          className="relative img-hover mb-12"
-          style={{ aspectRatio: '4/5' }}
+          className="relative mobile-full-bleed"
+          style={{ aspectRatio: '4/5', marginBottom: '48px' }}
           initial={{ opacity: 0, y: 24 }}
           animate={isInViewMobile ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.9, ease: 'easeOut' }}
@@ -64,15 +65,16 @@ export default function Workshops() {
           initial={{ opacity: 0, y: 24 }}
           animate={isInViewMobile ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.2, ease: 'easeOut' }}
+          style={{ paddingLeft: '4px', paddingRight: '4px' }}
         >
           <p className="font-jost uppercase mb-6" style={{ fontSize: '10px', letterSpacing: '0.32em', color: 'var(--color-muted)', fontWeight: 300 }}>
             Workshops
           </p>
-          <h2 className="font-cormorant italic leading-tight mb-7" style={{ fontSize: 'clamp(27px, 6vw, 43px)', color: 'var(--color-dark)', fontWeight: 300, letterSpacing: '0.04em' }}>
+          <h2 className="font-cormorant italic leading-tight mb-8" style={{ fontSize: 'clamp(34px, 9vw, 52px)', color: 'var(--color-dark)', fontWeight: 300, letterSpacing: '0.04em' }}>
             Learn the Art of
             <br />French Pastry
           </h2>
-          <p className="font-jost leading-relaxed mb-12" style={{ fontSize: '13px', color: 'var(--color-muted)', maxWidth: '420px', fontWeight: 300 }}>
+          <p className="font-jost leading-relaxed mb-14" style={{ fontSize: '14px', color: 'var(--color-muted)', fontWeight: 300, lineHeight: 1.7 }}>
             Step into our kitchen and discover the joy of making pastry from scratch. Our
             intimate workshops are designed for all skill levels.
           </p>
@@ -154,8 +156,8 @@ function WorkshopList({ isInView, desktop }: { isInView: boolean; desktop?: bool
           <div>
             <div className="flex items-baseline gap-3 mb-2">
               <h3
-                className="font-cormorant"
-                style={{ fontSize: desktop ? '20px' : '17px', color: 'var(--color-dark)', fontWeight: 300, letterSpacing: '0.02em' }}
+                className="font-cormorant italic"
+                style={{ fontSize: desktop ? '20px' : '19px', color: 'var(--color-dark)', fontWeight: 300, letterSpacing: '0.03em' }}
               >
                 {w.title}
               </h3>
@@ -163,7 +165,7 @@ function WorkshopList({ isInView, desktop }: { isInView: boolean; desktop?: bool
                 {w.duration}
               </span>
             </div>
-            <p className="font-jost leading-relaxed" style={{ fontSize: desktop ? '13px' : '12px', color: 'var(--color-muted)', fontWeight: 300 }}>
+            <p className="font-jost leading-relaxed" style={{ fontSize: desktop ? '13px' : '13px', color: 'var(--color-muted)', fontWeight: 300 }}>
               {w.description}
             </p>
           </div>

@@ -12,56 +12,67 @@ export default function Hero() {
       {/* ── Mobile layout ── */}
       <div
         className="lg:hidden flex flex-col items-center justify-center w-full"
-        style={{ paddingTop: '80px', paddingBottom: '80px' }}
+        style={{ paddingTop: '100px', paddingBottom: '100px' }}
       >
+        {/* Overline */}
         <motion.p
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="font-jost uppercase mb-10"
-          style={{ fontSize: '10px', letterSpacing: '0.35em', color: 'rgba(255,255,255,0.6)', fontWeight: 300 }}
+          className="font-jost uppercase mb-8"
+          style={{ fontSize: '10px', letterSpacing: '0.35em', color: 'rgba(255,255,255,0.55)', fontWeight: 300 }}
         >
           Est. Brisbane, Australia
         </motion.p>
 
+        {/* Gold ornament separator */}
+        <motion.div
+          initial={{ scaleX: 0, opacity: 0 }}
+          animate={{ scaleX: 1, opacity: 1 }}
+          transition={{ duration: 0.7, delay: 0.3 }}
+          style={{ width: '36px', height: '1px', background: 'var(--color-gold)', marginBottom: '36px', transformOrigin: 'center' }}
+        />
+
+        {/* Monumental title */}
         <motion.h1
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.35 }}
-          className="font-cormorant leading-none mb-6"
+          transition={{ duration: 1.1, delay: 0.4 }}
+          className="font-cormorant italic leading-none mb-8 text-center"
           style={{
-            fontSize: 'clamp(64px, 14vw, 120px)',
+            fontSize: 'clamp(80px, 25vw, 140px)',
             color: '#ffffff',
-            letterSpacing: '0.10em',
+            letterSpacing: '0.12em',
             fontWeight: 300,
-            fontStyle: 'normal',
           }}
         >
           Beurre
         </motion.h1>
 
+        {/* Tagline */}
         <motion.p
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.55 }}
-          className="font-cormorant italic mb-16"
-          style={{ fontSize: 'clamp(14px, 1.8vw, 20px)', color: 'rgba(255,255,255,0.7)', letterSpacing: '0.08em', fontWeight: 300 }}
+          transition={{ duration: 0.8, delay: 0.65 }}
+          className="font-cormorant italic mb-20 text-center"
+          style={{ fontSize: 'clamp(17px, 4.5vw, 24px)', color: 'rgba(255,255,255,0.75)', letterSpacing: '0.10em', fontWeight: 300 }}
         >
           French Pastry · Brisbane
         </motion.p>
 
+        {/* CTA */}
         <motion.a
           href="#collections"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.9 }}
+          transition={{ duration: 0.8, delay: 1.0 }}
           className="font-jost uppercase inline-block transition-all duration-300"
           style={{
             fontSize: '10px',
-            letterSpacing: '0.22em',
+            letterSpacing: '0.25em',
             color: 'rgba(255,255,255,0.85)',
             borderBottom: '1px solid rgba(255,255,255,0.3)',
-            paddingBottom: '4px',
+            paddingBottom: '5px',
             fontWeight: 300,
           }}
           onMouseEnter={(e) => {
